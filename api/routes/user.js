@@ -9,4 +9,7 @@ router.get('/', usersController.getAll);
 // api/users/:id
 router.get('/:id', auth, usersController.getById);
 
+// api/users/:id
+router.delete('/:id', auth, usersController.deleteUser)
+
 module.exports = router;

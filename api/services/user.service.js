@@ -16,9 +16,14 @@ const getAll = () => {
     return Users.find();
 }
 
+const deleteUser = (_id) => {
+    return Users.findByIdAndDelete(_id);
+}
+
 module.exports = {
     getByEmail,
     create,
     getAll,
     getById,
+    deleteUser
 }
