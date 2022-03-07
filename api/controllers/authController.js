@@ -13,7 +13,6 @@ const register = async (req, res) => {
     } catch (error) {
         return res.status(500).send({msg: error})  
     }
-    
 }
 
 const login = async (req, res) => {
