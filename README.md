@@ -1,2 +1,2 @@
 # BackEnd
-BackEnd of the project. Done with NodeJS
+BackEnd of the project. Done with NodeJS.
