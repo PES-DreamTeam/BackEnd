@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 require('dotenv').config({path: '../.env'});
 const PORT = process.env.PORT || 8080;
 const { Auth, User, ChargePoints } = require('./routes');
+const docs = require('./docs');
+const swaggerUI = require('swagger-ui-express');
 
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -13,9 +15,11 @@ mongoose
         app.use(cors());
         app.use(bodyParser.json());
 
+        app.use('/*', User);
         app.use('/api/auth', Auth);
         app.use('/api/users', User);
         app.use('/api/chargePoints', ChargePoints);
+
 
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     }).catch(error => {
