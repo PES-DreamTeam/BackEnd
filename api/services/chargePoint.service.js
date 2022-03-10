@@ -27,8 +27,7 @@ const get = async (filter) => {
             });
             cache.set('chargePoints', data, 600);
         }
-
-        if(filter) data = data.filter(item => item.id = filter);
+        if(filter) data = data.filter(item => item.id === filter);
 
     return data;
 
