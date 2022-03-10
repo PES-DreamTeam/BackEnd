@@ -15,10 +15,11 @@ mongoose
         app.use(cors());
         app.use(bodyParser.json());
 
-        app.use('/*', User);
         app.use('/api/auth', Auth);
         app.use('/api/users', User);
         app.use('/api/chargePoints', ChargePoints);
+        
+        app.use('/*', User);
 
 
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
