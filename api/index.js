@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config({path: '../.env'});
 const PORT = process.env.PORT || 8080;
-const { Auth, User } = require('./routes');
+const { Auth, User, ChargePoints } = require('./routes');
 
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -15,6 +15,7 @@ mongoose
 
         app.use('/api/auth', Auth);
         app.use('/api/users', User);
+        app.use('/api/chargePoints', ChargePoints);
 
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     }).catch(error => {
