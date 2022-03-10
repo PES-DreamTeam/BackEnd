@@ -11,7 +11,7 @@ const register = async (req, res) => {
 
         return res.status(201).send({token});
     } catch (error) {
-        return res.status(500).send({msg: error})  
+        return res.status(500).send({msg: error.toString()})  
     }
 }
 
@@ -27,7 +27,7 @@ const login = async (req, res) => {
             return res.status(403).send({Error: 'Invalid credentials'});
         }
     } catch (error) {
-        return res.status(500).send({msg: error}) 
+        return res.status(500).send({msg: error.toString()}) 
     }
 }
 
