@@ -7,6 +7,10 @@ module.exports = {
         {
             name: "User controller",
             description: "Controller for users",
+        },
+        {
+            name: "Sample Vehicles Controller",
+            description: "Controller for sample vehicles",
         }
     ]
 }

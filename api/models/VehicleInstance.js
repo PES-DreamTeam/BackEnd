@@ -14,7 +14,6 @@ const VehicleInstance = new mongoose.Schema({
         type: String,
         trim: true,
         lowercase: true,
-        //hace falta validar again??????????
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error('Email is invalid');
@@ -34,13 +33,11 @@ const VehicleInstance = new mongoose.Schema({
         required: 'The numberPlate is required',
     },
     boughtYear: {
-        type: Integer,
+        type: Number,
     },
 
 });
 
-
-//Esto es double primary key. No existe mas de un vehiculo dado el mismo brand y model
-Vehicle.index({brand:1, model:1, email:1} , { unique: true });
+VehicleInstance.index({brand:1, model:1, email:1} , { unique: true });
 
 module.exports = mongoose.model('VehicleInstance', VehicleInstance);

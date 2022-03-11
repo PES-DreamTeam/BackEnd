@@ -16,8 +16,6 @@ const Vehicle = new mongoose.Schema({
     }
 });
 
-
-//Esto es double primary key. No existe mas de un vehiculo dado el mismo brand y model
 Vehicle.index({brand:1, model:1} , { unique: true });
 
 module.exports = mongoose.model('Vehicle', Vehicle);

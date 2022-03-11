@@ -6,6 +6,26 @@ module.exports = {
                 description: "The id of the chargePoint",
                 example: "2596"
             },
+            SampleVehicle: {
+                type: "object",
+                properties: {
+                    brand: {
+                        type: "string",
+                        description: "The brand of the sample vehicle",
+                        example: "Tesla"
+                    },
+                    model: {
+                        type: "string",
+                        description: "The model of the sample vehicle",
+                        example: "Model S"
+                    },
+                    chargerType: {
+                        type: "string",
+                        description: "The type of the charger",
+                        example: "AC"
+                    }
+                }
+            },
             ChargePoint: {
                 type: "object",
                 properties: {
