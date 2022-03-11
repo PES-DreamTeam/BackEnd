@@ -22,8 +22,8 @@ mongoose
         
         app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
-        app.use('/*', User);
-
+        app.get('/*', (req, res) => res.redirect('/api-docs'));
+        
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     }).catch(error => {
         console.log(error);

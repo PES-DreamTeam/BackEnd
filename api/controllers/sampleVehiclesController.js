@@ -2,7 +2,7 @@ const { sampleVehicleService } = require('../services');
 
 const getAll = async (req, res) => {
     try {
-       const vehicles = await sampleVehicleService.getAll(); 
+       const vehicles = await sampleVehicleService.getAll(req.query.filter); 
         if(vehicles)
             return res.status(200).send({ vehicles });
         else
