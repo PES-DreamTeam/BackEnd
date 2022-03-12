@@ -1,5 +1,3 @@
-
-
 const vehicleTest = async (req, res) => {
     try {
         res.status(200).send('VehicleTest');
