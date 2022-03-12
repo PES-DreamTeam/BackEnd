@@ -4,9 +4,9 @@ module.exports = {
         description: "Get all sample vehicles",
         operationId: "getAllSampleVehicles",
         parameters: [{
-            name: "filter",
+            name: "groupBy",
             in: "query",
-            description: "Filter the sample vehicles: 'brand, model, chargerType'",
+            description: "GroupBy the sample vehicles: 'brand, model, chargerType'",
             required: false,
             schema: {
                 type: "string" 

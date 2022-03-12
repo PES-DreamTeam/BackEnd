@@ -3,7 +3,7 @@ const NodeCache = require('node-cache');
 
 const cache = new NodeCache({  stdTTL:600 });
 
-const get = async (filter) => {
+const get = async (chargePointId, group) => {
     try {
         var data = cache.get('chargePoints');
 
@@ -27,16 +27,36 @@ const get = async (filter) => {
             });
             cache.set('chargePoints', data, 600);
         }
-        if(filter) data = data.filter(item => item.id === filter);
+        if(chargePointId) data = data.filter(item => item.id === chargePointId);
+        if(group){
+            const groupItems = groupBy(group);
+            data = groupItems(data);
+        }
 
-    return data;
+        return data;
 
     } catch (error) {
         console.log(error);
         return error;
     }
 }
-    
+
+const groupBy = key => array => 
+    array.reduce((objectsByKeyValue, obj) => {
+        const value = obj[key].toLowerCase();
+        objectsByKeyValue[value] = (objectsByKeyValue[value] || {
+            id: obj.id,
+            name: obj.name,
+            address: obj.address,
+            lat: obj.lat,
+            lng: obj.lng,
+            sockets:[]
+        })
+        var newSocket = JSON.parse(JSON.stringify(obj.socket_data));
+        newSocket.vehicle_type = obj.vehicle_type;
+        objectsByKeyValue[value].sockets.push(newSocket);
+        return objectsByKeyValue;
+}, {});
 module.exports = {
     get,
 }

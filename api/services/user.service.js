@@ -20,10 +20,19 @@ const deleteUser = (_id) => {
     return Users.findByIdAndDelete(_id);
 }
 
+const feedUserToWeb = (user) => {
+    return {
+        _id: user._id,
+        nickname: user.name,
+        email: user.email,
+    }
+}
+
 module.exports = {
     getByEmail,
     create,
     getAll,
     getById,
-    deleteUser
+    deleteUser,
+    feedUserToWeb
 }

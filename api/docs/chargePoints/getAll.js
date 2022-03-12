@@ -3,7 +3,15 @@ module.exports = {
         tags:["ChargePoints controller"],
         description: "Get all charge points",
         operationId: "getChargePoints",
-        parameters: [],
+        parameters: [{
+            name: 'groupBy',
+            in: 'query',
+            description: "GroupBy the charge points: 'id','name','address','vehicle_type','lat','lng'",
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        }],
         responses: {
             200: {
                 description: "Successful operation",

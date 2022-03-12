@@ -1,9 +1,9 @@
 const { Vehicles } = require('../models');
 
-const getAll = async (filter) => {
+const getAll = async (group) => {
     var vehicles = await Vehicles.find(); 
-    if(filter) {
-        const groupItems = groupBy(filter);
+    if(group) {
+        const groupItems = groupBy(group);
         vehicles = groupItems(vehicles);
     }
     return vehicles;

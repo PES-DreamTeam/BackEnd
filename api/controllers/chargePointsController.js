@@ -2,7 +2,7 @@ const { chargePointService } = require('../services');
 
 const getAll = async (req, res) => {
     try {
-        const data = await chargePointService.get();
+        const data = await chargePointService.get(null, req.query.groupBy);
 
         if(!data) return res.status(404).send({msg: "ChargePoint not found"});
         res.status(200).send({chargePoints:data});       

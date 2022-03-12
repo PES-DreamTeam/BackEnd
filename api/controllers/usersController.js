@@ -3,7 +3,8 @@ const { userService } = require("../services");
 const getAll = async (req, res) => {
     try {
         const users = await userService.getAll();
-        return res.status(200).send({ users });
+        const result = users.map(user => userService.feedUserToWeb(user))
+        return res.status(200).send({ result });
     } catch (error) {
        return res.status(500).send({msg: error.toString()});
     }
@@ -14,7 +15,7 @@ const getById = async (req, res) => {
         const user = await userService.getById(req.params.id);
         if(!user) return res.status(404).send({msg: "User not found"});
 
-        return res.status(200).send({ user: user });
+        return res.status(200).send({user: userService.feedUserToWeb(user)});
     } catch (error) {
         return res.status(500).send({msg: error.toString()});
     }
