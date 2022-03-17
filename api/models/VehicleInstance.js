@@ -1,7 +1,10 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+const {Schema, model} = require('mongoose');
 
-const VehicleInstance = new mongoose.Schema({
+const VehicleInstance = new Schema({
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
     brand: {
         type: String,
         required: 'The brand is required',
@@ -9,16 +12,6 @@ const VehicleInstance = new mongoose.Schema({
     model: {
         type: String,
         required: 'The model is required',
-    },
-    email: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error('Email is invalid');
-            }
-        }
     },
     color: {
         type: String,
@@ -31,13 +24,9 @@ const VehicleInstance = new mongoose.Schema({
         type: String,
         unique: true,
         required: 'The numberPlate is required',
-    },
-    boughtYear: {
-        type: Number,
-    },
-
+    }
 });
 
-VehicleInstance.index({brand:1, model:1, email:1} , { unique: true });
+VehicleInstance.index({numberPlate:1, user_id:1} , { unique: true });
 
-module.exports = mongoose.model('VehicleInstance', VehicleInstance);
+module.exports = model('VehicleInstance', VehicleInstance);

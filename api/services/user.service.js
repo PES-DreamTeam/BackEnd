@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { Users, VehicleInstances } = require("../models");
 
 const getByEmail = (email) => {
     return Users.findOne({ email });
@@ -20,12 +20,18 @@ const deleteUser = (_id) => {
     return Users.findByIdAndDelete(_id);
 }
 
-const feedUserToWeb = (user) => {
+const feedUserToWeb = async (user) => {
+    const userVehicleConfig = await VehicleInstances.find({user_id : user._id})
     return {
         _id: user._id,
         nickname: user.name,
         email: user.email,
+        vehicleConfig: userVehicleConfig,
     }
+}
+
+const setVehicleConfig = (vehicleConfig) =>{
+    return VehicleInstances.create(vehicleConfig)
 }
 
 module.exports = {
@@ -34,5 +40,6 @@ module.exports = {
     getAll,
     getById,
     deleteUser,
-    feedUserToWeb
+    feedUserToWeb,
+    setVehicleConfig
 }

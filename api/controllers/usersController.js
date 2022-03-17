@@ -3,7 +3,7 @@ const { userService } = require("../services");
 const getAll = async (req, res) => {
     try {
         const users = await userService.getAll();
-        const result = users.map(user => userService.feedUserToWeb(user))
+        const result = await Promise.all(users.map( async user => await userService.feedUserToWeb(user)))
         return res.status(200).send({ result });
     } catch (error) {
        return res.status(500).send({msg: error.toString()});
@@ -15,7 +15,7 @@ const getById = async (req, res) => {
         const user = await userService.getById(req.params.id);
         if(!user) return res.status(404).send({msg: "User not found"});
 
-        return res.status(200).send({user: userService.feedUserToWeb(user)});
+        return res.status(200).send({user: await userService.feedUserToWeb(user)});
     } catch (error) {
         return res.status(500).send({msg: error.toString()});
     }
@@ -37,8 +37,24 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const setVehicleConfig = async (req, res) => {
+    try {
+        const bodyRequest = req.body;
+        bodyRequest.user_id = req.params.id
+        const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
+        if (vehicleConfig) {
+            return res.status(200).send({vehicleConfig});
+        }
+        else return res.status(500).send({msg: "There has been an error saving the configuration"})
+
+    } catch (error) {
+        return res.status(500).send({msg: error.toString()});
+    }
+}
+
 module.exports = {
     getAll,
     getById,
-    deleteUser
+    deleteUser,
+    setVehicleConfig
 }

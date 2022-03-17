@@ -9,7 +9,7 @@ const docs = require('./docs');
 const swaggerUI = require('swagger-ui-express');
 
 mongoose
-    .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         const app = express();
         app.use(cors());
