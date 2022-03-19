@@ -36,7 +36,6 @@ const get = async (chargePointId, group) => {
         return data;
 
     } catch (error) {
-        console.log(error);
         return error;
     }
 }

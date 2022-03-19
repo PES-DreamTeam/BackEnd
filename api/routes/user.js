@@ -12,6 +12,9 @@ router.get('/:id', usersController.getById);
 // api/users/:id/vehicleConfig
 router.post('/:id/vehicleConfig', usersController.setVehicleConfig);
 
+// api/users
+router.put('/', auth, usersController.updateUser);
+
 // api/users/:id
 router.delete('/:id', auth, usersController.deleteUser)
 

@@ -20,7 +20,6 @@ const create = async (req, res) => {
         else
             return res.status(500).send({msg: "Error creating vehicle"});
     } catch (error) {
-        console.log(error);
         return res.status(500).send({msg: error.toString()});
     }
 }

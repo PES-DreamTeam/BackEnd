@@ -39,6 +39,11 @@ const setVehicleConfig = (vehicleConfig) =>{
     return VehicleInstances.create(vehicleConfig)
 }
 
+const updateUser = (id, user) => {
+    return Users.findByIdAndUpdate(id, user);
+}
+
+
 module.exports = {
     getByEmail,
     create,
@@ -48,4 +53,5 @@ module.exports = {
     feedUserToWeb,
     setVehicleConfig,
     getVehicleConfig,
+    updateUser
 }
