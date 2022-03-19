@@ -43,7 +43,7 @@ const setVehicleConfig = async (req, res) => {
         bodyRequest.user_id = req.params.id
         const existingVehicleConfig = await userService.getVehicleConfig(bodyRequest.numberPlate);
         if(existingVehicleConfig)
-            return res.status(409).send({attirbute:"NumberPlate", error: "The number plate already exists"});
+            return res.status(409).send({attribute:"NumberPlate", error: "The number plate already exists"});
 
         const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
         if (vehicleConfig) {
