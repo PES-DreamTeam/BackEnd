@@ -41,6 +41,10 @@ const setVehicleConfig = async (req, res) => {
     try {
         const bodyRequest = req.body;
         bodyRequest.user_id = req.params.id
+        const existingVehicleConfig = await userService.getVehicleConfig(bodyRequest.numberPlate);
+        if(existingVehicleConfig)
+            return res.status(409).send({attirbute:"NumberPlate", error: "The number plate already exists"});
+
         const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
         if (vehicleConfig) {
             return res.status(200).send({vehicleConfig});
@@ -48,8 +52,7 @@ const setVehicleConfig = async (req, res) => {
         else return res.status(500).send({msg: "There has been an error saving the configuration"})
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({msg: error.toString()});
+        return res.status(500).send({msg: error});
     }
 }
 
