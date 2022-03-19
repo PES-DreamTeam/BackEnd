@@ -52,6 +52,7 @@ const setVehicleConfig = async (req, res) => {
         else return res.status(500).send({msg: "There has been an error saving the configuration"})
 
     } catch (error) {
+        console.log(error);
         return res.status(500).send({msg: error.toString()});
     }
 }
