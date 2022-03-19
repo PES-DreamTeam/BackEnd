@@ -24,6 +24,10 @@ const VehicleInstance = new Schema({
         type: String,
         unique: true,
         required: 'The numberPlate is required',
+    },
+    vehicleType: {
+        type: Number,
+        required: 'The vehicleType is required',
     }
 });
 
