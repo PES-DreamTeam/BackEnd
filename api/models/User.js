@@ -21,9 +21,13 @@ const User = new mongoose.Schema({
         type: String,
         required: 'The password is required',
     },
-    salt: {
+    salt: { //para autenticar contraseña
         type: String,
         required: 'The salt is required',
+    },
+    isNew: {
+        type: Boolean,
+        default: true,
     }
 })
 

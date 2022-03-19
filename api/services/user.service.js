@@ -27,6 +27,7 @@ const feedUserToWeb = async (user) => {
         nickname: user.name,
         email: user.email,
         vehicleConfig: userVehicleConfig,
+        isNew: user.isNew,
     }
 }
 
