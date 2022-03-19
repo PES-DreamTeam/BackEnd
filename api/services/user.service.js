@@ -31,6 +31,10 @@ const feedUserToWeb = async (user) => {
     }
 }
 
+const getVehicleConfig = (numberPlate) => {
+    return VehicleInstances.findOne({numberPlate});
+}
+
 const setVehicleConfig = (vehicleConfig) =>{
     return VehicleInstances.create(vehicleConfig)
 }
@@ -42,5 +46,6 @@ module.exports = {
     getById,
     deleteUser,
     feedUserToWeb,
-    setVehicleConfig
+    setVehicleConfig,
+    getVehicleConfig,
 }
