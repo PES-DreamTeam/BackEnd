@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const Vehicle = new mongoose.Schema({
     brand: {
@@ -16,6 +15,6 @@ const Vehicle = new mongoose.Schema({
     }
 });
 
-Vehicle.index({brand:1, model:1} , { unique: true });
+/* Vehicle.index({brand:1, model:1} , { unique: true }); */
 
 module.exports = mongoose.model('Vehicle', Vehicle);
