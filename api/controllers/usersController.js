@@ -41,7 +41,11 @@ const setVehicleConfig = async (req, res) => {
     try {
         const bodyRequest = req.body;
         bodyRequest.user_id = req.params.id
+        console.log(bodyRequest);
+        console.log(req.params.id);
+        console.log(req.body);
         const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
+        console.log(vehicleConfig);
         if (vehicleConfig) {
             return res.status(200).send({vehicleConfig});
         }
