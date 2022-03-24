@@ -1,6 +1,7 @@
 const { getAllChargePoints, getChargePointById } = require('./chargePoints');
 const { getAllUsers, getUserById } = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles } = require('./sampleVehiclesController');
+const setVehicleConfig = require('./usersController/setVehicleConfig');
 module.exports = {
     paths: {
         '/api/chargePoints': {
@@ -8,6 +9,9 @@ module.exports = {
         },
         '/api/chargePoints/{id}': {
             ...getChargePointById
+        },
+        '/api/users/{id}/vehicleConfig': {
+            ...setVehicleConfig,
         },
         '/api/users': {
             ...getAllUsers,

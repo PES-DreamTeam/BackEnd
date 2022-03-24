@@ -10,7 +10,7 @@ router.get('/', usersController.getAll);
 router.get('/:id', usersController.getById);
 
 // api/users/:id/vehicleConfig
-router.post('/:id/vehicleConfig', usersController.setVehicleConfig);
+router.post('/:id/vehicleConfig', auth, usersController.setVehicleConfig);
 
 // api/users
 router.put('/', auth, usersController.updateUser);

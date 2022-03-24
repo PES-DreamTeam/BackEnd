@@ -1,4 +1,3 @@
-const { Users } = require("../models");
 const { userService } = require("../services");
 
 const getAll = async (req, res) => {
@@ -51,6 +50,7 @@ const deleteUser = async (req, res) => {
 
 const setVehicleConfig = async (req, res) => {
     try {
+        if(req.params.id !== req.user._id) return res.status(401).send({msg: 'You are not authorized'});
         const bodyRequest = req.body;
         bodyRequest.user_id = req.params.id
         const existingVehicleConfig = await userService.getVehicleConfig(bodyRequest.numberPlate);

@@ -26,6 +26,46 @@ module.exports = {
                     }
                 }
             },
+            VehicleConfig: {
+                type: "object",
+                properties: {
+                    brand: {
+                        type: "string",
+                        description: "The brand of the sample vehicle",
+                        example: "Tesla"
+                    },
+                    model: {
+                        type: "string",
+                        description: "The model of the sample vehicle",
+                        example: "Model S"
+                    },
+                    chargerType: {
+                        type: "string",
+                        description: "The type of the charger",
+                        example: "AC"
+                    },
+                    color: {
+                        type: "string",
+                        description: "The color of the vehicle",
+                        example: "#FFFFFF"
+                    },
+                    nickname: {
+                        type: "string",
+                        description: "The nickname of the vehicle",
+                        example: "Sara"
+                    },
+                    numberPlate: {
+                        type: "string",
+                        description: "The number plate of the vehicle",
+                        example: "1234ABC"
+                    },
+                    vehicleType: {
+                        type: "string",
+                        description: "The type of the vehicle",
+                        example: "1"
+                    }
+                }
+            },
             ChargePoint: {
                 type: "object",
                 properties: {
