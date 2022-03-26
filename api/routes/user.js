@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { usersController } = require('../controllers');
 const auth = require('../middlewares/auth');
+const Factory = require('../factory/factory');
+
+const usersController = Factory.createUsersController(); 
 
 // api/users
 router.get('/', usersController.getAll);
