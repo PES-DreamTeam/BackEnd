@@ -4,7 +4,7 @@
   "description": "Backend de la aplicación",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha 'api/test/**/*.js'",
     "start": "cd api && node index.js"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "mongoose": "^6.2.4",
     "node-cache": "^5.1.2",
     "nodemon": "^2.0.15",
+    "request": "^2.88.2",
     "swagger-ui-express": "^4.3.0",
     "ts-openapi": "^1.0.3",
     "validator": "^13.7.0"

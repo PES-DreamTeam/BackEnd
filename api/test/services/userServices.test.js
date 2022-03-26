@@ -1,6 +1,5 @@
 const { userService } = require('../../services');
 const { User, VehicleInstances } = require('../../models');
-var assert = require('assert');
 
 describe("Feed User to web", () => {
     it("Feed user without vehicle config", () => { 
