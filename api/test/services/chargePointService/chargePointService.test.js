@@ -27,8 +27,6 @@ describe("Get Charge points", ()=>{
 
         const actual = await chargePointsService.get(null, 'id');
 
-        console.log(actual);
-
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     }) 
     it("Get with id and with group by ID and exists data that match the id", async () => {
@@ -37,8 +35,6 @@ describe("Get Charge points", ()=>{
         axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
 
         const actual = await chargePointsService.get("2054", 'id');
-
-        console.log(actual);
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     }) 

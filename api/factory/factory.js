@@ -4,8 +4,6 @@ const { Users, VehicleInstances } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 
-
-
 const Factory = (dependencies) => {
     const createUsersController = () => {
         const userService = createUserService();
