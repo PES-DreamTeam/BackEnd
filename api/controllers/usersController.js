@@ -51,21 +51,22 @@ const UsersController = (dependencies) => {
 
     const setVehicleConfig = async (req, res) => {
         try {
+            if(req.params.id !== req.user._id) return res.status(401).send({msg: 'You are not authorized'});
             const bodyRequest = req.body;
             bodyRequest.user_id = req.params.id
             const existingVehicleConfig = await userService.getVehicleConfig(bodyRequest.numberPlate);
             if(existingVehicleConfig)
                 return res.status(409).send({attribute:"NumberPlate", error: "The number plate already exists"});
 
-            const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
-            if (vehicleConfig) {
+                const vehicleConfig = await userService.setVehicleConfig(bodyRequest);
+                if (vehicleConfig) {
 
-                await userService.updateUser(req.params.id, {"isNew":false});
-                const user = await userService.getById(req.params.id);
+                    await userService.updateUser(req.params.id, {"isNew":false});
+                    const user = await userService.getById(req.params.id);
 
-                return res.status(200).send({user});
-            }
-            else return res.status(500).send({msg: "There has been an error saving the configuration"})
+                    return res.status(200).send({user});
+                }
+                else return res.status(500).send({msg: "There has been an error saving the configuration"})
 
         } catch (error) {
             return res.status(500).send({msg: error});

@@ -1,6 +1,6 @@
 const userService = (dependencies) => {
-    console.log(dependencies);
     const { Users, VehicleInstances } = dependencies;
+
     const getByEmail = (email) => {
         return Users.findOne({ email });
     }
