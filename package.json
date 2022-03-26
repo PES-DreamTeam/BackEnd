@@ -4,7 +4,8 @@
   "description": "Backend de la aplicación",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'api/test/**/*.js'",
+    "test-coverage": "jest --coverage",
+    "test": "jest",
     "start": "cd api && node index.js"
   },
   "repository": {
@@ -34,5 +35,8 @@
     "swagger-ui-express": "^4.3.0",
     "ts-openapi": "^1.0.3",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
