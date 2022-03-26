@@ -11,6 +11,15 @@ module.exports = {
             },
             required: true, 
             description: "Charge point id",
+        },
+        {
+            name: 'groupBy',
+            in: 'query',
+            description: "GroupBy the charge points: 'id','name','address','vehicle_type','lat','lng'",
+            required: false,
+            schema: {
+                type: 'string'
+            }
         }],
         responses: {
             200: {

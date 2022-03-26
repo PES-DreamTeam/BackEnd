@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { chargePointsController } = require('../controllers');
+const Factory = require('../factory/factory');
+const factory = Factory();
+
+const chargePointsController = factory.createChargePointsController();
 
 // api/chargePoints
 router.get('/', chargePointsController.getAll);

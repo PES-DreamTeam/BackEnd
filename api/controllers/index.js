@@ -1,6 +1,6 @@
 module.exports = {
     authController: require('./authController'),
     UsersController: require('./usersController'),
-    chargePointsController: require('./chargePointsController'),
+    ChargePointsController: require('./chargePointsController'),
     sampleVehiclesController: require('./sampleVehiclesController'),
 }

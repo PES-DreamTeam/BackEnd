@@ -3,7 +3,8 @@ const router = express.Router();
 const auth = require('../middlewares/auth');
 const Factory = require('../factory/factory');
 
-const usersController = Factory.createUsersController(); 
+const factory = Factory();
+const usersController = factory.createUsersController();
 
 // api/users
 router.get('/', usersController.getAll);
