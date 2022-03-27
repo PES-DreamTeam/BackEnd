@@ -20,7 +20,7 @@ describe("Get Charge points", ()=>{
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGrouping);
     })
 
-    it("Get Withoit id but with group by ID", async () => {
+    it("Get Without id but with group by ID", async () => {
         const chargePointsService = factory.createChargePointService({NodeCache, axios});
         const axiosSpy = jest.spyOn(axios, 'get');
         axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
@@ -48,3 +48,17 @@ describe("Get Charge points", ()=>{
         expect(actual).toEqual({});
     }) 
 })
+
+describe("Group by", ()=>{
+    const factory = Factory();
+
+    it("Group by id", async () => {        
+        const chargePointsService = factory.createChargePointService();
+        const groupItems = chargePointsService.groupBy('id');
+        const actual = groupItems(expectedChargePointsWithoutIdAndGrouping);
+
+        expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
+    }) 
+})
+
+

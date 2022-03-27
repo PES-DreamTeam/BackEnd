@@ -1,22 +1,27 @@
 const userService = (dependencies) => {
     const { Users, VehicleInstances } = dependencies;
 
+    /* istanbul ignore next */ 
     const getByEmail = (email) => {
         return Users.findOne({ email });
     }
 
+    /* istanbul ignore next */ 
     const getById = (_id) => {
         return Users.findById(_id);
     }
 
+    /* istanbul ignore next */ 
     const create = (user) => {
         return Users.create(user);
     }
 
+    /* istanbul ignore next */ 
     const getAll = () => {
         return Users.find();
     }
 
+    /* istanbul ignore next */ 
     const deleteUser = (_id) => {
         return Users.findByIdAndDelete(_id);
     }
@@ -32,14 +37,17 @@ const userService = (dependencies) => {
         }
     }
 
+    /* istanbul ignore next */ 
     const getVehicleConfig = (numberPlate) => {
         return VehicleInstances.findOne({numberPlate});
     }
 
+    /* istanbul ignore next */ 
     const setVehicleConfig = (vehicleConfig) =>{
         return VehicleInstances.create(vehicleConfig)
     }
 
+    /* istanbul ignore next */ 
     const updateUser = (id, user) => {
         return Users.findByIdAndUpdate(id, user);
     }
