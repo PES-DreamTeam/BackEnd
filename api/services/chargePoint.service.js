@@ -1,6 +1,15 @@
 const util = require('util');
 const chargePointService = (dependencies) => {
 
+    const groupByWords = [
+        "id",
+        "name",
+        "address",
+        "vehicle_type",
+        "lat",
+        "lng"
+    ]
+
     const { NodeCache, axios } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
@@ -29,7 +38,7 @@ const chargePointService = (dependencies) => {
                 cache.set('chargePoints', data, 600);
             }
             if(chargePointId) data = data.filter(item => item.id === chargePointId);
-            if(group){
+            if(groupByWords.includes(group)){
                 const groupItems = groupBy(group);
                 data = groupItems(data);
             }
