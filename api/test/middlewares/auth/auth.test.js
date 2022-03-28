@@ -23,17 +23,7 @@ describe("Auth middleware test", () => {
             return this;
             });
     }
-    beforeEach(()=>{
-        mockResponse = {
-            status: jest.fn().mockImplementationOnce((message) =>{
-               return message; 
-            }),
-            send: jest.fn().mockImplementationOnce((message) => {
-                return status;
-            })
-        }
-          
-    })
+
     it("valid token and user exists", async () => {
         const callbackFunction = jest.fn();
         const userService = factory.createUserService();
@@ -51,8 +41,10 @@ describe("Auth middleware test", () => {
         const userService = factory.createUserService();
         const myAuth = auth(userService);
         await myAuth({headers:{authorization: "aoeu"}}, res, callbackFunction);
+
         expect(res.status).toBeCalledWith(401);
         expect(res.send).toBeCalledWith({msg: 'Invalid token'});
+        expect(callbackFunction).not.toHaveBeenCalled();
     });
     it("Valid token but user doesnt exists", async () => {
         let res = new MockResponse();
@@ -62,8 +54,10 @@ describe("Auth middleware test", () => {
         userSpy.mockReturnValue(null);
         const myAuth = auth(userService);
         await myAuth({headers:{authorization: `Bearer ${validToken}`}}, res, callbackFunction);
+
         expect(res.status).toBeCalledWith(401);
         expect(res.send).toBeCalledWith({msg: 'You are not authorized'});
+        expect(callbackFunction).not.toHaveBeenCalled();
     });
 
 
