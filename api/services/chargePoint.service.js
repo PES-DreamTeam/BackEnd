@@ -16,10 +16,10 @@ const chargePointService = (dependencies) => {
 
     const get = async (chargePointId, group, objectType) => {
         try {
-            var data = cache.get('chargePoints');
+            var data = cache.get(`${objectType ?? "default"}`);
 
             if(!data) {
-                if(objectType === "vehicleStation") 
+                if(objectType === "yvehicleStation") 
                     data = await getVehicleStations();
                 else if(objectType === "bikeStation")
                     data = await getBikeStations();
@@ -28,7 +28,7 @@ const chargePointService = (dependencies) => {
                     data = data.concat(await getBikeStations());
                 }
                 data = data.filter(x => x !== undefined && x !== null);
-                cache.set('chargePoints', data, 600);
+                cache.set(`${objectType ?? "default"}`, data, 600);
             }
             if(chargePointId) data = data.filter(item => item.id === chargePointId);
             if(groupByWords.includes(group)){
@@ -93,7 +93,6 @@ const chargePointService = (dependencies) => {
                     };
             }));
 
-            console.log(util.inspect(data, false, null, true /* enable colors */))
             return data;
 
         }catch(error){
