@@ -173,8 +173,108 @@ const expectedChargePointsWithoutIdAndGroupingByID = {
   }
 };
 
+const bikeChargePointsFromDB = [
+
+  {
+    _id: "62483f0657d5ada2ca0b32d8",
+    station_id:  2,
+    name: "C/ ROGER DE FLOR, 126",
+    lat:  41.3954877,
+    lng: 2.1771985,
+    address: "C/ ROGER DE FLOR, 126",
+    postCode: "8013" ,
+  },
+  {
+    _id: "62483f0657d5ada2ca0b32d8",
+    station_id:  1,
+    name: "C/ TEST",
+    lat:  41.3954877,
+    lng: 2.1771985,
+    address: "C/ ROGER DE FLOR, 126",
+    postCode: "8013" ,
+  },
+];
+
+const inputBikeChargePointsFromApi = {
+  data: {
+    stations: [
+      {
+        station_id: 1,
+        num_bikes_available: 2,
+        num_bikes_available_types: {
+          mechanical: 2,
+          ebike: 0
+        },
+        num_docks_available: 41,
+        last_reported: 1648925945,
+        is_charging_station: true,
+        status: "IN_SERVICE",
+        is_installed: 1,
+        is_renting: 1,
+        is_returning: 1,
+        traffic: null
+      },
+      {
+        station_id: 2,
+        num_bikes_available: 2,
+        num_bikes_available_types: {
+          mechanical: 2,
+          ebike: 0
+        },
+        num_docks_available: 41,
+        last_reported: 1648925945,
+        is_charging_station: true,
+        status: "IN_SERVICE",
+        is_installed: 1,
+        is_renting: 1,
+        is_returning: 1,
+        traffic: null
+      }
+    ]
+    
+  }
+}
+
+const expectedBikeStations = [        
+      {      
+        id: 1,
+        name: 'C/ TEST',
+        address: 'C/ ROGER DE FLOR, 126',
+        lat: 41.3954877,
+        lng: 2.1771985,
+        objectType: 'bikeStation',
+        data: {
+          socket_data: {
+            available_sockets: 41,
+            available_electrical: 0,
+            available_mechanical: 2,
+            socket_state: 0
+          }
+        }
+      },
+      {
+        id: 2,
+        name: 'C/ ROGER DE FLOR, 126',
+        address: 'C/ ROGER DE FLOR, 126',
+        lat: 41.3954877,
+        lng: 2.1771985,
+        objectType: 'bikeStation',
+        data: {
+          socket_data: {
+            available_sockets: 41,
+            available_electrical: 0,
+            available_mechanical: 2,
+            socket_state: 0
+          }
+        }
+      }
+    ]
+
 module.exports = {
     inputChargePointsFromApi,
+    inputBikeChargePointsFromApi,
+    bikeChargePointsFromDB,
     expectedChargePointsWithoutIdAndGrouping,
-    expectedChargePointsWithoutIdAndGroupingByID
+    expectedChargePointsWithoutIdAndGroupingByID,
+    expectedBikeStations
 }

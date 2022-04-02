@@ -66,8 +66,8 @@ const chargePointService = (dependencies) => {
         var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status');
         var bikeStations = await BikeStations.find();
         try{
-            const data = await Promise.all(response.data.data.stations.map(async item => {
-                const bikeStation = bikeStations.filter(x => x.station_id === item.station_id)[0]; 
+            const data = await Promise.all(response.data.data.stations?.map(async item => {
+                const bikeStation = bikeStations?.filter(x => x.station_id === item.station_id)[0]; 
                 if(bikeStation !== null && bikeStation !== undefined) 
                     return {
                         id: bikeStation.station_id,
@@ -82,11 +82,12 @@ const chargePointService = (dependencies) => {
                                 available_electrical: item.num_bikes_available_types.ebike, //Numero de bicis electricas
                                 available_mechanical: item.num_bikes_available_types.mechanical, // Numero de bicis mecanicas
                                 socket_state: (item.status === 'IN_SERVICE' && item.is_installed === 1 && item.is_renting === 1 && item.is_returning === 1) ? 0 : 1, // 0 = available, 1 = unavailable
-                            },
-                            vehicle_type: item.Vehicle_type,
+                            }
                         }
                     };
             }));
+
+            console.log(util.inspect(data, false, null, true /* enable colors */))
             return data;
 
         }catch(error){
