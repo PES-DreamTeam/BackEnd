@@ -27,7 +27,7 @@ const UsersController = (dependencies) => {
 
     const updateUser = async (req, res) => {
         try {
-            const user = await userService.updateUser(req.user._id, req.body);
+            const user = await userService.updateUser(req.user.id, req.body);
             if(!user) return res.status(404).send({msg: "User not found"});
 
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
