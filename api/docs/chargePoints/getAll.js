@@ -11,7 +11,17 @@ module.exports = {
             schema: {
                 type: 'string'
             }
-        }],
+        },
+        {
+            name: 'objectType',
+            in: 'query',
+            description: "Filter the stations by objectType: 'vehicleStation' or 'bikeStation'",
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        }
+    ],
         responses: {
             200: {
                 description: "Successful operation",
