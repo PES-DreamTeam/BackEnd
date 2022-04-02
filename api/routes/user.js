@@ -23,4 +23,7 @@ router.put('/', my_auth, usersController.updateUser);
 // api/users/:id
 router.delete('/:id', my_auth, usersController.deleteUser)
 
+// api/users/bike
+router.get('/bike/all', usersController.getBike);
+
 module.exports = router;
