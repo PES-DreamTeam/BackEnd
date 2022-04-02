@@ -65,7 +65,8 @@ const UsersController = (dependencies) => {
                 if (vehicleConfig) {
 
                     await userService.updateUser(req.params.id, {"isNew":false});
-                    const user = await userService.getById(req.params.id);
+                    var user = await userService.getById(req.params.id);
+                    user = await userService.feedUserToWeb(user);
 
                     return res.status(200).send({user});
                 }
