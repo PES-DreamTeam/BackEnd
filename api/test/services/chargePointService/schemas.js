@@ -87,42 +87,52 @@ const expectedChargePointsWithoutIdAndGrouping = [
     id: '2054',
     name: 'La Boqueria',
     address: 'C/ Floristes de la rambla S/N',
-    vehicle_type: 1,
     lat: 41.381738,
     lng: 2.17007,
-    socket_data: {
-      socket_id: 10,
-      socket_type: '1,2',
-      charge_modes: '3',
-      socket_state: 0
+    objectType: 'vehicleStation',
+    data: {
+      socket_data: {
+        socket_id: 10,
+        socket_type: '1,2',
+        charge_modes: '3',
+        socket_state: 0
+      },
+      vehicle_type: 1,
+    }
+    
+  },
+  {
+    id: '2054',
+    name: 'La Boqueria',
+    address: 'C/ Floristes de la rambla S/N',
+    lat: 41.381738,
+    lng: 2.17007,
+    objectType: 'vehicleStation',
+    data: {
+      socket_data: {
+        socket_id: 11,
+        socket_type: '1,2',
+        charge_modes: '3',
+        socket_state: 0
+      },
+      vehicle_type: 1,
     }
   },
   {
     id: '2054',
     name: 'La Boqueria',
     address: 'C/ Floristes de la rambla S/N',
-    vehicle_type: 1,
     lat: 41.381738,
     lng: 2.17007,
-    socket_data: {
-      socket_id: 11,
-      socket_type: '1,2',
-      charge_modes: '3',
-      socket_state: 0
-    }
-  },
-  {
-    id: '2054',
-    name: 'La Boqueria',
-    address: 'C/ Floristes de la rambla S/N',
-    vehicle_type: 0,
-    lat: 41.381738,
-    lng: 2.17007,
-    socket_data: {
-      socket_id: 5,
-      socket_type: '1,2',
-      charge_modes: '3',
-      socket_state: 0
+    objectType: 'vehicleStation',
+    data: {
+      socket_data: {
+        socket_id: 5,
+        socket_type: '1,2',
+        charge_modes: '3',
+        socket_state: 0
+      },
+      vehicle_type: 0,
     }
   }
 ]
@@ -134,29 +144,32 @@ const expectedChargePointsWithoutIdAndGroupingByID = {
     address: 'C/ Floristes de la rambla S/N',
     lat: 41.381738,
     lng: 2.17007,
-    sockets: [
+    objectType: 'vehicleStation',
+    data: {
+      sockets: [
       {
-        socket_id: 10,
-        socket_type: '1,2',
-        charge_modes: '3',
-        socket_state: 0,
-        vehicle_type: 1
-      },
-      {
-        socket_id: 11,
-        socket_type: '1,2',
-        charge_modes: '3',
-        socket_state: 0,
-        vehicle_type: 1
-      },
-      {
-        socket_id: 5,
-        socket_type: '1,2',
-        charge_modes: '3',
-        socket_state: 0,
-        vehicle_type: 0
-      }
-    ]
+          socket_id: 10,
+          socket_type: '1,2',
+          charge_modes: '3',
+          socket_state: 0,
+          vehicle_type: 1
+        },
+        {
+          socket_id: 11,
+          socket_type: '1,2',
+          charge_modes: '3',
+          socket_state: 0,
+          vehicle_type: 1
+        },
+        {
+          socket_id: 5,
+          socket_type: '1,2',
+          charge_modes: '3',
+          socket_state: 0,
+          vehicle_type: 0
+        }
+      ]
+    }
   }
 };
 

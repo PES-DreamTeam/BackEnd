@@ -1,6 +1,6 @@
 const { userService, chargePointService, authService } = require('../services');
 const { UsersController, ChargePointsController, AuthController } = require('../controllers');
-const { Users, VehicleInstances } = require('../models');
+const { Users, VehicleInstances, BikeStation } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 
@@ -22,10 +22,10 @@ const Factory = () => {
 
     const createChargePointService = (dependencies) => {
         if(!dependencies)
-            return chargePointService({NodeCache, axios});
+            return chargePointService({NodeCache, axios, BikeStation});
         else{
-            const { NodeCache, axios } = dependencies;
-            return chargePointService({NodeCache, axios});
+            const { NodeCache, axios, BikeStation } = dependencies;
+            return chargePointService({NodeCache, axios, BikeStation});
         }
     }
     const createChargePointsController = () => {
