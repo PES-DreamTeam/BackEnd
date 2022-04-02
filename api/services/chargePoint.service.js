@@ -33,7 +33,6 @@ const chargePointService = (dependencies) => {
                             charge_modes: item.Sockets[0].Charge_modes,
                             socket_state: item.Sockets[0].State,
                         },
-                        objectType: "vehicleChargePoint"
                     }
                 });
                 cache.set('chargePoints', data, 600);
