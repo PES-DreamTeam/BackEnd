@@ -3,12 +3,28 @@ const {
     expectedChargePointsWithoutIdAndGrouping,
     expectedChargePointsWithoutIdAndGroupingByID 
 } = require('./schemas');
+const { BikeStations } = require('../../../models'); 
 const Factory = require('../../../factory/factory');
 const axios = require('axios');
 const NodeCache = require('node-cache');
 
 describe("Get Charge points", ()=>{
     const factory = Factory();
+
+    process.env.MONGO_URL="mongodb+srv://ecoroads:aYyEX57lGoe8NH0H@pes.croxp.mongodb.net/PES_Backend?retryWrites=true&w=majority";
+    
+    // it("Get Bike stations", async () => {
+    //     const axiosSpy = jest.spyOn(axios, 'get');
+    //     axiosSpy.mockImplementation(url => {
+    //         if(url === "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
+    //             return "hola";
+    //     });
+    //     const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
+
+    //     chargePointsService.getBikeStations();
+
+    //     console.log(data);
+    // })
 
     it("Get Without id and group by", async () => {
         const chargePointsService = factory.createChargePointService({NodeCache, axios});
