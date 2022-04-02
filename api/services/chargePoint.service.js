@@ -19,7 +19,7 @@ const chargePointService = (dependencies) => {
             var data = cache.get(`${objectType ?? "default"}`);
 
             if(!data) {
-                if(objectType === "yvehicleStation") 
+                if(objectType === "vehicleStation") 
                     data = await getVehicleStations();
                 else if(objectType === "bikeStation")
                     data = await getBikeStations();
