@@ -3,7 +3,7 @@ const ChargePointsController = (dependencies) => {
 
     const getAll = async (req, res) => {
         try {
-            const data = await chargePointService.get(null, req.query.groupBy);
+            const data = await chargePointService.get(null, req.query.groupBy, req.query.objectType);
 
             if(!data) return res.status(404).send({msg: "ChargePoint not found"});
             res.status(200).send({chargePoints:data});       
@@ -14,7 +14,7 @@ const ChargePointsController = (dependencies) => {
 
     const getById = async (req, res) => {
         try {
-            const data = await chargePointService.get(req.params.id, req.query.groupBy);
+            const data = await chargePointService.get(req.params.id, req.query.groupBy, null);
 
             if(!data) return res.status(404).send({msg: "ChargePoint not found"});
             res.status(200).send({chargePoint: data});

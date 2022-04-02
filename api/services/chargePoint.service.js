@@ -14,13 +14,19 @@ const chargePointService = (dependencies) => {
     const { NodeCache, axios, BikeStations } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
-    const get = async (chargePointId, group) => {
+    const get = async (chargePointId, group, objectType) => {
         try {
             var data = cache.get('chargePoints');
 
             if(!data) {
-                data = await getVehicleStations();
-                data = data.concat(await getBikeStations());
+                if(objectType === "vehicleStation") 
+                    data = await getVehicleStations();
+                else if(objectType === "bikeStation")
+                    data = await getBikeStations();
+                else {
+                    data = await getVehicleStations();
+                    data = data.concat(await getBikeStations());
+                }
                 data = data.filter(x => x !== undefined && x !== null);
                 cache.set('chargePoints', data, 600);
             }
