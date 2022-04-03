@@ -24,7 +24,7 @@ const Factory = () => {
         if(!dependencies)
             return chargePointService({NodeCache, axios, BikeStations});
         else{
-            const { NodeCache, axios, BikeStations } = dependencies;
+            let { NodeCache, axios, BikeStations } = dependencies;
             return chargePointService({NodeCache, axios, BikeStations});
         }
     }

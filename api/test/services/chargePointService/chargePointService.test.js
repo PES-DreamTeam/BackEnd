@@ -4,107 +4,97 @@ const {
     bikeChargePointsFromDB,
     expectedChargePointsWithoutIdAndGrouping,
     expectedChargePointsWithoutIdAndGroupingByID,
-    expectedBikeStations
+    expectedBikeStations,
+    expectedBikeStationsGroupingById,
+    expectedDataVehicleAndBikeGroupingById
 } = require('./schemas');
 const { BikeStations } = require('../../../models'); 
 const Factory = require('../../../factory/factory');
 const axios = require('axios');
 const NodeCache = require('node-cache');
+let factory = Factory();
+let axiosSpy;
+let bikeStationsSpy;
+let chargePointsService;
 
-describe("Get Charge points", ()=>{
-    const factory = Factory();
+beforeAll(()=>{
 
     process.env.MONGO_URL="mongodb+srv://ecoroads:aYyEX57lGoe8NH0H@pes.croxp.mongodb.net/PES_Backend?retryWrites=true&w=majority";
-   
-    const axiosSpy = jest.spyOn(axios, 'get');
+
+    axiosSpy = jest.spyOn(axios, 'get');
     axiosSpy.mockImplementation(url => {
+            // api vehicles
             if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
                 return {data: inputChargePointsFromApi};
+            // api bikes
             else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
                 return {data: inputBikeChargePointsFromApi};
     })
-    const bikeStationsSpy = jest.spyOn(BikeStations, 'find');
-    it("Get Bike stations", async () => {
-        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
-        const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
+})
 
-        const actual = await chargePointsService.getBikeStations();
+beforeEach(()=>{
+    chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
+    bikeStationsSpy = jest.spyOn(BikeStations, 'find');
+    bikeStationsSpy.mockImplementation(()=>{});
+})
+
+describe("Get Charge points", ()=>{
+    
+    it("Get charge points objectType = vehicleStation and group by id", async ()=>{
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.get(null, "id", "vehicleStation");
+
+        expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
+    })
+
+    it("Get charge points objectType = bikeStation and without grouping", async ()=>{
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.get(null, null, "bikeStation");
 
         expect(actual).toEqual(expectedBikeStations);
     })
+    
+    it("Get charge points objectType = bikeStation and grouping by id", async ()=>{
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.get(null, "id", "bikeStation");
+
+        expect(actual).toEqual(expectedBikeStationsGroupingById);
+    })
+
+    it("Get charge points without objectType, grouping by id returns vehicle and bikes", async ()=>{
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.get(null, "id", null);
+
+        expect(actual).toEqual(expectedDataVehicleAndBikeGroupingById);
+    })
 
     it("Get Without id and group by", async () => {
-        bikeStationsSpy.mockImplementation(()=>{bikeChargePointsFromDB});
-        const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
-
         const actual = await chargePointsService.get();
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGrouping);
     })
 
     it("Get Without id but with group by ID", async () => {
-
-        bikeStationsSpy.mockImplementation(()=>{});
-        const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
-        const axiosSpy = jest.spyOn(axios, 'get');
-        axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
-        axiosSpy.mockImplementation(url => {
-            if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
-                return {data: inputChargePointsFromApi};
-            else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
-                return {data: inputBikeChargePointsFromApi};
-        })
-
         const actual = await chargePointsService.get(null, 'id');
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     }) 
     it("Get with id and with group by ID and exists data that match the id", async () => {
-
-        bikeStationsSpy.mockImplementation(()=>{});
-        const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
-        const axiosSpy = jest.spyOn(axios, 'get');
-        axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
-        axiosSpy.mockImplementation(url => {
-            if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
-                return {data: inputChargePointsFromApi};
-            else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
-                return {data: inputBikeChargePointsFromApi};
-        })
         const actual = await chargePointsService.get("2054", 'id');
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     }) 
     it("Get with id and with group by ID and not exists data that match the id", async () => {
-
-        bikeStationsSpy.mockImplementation(()=>{});
-        const chargePointsService = factory.createChargePointService({NodeCache, axios,BikeStations});
-        const axiosSpy = jest.spyOn(axios, 'get');
-        axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
-        axiosSpy.mockImplementation(url => {
-            if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
-                return {data: inputChargePointsFromApi};
-            else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
-                return {data: inputBikeChargePointsFromApi};
-        })
         const actual = await chargePointsService.get("205", 'id');
 
         expect(actual).toEqual({});
     }) 
 
     it("Get without id but with groupBy but it's not valid", async () => {
-
-        bikeStationsSpy.mockImplementation(()=>{});
-        const chargePointsService = factory.createChargePointService({NodeCache, axios, BikeStations});
-        const axiosSpy = jest.spyOn(axios, 'get');
-        axiosSpy.mockReturnValue({data: inputChargePointsFromApi});
-
-        axiosSpy.mockImplementation(url => {
-            if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
-                return {data: inputChargePointsFromApi};
-            else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
-                return {data: inputBikeChargePointsFromApi};
-        })
         const actual = await chargePointsService.get(null, 'not_valid_group_by');
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGrouping);
@@ -112,13 +102,40 @@ describe("Get Charge points", ()=>{
 })
 
 describe("Group by", ()=>{
-    const factory = Factory();
-
     it("Group by id", async () => {        
-        const chargePointsService = factory.createChargePointService();
         const groupItems = chargePointsService.groupBy('id');
         const actual = groupItems(expectedChargePointsWithoutIdAndGrouping);
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     }) 
+})
+
+describe("Get Bike Stations", () =>{
+    it("Get Bike stations api returns data", async () => {
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.getBikeStations();
+
+        expect(actual).toEqual(expectedBikeStations);
+    })
+    it("BCN API returns empty object getBikeStations returns []", async () => {
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+        axiosSpy.mockImplementation(url => {
+            // api vehicles
+            if(url == "https://api.bsmsa.eu/ext/api/bsm/chargepoints/states")
+                return {data: inputChargePointsFromApi};
+            // api bikes
+            else if(url == "https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status")
+                return {data: {}};
+        })
+
+        const actual = await chargePointsService.getBikeStations();
+
+        expect(actual).toEqual([]);
+    })
+    it("DB BikeStations returns empty object getBikeStations returns []", async () => {
+        const actual = await chargePointsService.getBikeStations();
+
+        expect(actual).toEqual([]);
+    })
 })

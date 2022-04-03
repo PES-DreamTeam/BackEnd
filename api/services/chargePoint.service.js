@@ -19,15 +19,7 @@ const chargePointService = (dependencies) => {
             var data = cache.get(`${objectType ?? "default"}`);
 
             if(!data) {
-                if(objectType === "vehicleStation") 
-                    data = await getVehicleStations();
-                else if(objectType === "bikeStation")
-                    data = await getBikeStations();
-                else {
-                    data = await getVehicleStations();
-                    data = data.concat(await getBikeStations());
-                }
-                data = data.filter(x => x !== undefined && x !== null);
+                data = await getDataFromApis(objectType);
                 cache.set(`${objectType ?? "default"}`, data, 600);
             }
             if(chargePointId) data = data.filter(item => item.id === chargePointId);
@@ -41,7 +33,6 @@ const chargePointService = (dependencies) => {
         } catch (error) {
             return error;
         }
-
     }
     
     const getVehicleStations = async () => {
@@ -69,9 +60,11 @@ const chargePointService = (dependencies) => {
     }
 
     const getBikeStations = async () => {
-        var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status');
-        var bikeStations = await BikeStations.find();
         try{
+            var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status');
+            var bikeStations = await BikeStations.find();
+            if(!response.data.data || !bikeStations)
+                return []
             const data = await Promise.all(response.data.data.stations?.map(async item => {
                 const bikeStation = bikeStations?.filter(x => x.station_id === item.station_id)[0]; 
                 if(bikeStation !== null && bikeStation !== undefined) 
@@ -119,6 +112,19 @@ const chargePointService = (dependencies) => {
             objectsByKeyValue[value].data.sockets.push(newSocket);
             return objectsByKeyValue;
     }, {});
+
+    const getDataFromApis = async (objectType) => {
+        if(objectType === "vehicleStation") 
+            data = await getVehicleStations();
+        else if(objectType === "bikeStation")
+            data = await getBikeStations();
+        else {
+            data = await getVehicleStations();
+            data = data.concat(await getBikeStations());
+        }
+        data = data.filter(x => x !== undefined && x !== null);
+        return data;
+    }
 
     return {
         get,
