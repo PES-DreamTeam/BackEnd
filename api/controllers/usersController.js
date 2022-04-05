@@ -41,7 +41,7 @@ const UsersController = (dependencies) => {
             const user = await userService.getById(req.params.id);
             if(!user) return res.status(404).send({msg: "User not found"});
 
-            if(user._id.toString() === req.params.id.toString()) {
+            if(user._id.toString() === req.user.id.toString()) {
                 await userService.deleteUser(user._id);
                 return res.status(200).send({msg: "User deleted"});
             }else {

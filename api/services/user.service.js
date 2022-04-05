@@ -23,6 +23,7 @@ const userService = (dependencies) => {
 
     /* istanbul ignore next */ 
     const deleteUser = (_id) => {
+        VehicleInstances.deleteMany({ user_id: _id });
         return Users.findByIdAndDelete(_id);
     }
 
