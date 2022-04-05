@@ -46,7 +46,7 @@ const chargePointService = (dependencies) => {
                 lng: item.Station_lng,
                 objectType: 'vehicleStation',
                 data: {
-                    socket_data: {
+                    sockets: {
                         socket_id: item.Sockets[0].Connector_id,
                         socket_type: item.Sockets[0].Connector_types,
                         charge_modes: item.Sockets[0].Charge_modes,
@@ -76,7 +76,7 @@ const chargePointService = (dependencies) => {
                         lng: bikeStation.lng,
                         objectType: 'bikeStation',
                         data: {
-                            socket_data: {
+                            sockets: {
                                 available_sockets: item.num_docks_available, //Numero de sitios totales
                                 available_electrical: item.num_bikes_available_types.ebike, //Numero de bicis electricas
                                 available_mechanical: item.num_bikes_available_types.mechanical, // Numero de bicis mecanicas
@@ -107,7 +107,7 @@ const chargePointService = (dependencies) => {
                     sockets:[]
                 }
             })
-            var newSocket = JSON.parse(JSON.stringify(obj.data.socket_data));
+            var newSocket = JSON.parse(JSON.stringify(obj.data.sockets));
             newSocket.vehicle_type = obj.data.vehicle_type;
             objectsByKeyValue[value].data.sockets.push(newSocket);
             return objectsByKeyValue;

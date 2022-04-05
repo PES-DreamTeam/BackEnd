@@ -91,7 +91,7 @@ const expectedChargePointsWithoutIdAndGrouping = [
     lng: 2.17007,
     objectType: 'vehicleStation',
     data: {
-      socket_data: {
+      sockets: {
         socket_id: 10,
         socket_type: '1,2',
         charge_modes: '3',
@@ -109,7 +109,7 @@ const expectedChargePointsWithoutIdAndGrouping = [
     lng: 2.17007,
     objectType: 'vehicleStation',
     data: {
-      socket_data: {
+      sockets: {
         socket_id: 11,
         socket_type: '1,2',
         charge_modes: '3',
@@ -126,7 +126,7 @@ const expectedChargePointsWithoutIdAndGrouping = [
     lng: 2.17007,
     objectType: 'vehicleStation',
     data: {
-      socket_data: {
+      sockets: {
         socket_id: 5,
         socket_type: '1,2',
         charge_modes: '3',
@@ -244,7 +244,7 @@ const expectedBikeStations = [
         lng: 2.1771985,
         objectType: 'bikeStation',
         data: {
-          socket_data: {
+          sockets: {
             available_sockets: 41,
             available_electrical: 0,
             available_mechanical: 2,
@@ -260,7 +260,7 @@ const expectedBikeStations = [
         lng: 2.1771985,
         objectType: 'bikeStation',
         data: {
-          socket_data: {
+          sockets: {
             available_sockets: 41,
             available_electrical: 0,
             available_mechanical: 2,

@@ -99,7 +99,7 @@ module.exports = {
                         description: "The longitude of the chargePoint",
                         example: 4
                     },
-                    socket_data: {
+                    sockets: {
                         type: "object",
                         properties: {
                             socket_id: {
