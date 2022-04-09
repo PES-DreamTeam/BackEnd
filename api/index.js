@@ -8,6 +8,7 @@ const { Auth, User, ChargePoints, SampleVehicles } = require('./routes');
 const tools = require('./tools/tools');
 const docs = require('./docs');
 const swaggerUI = require('swagger-ui-express');
+const util = require('util');
 
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true})
