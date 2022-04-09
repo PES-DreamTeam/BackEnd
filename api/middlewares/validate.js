@@ -12,8 +12,14 @@ const validate = (schema) => (req, res, next) => {
     .validate(object);
 
   if (error) {
-    const errorMessage = error.details.map((details) => details.message).join(', ');
-    return next(res.status(403).send({error: errorMessage}));
+    const errors = [];
+    error.details.map((details) => {
+      errors.push({
+        attribute: details.message.includes("password") ? "password" : "email",
+        errorMessage: details.message
+      })
+    })
+    return next(res.status(403).send({errors}));
   }
   Object.assign(req, value);
   return next();
