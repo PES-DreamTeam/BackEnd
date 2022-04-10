@@ -1,5 +1,5 @@
 const AuthController = (dependencies) => {
-    const { userService, authService } = dependencies;
+    const { userService, authService, socialMediaService, randomString } = dependencies;
 
     const register = async (req, res) => {
         try {
@@ -32,10 +32,37 @@ const AuthController = (dependencies) => {
             return res.status(500).send({msg: error.toString()}) 
         }
     }
+    
+    const socialLogin = async (req, res) => {
+        try {
+            const tokenData = await socialMediaService.verifyToken(req.query.token, req.body.socialMedia); 
+            if(!tokenData) return res.status(403).send({error: 'Invalid credentials'});
+            const { email, name } = tokenData;
+
+            let user = await userService.getByEmail(email);
+            if(!user) user = await userService.create({
+                name,
+                email,
+                password: randomString.generate(),
+                salt: randomString.generate(),
+                isNew: true
+            }); 
+            const token = await authService.signToken(user._id);
+
+            if(token){
+                return res.status(200).send({ token, user: await userService.feedUserToWeb(user)});
+            }else {
+                return res.status(403).send({Error: 'Invalid credentials'});
+            }
+        }catch(error) {
+            return res.status(500).send({msg: error.toString()})
+        }
+    }
 
     return {
         register,
-        login
+        login,
+        socialLogin
     }
 
 }

@@ -1,9 +1,10 @@
-const { userService, chargePointService, authService } = require('../services');
+const { userService, chargePointService, authService, socialMediaService } = require('../services');
 const { UsersController, ChargePointsController, AuthController } = require('../controllers');
 const ToolController = require('../tools/toolController');
 const { Users, VehicleInstances, BikeStations } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
+const randomString = require('randomString');
 
 const Factory = () => {
     const createUsersController = () => {
@@ -18,7 +19,8 @@ const Factory = () => {
 
     const createAuthController = () => {
         const userService = createUserService();
-        return AuthController({userService, authService});
+        const socialMediaService = createSocialMediaService();
+        return AuthController({userService, authService, socialMediaService, randomString});
     }
 
     const createToolController = (dependencies) => {
@@ -27,6 +29,15 @@ const Factory = () => {
         else {
             let { BikeStations, axios } = dependencies;
             return ToolController({BikeStations, axios});
+        }
+    }
+
+    const createSocialMediaService = (dependencies) => {
+        if(!dependencies)
+            return socialMediaService({axios}); 
+        else{
+            let { axios } = dependencies;
+            return socialMediaService({axios}); 
         }
     }
 
@@ -55,7 +66,8 @@ const Factory = () => {
         createChargePointService,
         createChargePointsController,
         createAuthController,
-        createToolController
+        createToolController,
+        createSocialMediaService
     }
 }
 
