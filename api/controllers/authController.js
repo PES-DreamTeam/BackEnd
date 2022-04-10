@@ -37,16 +37,18 @@ const AuthController = (dependencies) => {
         try {
             const tokenData = await socialMediaService.verifyToken(req.query.token, req.body.socialMedia); 
             if(!tokenData) return res.status(403).send({error: 'Invalid credentials'});
-            const { email, name } = tokenData;
-
+            const { email, name, id } = tokenData;
+            const profilePicture = await socialMediaService.getProfilePicture(id, req.body.socialMedia);
             let user = await userService.getByEmail(email);
             if(!user) user = await userService.create({
                 name,
                 email,
                 password: randomstring.generate(),
                 salt: randomstring.generate(),
+                profilePicture,
                 isNew: true
-            }); 
+            });
+
             const token = await authService.signToken(user._id);
 
             if(token){

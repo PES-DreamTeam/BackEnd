@@ -34,6 +34,7 @@ const userService = (dependencies) => {
             nickname: user.name,
             email: user.email,
             vehicleConfig: userVehicleConfig,
+            profilePicture: user.profilePicture,
             isNew: user.isNew,
         }
     }

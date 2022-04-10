@@ -23,6 +23,9 @@ const User = new mongoose.Schema({
         type: String,
         required: 'The salt is required',
     },
+    profilePicture: {
+        type: String,
+    },
     isNew: {
         type: Boolean,
         default: true,
