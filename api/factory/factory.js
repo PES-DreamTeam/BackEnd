@@ -4,7 +4,7 @@ const ToolController = require('../tools/toolController');
 const { Users, VehicleInstances, BikeStations } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
-const randomString = require('randomString');
+const randomstring = require('randomString');
 
 const Factory = () => {
     const createUsersController = () => {
@@ -20,7 +20,7 @@ const Factory = () => {
     const createAuthController = () => {
         const userService = createUserService();
         const socialMediaService = createSocialMediaService();
-        return AuthController({userService, authService, socialMediaService, randomString});
+        return AuthController({userService, authService, socialMediaService, randomstring});
     }
 
     const createToolController = (dependencies) => {

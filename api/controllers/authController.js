@@ -1,5 +1,5 @@
 const AuthController = (dependencies) => {
-    const { userService, authService, socialMediaService, randomString } = dependencies;
+    const { userService, authService, socialMediaService, randomstring } = dependencies;
 
     const register = async (req, res) => {
         try {
@@ -43,8 +43,8 @@ const AuthController = (dependencies) => {
             if(!user) user = await userService.create({
                 name,
                 email,
-                password: randomString.generate(),
-                salt: randomString.generate(),
+                password: randomstring.generate(),
+                salt: randomstring.generate(),
                 isNew: true
             }); 
             const token = await authService.signToken(user._id);
