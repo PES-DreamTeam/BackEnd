@@ -4,7 +4,7 @@ const ToolController = require('../tools/toolController');
 const { Users, VehicleInstances, BikeStations } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
-const randomstring = require('randomString');
+const randomstring = require('randomstring');
 
 const Factory = () => {
     const createUsersController = () => {
