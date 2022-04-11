@@ -18,4 +18,6 @@ const DefaultStation = new Schema({
     },
 });
 
+DefaultStation.index({station_id:1} , { unique: true });
+
 module.exports = model('DefaultStation', DefaultStation);

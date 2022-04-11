@@ -68,33 +68,6 @@ const chargePointService = (dependencies) => {
         return data;
     }
 
-    const initDefaultStations = async (data) => {
-        //console.log(data);
-        var defaultStations = await DefaultStations.find();
-        //Añadir una tool para meter defaultStations
-        //Tocar el group by para encajar los nuevos datos
-        //Revisar tests
-        var currentId = -1;
-        for(let i = 0; i < data.length; i++){
-            if(data[i].id !== currentId){
-                const tempStation = {
-                    id : data[i].id,
-                    reports : 0,
-                    likes : 0,
-                    airQuality : null,
-                }
-                defaultStations.push(tempStation);
-            }
-            currentId = data[i].id;
-        }
-        console.log(defaultStations);
-        //await DefaultStations.insertMany(defaultStations);
-
-        //For each entry in data, add the default parameters
-
-        return data;
-    } 
-
     const getBikeStations = async () => {
         try{
             var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status');
@@ -159,8 +132,6 @@ const chargePointService = (dependencies) => {
             data = data.concat(await getBikeStations());
         }
         data = data.filter(x => x !== undefined && x !== null);
-        
-        //initDefaultStations(data);
         return data;
     }
 
