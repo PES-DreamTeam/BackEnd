@@ -8,4 +8,7 @@ const toolController = factory.createToolController();
 // api/tools/bike
 router.get('/bike', toolController.getBike);
 
+//Popula Default stations /api/tools/defaultStations
+router.get('/defaultStations', toolController.setDefaultStations);
+
 module.exports = router;

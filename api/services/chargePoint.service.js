@@ -11,7 +11,7 @@ const chargePointService = (dependencies) => {
         "objectType"
     ]
 
-    const { NodeCache, axios, BikeStations } = dependencies;
+    const { NodeCache, axios, BikeStations, DefaultStations } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
     const get = async (chargePointId, group, objectType) => {
@@ -33,6 +33,15 @@ const chargePointService = (dependencies) => {
         } catch (error) {
             return error;
         }
+    }
+
+    const getInfo = async (station_id) => {
+        const station = await DefaultStations.findOne({station_id});
+        return station;
+    }
+
+    const createDefaultStation = async (station) => {
+        return await DefaultStations.create(station);
     }
     
     const getVehicleStations = async () => {
@@ -58,6 +67,33 @@ const chargePointService = (dependencies) => {
         });
         return data;
     }
+
+    const initDefaultStations = async (data) => {
+        //console.log(data);
+        var defaultStations = await DefaultStations.find();
+        //Añadir una tool para meter defaultStations
+        //Tocar el group by para encajar los nuevos datos
+        //Revisar tests
+        var currentId = -1;
+        for(let i = 0; i < data.length; i++){
+            if(data[i].id !== currentId){
+                const tempStation = {
+                    id : data[i].id,
+                    reports : 0,
+                    likes : 0,
+                    airQuality : null,
+                }
+                defaultStations.push(tempStation);
+            }
+            currentId = data[i].id;
+        }
+        console.log(defaultStations);
+        //await DefaultStations.insertMany(defaultStations);
+
+        //For each entry in data, add the default parameters
+
+        return data;
+    } 
 
     const getBikeStations = async () => {
         try{
@@ -123,13 +159,17 @@ const chargePointService = (dependencies) => {
             data = data.concat(await getBikeStations());
         }
         data = data.filter(x => x !== undefined && x !== null);
+        
+        //initDefaultStations(data);
         return data;
     }
 
     return {
         get,
         groupBy,
-        getBikeStations
+        getBikeStations,
+        getInfo,
+        createDefaultStation
     }
 }
 

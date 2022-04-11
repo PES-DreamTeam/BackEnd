@@ -1,4 +1,4 @@
-const { getAllChargePoints, getChargePointById } = require('./chargePoints');
+const { getAllChargePoints, getChargePointById, getChargePointInfo } = require('./chargePoints');
 const { getAllUsers, getUserById } = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles } = require('./sampleVehiclesController');
 const setVehicleConfig = require('./usersController/setVehicleConfig');
@@ -9,6 +9,9 @@ module.exports = {
         },
         '/api/chargePoints/{id}': {
             ...getChargePointById
+        },
+        '/api/chargePoints/{id}/info': {
+            ...getChargePointInfo
         },
         '/api/users/{id}/vehicleConfig': {
             ...setVehicleConfig,

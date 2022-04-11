@@ -1,6 +1,6 @@
 
 const ToolController = (dependencies) => {
-    const { BikeStations, axios } = dependencies;
+    const { BikeStations, axios, chargePointService } = dependencies;
     const getBike = async (req, res) => {
         try {
             const bike = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information');
@@ -23,8 +23,23 @@ const ToolController = (dependencies) => {
         }
     }
 
+    const setDefaultStations = async (req, res) => {
+        try {
+            const data = await chargePointService.get(null, 'id', 'default');
+            for(const element in data){
+                chargePointService.createDefaultStation({
+                    station_id: element,
+                });
+            }
+            return res.status(200).send(data);
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
-        getBike
+        getBike,
+        setDefaultStations
     }
 }
 

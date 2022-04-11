@@ -19,13 +19,27 @@ const ChargePointsController = (dependencies) => {
             if(!data) return res.status(404).send({msg: "ChargePoint not found"});
             res.status(200).send({chargePoint: data});
         } catch (error) {
-        res.status(500).send({error: error.toString()});
+            res.status(500).send({error: error.toString()});
         }
     }
+
+    const getInfo = async (req, res) => {
+        try {
+            const data = await chargePointService.getInfo(req.params.id);
+
+            if(!data) return res.status(404).send({msg: "ChargePoint not found"});
+            res.status(200).send({chargePoint: data});
+        } catch (error) {
+            res.status(500).send({error: error.toString()});
+        }
+    }
+    
     return {
         getAll,
-        getById
+        getById,
+        getInfo
     }
+    
 }
 
 

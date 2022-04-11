@@ -11,4 +11,7 @@ router.get('/', chargePointsController.getAll);
 // api/chargePoints/:id
 router.get('/:id', chargePointsController.getById);
 
+// api/chargePoints/:id/info
+router.get('/:id/info', chargePointsController.getInfo);
+
 module.exports = router;
