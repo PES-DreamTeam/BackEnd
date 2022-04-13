@@ -1,8 +1,8 @@
-const axios = require("axios");
-const {BikeStation} = require("../models");
+require('dotenv').config({path: '../.env'});
 
 const UsersController = (dependencies) => {
     const { userService, chargePointService } = dependencies;
+
 
     const getAll = async (req, res) => {
         try {
@@ -47,6 +47,15 @@ const UsersController = (dependencies) => {
             }else {
                 return res.status(403).send({msg: "You are not authorized"});
             }
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const setProfilePicture = async (req, res) => {
+        try {
+            const user = await userService.setProfilePicture(req.user.id, req.body.image);
+            if(!user) return res.status(404).send({msg: "User not found"});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }
@@ -113,8 +122,8 @@ const UsersController = (dependencies) => {
     const setFavourites = async (req, res) => {
         try {
             const bodyRequest = req.body;
-            const userID = req.params.id;
-            const station = await userService.setFavourites(bodyRequest.station_id, userID);
+            const user = req.user;
+            const station = await userService.setFavourites(bodyRequest.station_id, user);
             if(!station) return res.status(404).send({msg: "Station not found"});
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
         } catch (error) {
@@ -128,6 +137,7 @@ const UsersController = (dependencies) => {
         deleteUser,
         setVehicleConfig,
         updateUser,
+        setProfilePicture,
         getBike,
         getFavourites,
         setFavourites

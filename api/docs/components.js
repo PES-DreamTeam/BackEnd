@@ -6,10 +6,25 @@ module.exports = {
                 description: "The id of the chargePoint",
                 example: "625736cd88020ba327c9469c"
             },
+            station_id: {
+                type: "string",
+                description: "The id of the station",
+                example: '{"station_id" : "2054"}'
+            },
             auth: {
                 type: "string",
                 description: "The id of the chargePoint",
                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU3MzZjZDg4MDIwYmEzMjdjOTQ2OWMiLCJpYXQiOjE2NDk4ODI4MzAsImV4cCI6MTY1ODUyMjgzMH0.7lu38774PCqU8hboBQqZVcgfQg-tU2hpVNwEorCntuk"
+            },
+            Reason: {
+                type: "string",
+                description: "The reason for the report",
+                example: `{"reason" : "I just don't like it"}`
+            },
+            Image: {
+                type: "string",
+                description: "The base64 of the image",
+                example: "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC"
             },
             SampleVehicle: {
                 type: "object",

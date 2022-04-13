@@ -24,9 +24,24 @@ const User = new mongoose.Schema({
         type: String,
         required: 'The salt is required',
     },
+    profilePicture: {
+        type: String,
+    },
     isNew: {
         type: Boolean,
         default: true,
+    },
+    likes: {
+        type: [String],
+        default: [],
+    },
+    reports: {
+        type: [String],
+        default: [],
+    },
+    profilePicture: {
+        type: String,
+        default: "https://ibb.co/BtdrzZd",
     },
     favourites:{
         type: [String],

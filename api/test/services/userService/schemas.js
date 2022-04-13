@@ -21,7 +21,9 @@ const expectedUserWithoutVehicleConfig = {
     nickname: "test",
     email: 'test@test.com',
     vehicleConfig: [],
-    isNew: true
+    isNew: true,
+    likes: [],
+    reports: []
 }
 
 const expectedUserWithVehicleConfig = {
@@ -38,7 +40,9 @@ const expectedUserWithVehicleConfig = {
     numberPlate: 'AYUDA',
     __v: 0
     }],
-    isNew: true
+    isNew: true,
+    likes: [],
+    reports: []
 }
 
 module.exports = {

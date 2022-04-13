@@ -11,7 +11,7 @@ const chargePointService = (dependencies) => {
         "objectType"
     ]
 
-    const { NodeCache, axios, BikeStations } = dependencies;
+    const { NodeCache, axios, BikeStations, DefaultStations } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
     const get = async (chargePointId, group, objectType) => {
@@ -35,6 +35,14 @@ const chargePointService = (dependencies) => {
         }
     }
 
+    const getInfo = async (station_id) => {
+        const station = await DefaultStations.findOne({station_id});
+        return station;
+    }
+
+    const createDefaultStation = async (station) => {
+        return await DefaultStations.create(station);
+    }
     const getChargePointsById = async (chargePointsIds, group) => {
         try {
             var data = cache.get("default");
@@ -146,10 +154,35 @@ const chargePointService = (dependencies) => {
         return data;
     }
 
+    const voteStation = (id, wasLiked) => {
+        return DefaultStations.findOneAndUpdate({station_id: id}, {$inc: {likes: wasLiked ? -1 : 1}});
+    }
+
+    const reportStation = (id, reason, wasReported) => {
+        //TODO: Do something with the reason
+        console.log(wasReported);
+        return DefaultStations.findOneAndUpdate({station_id: id}, {$inc: {reports: wasReported ? -1 : 1}});
+    }
+
+    const feedStationToWeb = async (station) => {
+        const defaultStation = await DefaultStations.findOne({station_id: station.station_id});
+        return {
+            station_id: station.station_id,
+            reports: defaultStation.reports,
+            likes: defaultStation.likes,
+            airQuality: defaultStation.airQuality,
+        }
+    }
+
     return {
         get,
         groupBy,
         getBikeStations,
+        getInfo,
+        createDefaultStation,
+        voteStation,
+        reportStation,
+        feedStationToWeb,
         getChargePointsById
     }
 }

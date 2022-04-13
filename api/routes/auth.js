@@ -13,4 +13,7 @@ router.post('/register', validate(authValidation.register), authController.regis
 // api/auth/login
 router.post('/login', validate(authValidation.login), authController.login);
 
+// api/auth/social-login
+router.post('/social-login', authController.socialLogin);
+
 module.exports = router;
