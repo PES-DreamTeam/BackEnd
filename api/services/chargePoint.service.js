@@ -84,7 +84,7 @@ const chargePointService = (dependencies) => {
                 }
             };
         });
-        return data;
+        return data; 
     }
 
     const getBikeStations = async () => {
