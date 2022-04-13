@@ -2,7 +2,7 @@ const axios = require("axios");
 const {BikeStation} = require("../models");
 
 const UsersController = (dependencies) => {
-    const { userService } = dependencies;
+    const { userService, chargePointService } = dependencies;
 
     const getAll = async (req, res) => {
         try {
@@ -99,13 +99,38 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const getFavourites = async (req, res) => {
+        try {
+            //const user = await userService.getById(req.params.id);
+            const user = req.user;
+            const favouritesPoints = await chargePointService.getChargePointsById(user.favourites);
+            return res.status(200).send({favouritesPoints});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const setFavourites = async (req, res) => {
+        try {
+            const bodyRequest = req.body;
+            const userID = req.params.id;
+            const station = await userService.setFavourites(bodyRequest.station_id, userID);
+            if(!station) return res.status(404).send({msg: "Station not found"});
+            return res.status(200).send({user: await userService.feedUserToWeb(user)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
         getAll,
         getById,
         deleteUser,
         setVehicleConfig,
         updateUser,
-        getBike
+        getBike,
+        getFavourites,
+        setFavourites
     }
 }
 

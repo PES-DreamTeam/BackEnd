@@ -29,6 +29,7 @@ const AuthController = (dependencies) => {
                 return res.status(403).send({Error: 'Invalid credentials'});
             }
         } catch (error) {
+            console.log(error)
             return res.status(500).send({msg: error.toString()}) 
         }
     }

@@ -27,6 +27,11 @@ const userService = (dependencies) => {
         return Users.findByIdAndDelete(_id);
     }
 
+
+    const setFavourites = async (stationId,userId) =>{
+        const station = 
+    }
+
     const feedUserToWeb = async (user) => {
         const userVehicleConfig = await VehicleInstances.find({user_id : user._id})
         return {
@@ -35,6 +40,7 @@ const userService = (dependencies) => {
             email: user.email,
             vehicleConfig: userVehicleConfig,
             isNew: user.isNew,
+            favourites: user.favourites
         }
     }
 
@@ -62,7 +68,8 @@ const userService = (dependencies) => {
         feedUserToWeb,
         getVehicleConfig,
         setVehicleConfig,
-        updateUser
+        updateUser,
+        setFavourites
     }
 }
 

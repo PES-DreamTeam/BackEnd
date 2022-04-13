@@ -26,4 +26,10 @@ router.delete('/:id', my_auth, usersController.deleteUser)
 // api/users/bike
 router.get('/bike/all', usersController.getBike);
 
+// api/users/:id/favourites
+router.put('/:id/favourites', usersController.setFavourites);
+
+// api/users/:id/favourites
+router.get('/:id/favourites', my_auth, usersController.getFavourites);
+
 module.exports = router;

@@ -4,7 +4,12 @@ module.exports = {
             id: {
                 type: "string",
                 description: "The id of the chargePoint",
-                example: "2596"
+                example: "625736cd88020ba327c9469c"
+            },
+            auth: {
+                type: "string",
+                description: "The id of the chargePoint",
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU3MzZjZDg4MDIwYmEzMjdjOTQ2OWMiLCJpYXQiOjE2NDk4ODI4MzAsImV4cCI6MTY1ODUyMjgzMH0.7lu38774PCqU8hboBQqZVcgfQg-tU2hpVNwEorCntuk"
             },
             SampleVehicle: {
                 type: "object",

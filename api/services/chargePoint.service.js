@@ -34,6 +34,26 @@ const chargePointService = (dependencies) => {
             return error;
         }
     }
+
+    const getChargePointsById = async (chargePointsIds, group) => {
+        try {
+            var data = cache.get("default");
+            if(!data) {
+                data = await getDataFromApis();
+                cache.set("default", data, 600);
+            }
+            data = data.filter(item => chargePointsIds.includes(item.id));
+            if(groupByWords.includes(group)){
+                const groupItems = groupBy(group);
+                data = groupItems(data);
+            }
+
+            return data;
+
+        } catch (error) {
+            return error;
+        }
+    }
     
     const getVehicleStations = async () => {
         var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/chargepoints/states');
@@ -129,7 +149,8 @@ const chargePointService = (dependencies) => {
     return {
         get,
         groupBy,
-        getBikeStations
+        getBikeStations,
+        getChargePointsById
     }
 }
 

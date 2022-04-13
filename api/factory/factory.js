@@ -7,7 +7,8 @@ const NodeCache = require('node-cache');
 const Factory = () => {
     const createUsersController = () => {
         const userService = createUserService();
-        return UsersController({userService}); 
+        const chargePointService = createChargePointService();
+        return UsersController({userService, chargePointService}); 
     }
 
     const createUserService = (dependencies) => {
