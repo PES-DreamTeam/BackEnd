@@ -1,3 +1,6 @@
+const User = require("../models/User");
+const imgbbUploader = require("imgbb-uploader");
+
 const userService = (dependencies) => {
     const { Users, VehicleInstances } = dependencies;
 
@@ -36,6 +39,8 @@ const userService = (dependencies) => {
             vehicleConfig: userVehicleConfig,
             profilePicture: user.profilePicture,
             isNew: user.isNew,
+            likes: user.likes,
+            reports: user.reports,
         }
     }
 
@@ -54,6 +59,52 @@ const userService = (dependencies) => {
         return Users.findByIdAndUpdate(id, user);
     }
 
+    const voteStation = async (stationID, user) => {
+        let wasLiked = false;
+        if(user.likes.includes(stationID)){
+            const index = user.likes.indexOf(stationID);
+            user.likes.splice(index, 1);
+            wasLiked = true;
+        }
+        else{
+            user.likes.push(stationID);
+            wasLiked = false;
+        }
+        await updateUser(user._id, user);
+        return wasLiked;
+    }
+
+    const reportStation = async (stationID, user) => {
+        let wasReported = false;
+        if(user.reports.includes(stationID)){
+            const index = user.reports.indexOf(stationID);
+            user.reports.splice(index, 1);
+            wasReported = true;
+        }
+        else{
+            user.reports.push(stationID);
+            wasReported = false;
+        }
+        await updateUser(user._id, user);
+        return wasReported;
+    }
+
+    const setProfilePicture = async (id, image) => {
+        const imageURL = null;
+        const options = {
+            apiKey: process.env.IMGBB_APIKEY,
+            base64string: image,
+        };
+        imgbbUploader(options)
+        .then((response) => {
+            console.log(response)
+            imageURL = response.data.data.image.url
+        })
+        .catch((error) => console.error(error));
+        return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
+
+    }
+
     return {
         getByEmail,
         getById,
@@ -63,7 +114,10 @@ const userService = (dependencies) => {
         feedUserToWeb,
         getVehicleConfig,
         setVehicleConfig,
-        updateUser
+        updateUser,
+        voteStation,
+        reportStation,
+        setProfilePicture
     }
 }
 

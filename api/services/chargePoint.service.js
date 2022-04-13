@@ -135,12 +135,35 @@ const chargePointService = (dependencies) => {
         return data;
     }
 
+    const voteStation = (id, wasLiked) => {
+        return DefaultStations.findOneAndUpdate({station_id: id}, {$inc: {likes: wasLiked ? -1 : 1}});
+    }
+
+    const reportStation = (id, reason, wasReported) => {
+        //TODO: Do something with the reason
+        console.log(wasReported);
+        return DefaultStations.findOneAndUpdate({station_id: id}, {$inc: {reports: wasReported ? -1 : 1}});
+    }
+
+    const feedStationToWeb = async (station) => {
+        const defaultStation = await DefaultStations.findOne({station_id: station.station_id});
+        return {
+            station_id: station.station_id,
+            reports: defaultStation.reports,
+            likes: defaultStation.likes,
+            airQuality: defaultStation.airQuality,
+        }
+    }
+
     return {
         get,
         groupBy,
         getBikeStations,
         getInfo,
-        createDefaultStation
+        createDefaultStation,
+        voteStation,
+        reportStation,
+        feedStationToWeb,
     }
 }
 

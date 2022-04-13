@@ -46,7 +46,9 @@ const AuthController = (dependencies) => {
                 password: randomstring.generate(),
                 salt: randomstring.generate(),
                 profilePicture,
-                isNew: true
+                isNew: true,
+                likes: [],
+                reports: [],
             });
 
             const token = await authService.signToken(user._id);

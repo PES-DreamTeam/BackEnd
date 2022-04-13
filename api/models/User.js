@@ -29,6 +29,18 @@ const User = new mongoose.Schema({
     isNew: {
         type: Boolean,
         default: true,
+    },
+    likes: {
+        type: [String],
+        default: [],
+    },
+    reports: {
+        type: [String],
+        default: [],
+    },
+    profilePicture: {
+        type: String,
+        default: "https://ibb.co/BtdrzZd",
     }
 })
 

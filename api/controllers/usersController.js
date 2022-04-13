@@ -1,5 +1,8 @@
+require('dotenv').config({path: '../.env'});
+
 const UsersController = (dependencies) => {
     const { userService } = dependencies;
+
 
     const getAll = async (req, res) => {
         try {
@@ -49,6 +52,15 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const setProfilePicture = async (req, res) => {
+        try {
+            const user = await userService.setProfilePicture(req.user.id, req.body.image);
+            if(!user) return res.status(404).send({msg: "User not found"});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     const setVehicleConfig = async (req, res) => {
         try {
             if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
@@ -80,6 +92,7 @@ const UsersController = (dependencies) => {
         deleteUser,
         setVehicleConfig,
         updateUser,
+        setProfilePicture,
     }
 }
 

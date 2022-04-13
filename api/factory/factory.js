@@ -14,7 +14,8 @@ const Factory = () => {
 
     const createChargePointsController = () => {
         const chargePointService = createChargePointService();
-        return ChargePointsController({chargePointService});
+        const userService = createUserService();
+        return ChargePointsController({chargePointService, userService});
     }
 
     const createAuthController = () => {
@@ -26,7 +27,7 @@ const Factory = () => {
     const createToolController = (dependencies) => {
         if(!dependencies) {
             const chargePointService = createChargePointService();
-            return ToolController({BikeStations, axios, chargePointService});
+            return ToolController({BikeStations, axios, chargePointService, userService});
         }
         else {
             let { BikeStations, axios, chargePointService } = dependencies;
@@ -45,10 +46,10 @@ const Factory = () => {
 
     const createChargePointService = (dependencies) => {
         if(!dependencies)
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations});
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
         else{
-            let { NodeCache, axios, BikeStations, DefaultStations } = dependencies;
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations});
+            let { NodeCache, axios, BikeStations, DefaultStations, userService } = dependencies;
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
         }
     }
 

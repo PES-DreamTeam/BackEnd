@@ -6,6 +6,16 @@ module.exports = {
                 description: "The id of the chargePoint",
                 example: "2596"
             },
+            Reason: {
+                type: "string",
+                description: "The reason for the report",
+                example: `{"reason" : "I just don't like it"}`
+            },
+            Image: {
+                type: "string",
+                description: "The base64 of the image",
+                example: "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC"
+            },
             SampleVehicle: {
                 type: "object",
                 properties: {
