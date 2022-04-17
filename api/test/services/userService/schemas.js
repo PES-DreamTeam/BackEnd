@@ -4,7 +4,12 @@ const user = {
         "password": "test",
         "email": "test@test.com",
         "isNew": true,
+        "favourites": [],
+        "likes": [],
+        "profilePicture": "",
+        "reports": [],
     }
+
 const vehicleConfig = {
     "_id": "62363d8999485c0de1ec2d02",
     "user_id": "621a5a5ad828d1275d81f818",
@@ -23,7 +28,9 @@ const expectedUserWithoutVehicleConfig = {
     vehicleConfig: [],
     isNew: true,
     likes: [],
-    reports: []
+    reports: [],
+    profilePicture: "",
+    favourites: [],
 }
 
 const expectedUserWithVehicleConfig = {
@@ -42,7 +49,9 @@ const expectedUserWithVehicleConfig = {
     }],
     isNew: true,
     likes: [],
-    reports: []
+    reports: [],
+    profilePicture: "",
+    favourites: [],
 }
 
 module.exports = {
