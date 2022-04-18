@@ -106,19 +106,14 @@ const userService = (dependencies) => {
     }
 
     const setProfilePicture = async (id, image) => {
-        const imageURL = null;
+        let imageURL = null;
         const options = {
             apiKey: process.env.IMGBB_APIKEY,
             base64string: image,
         };
-        imgbbUploader(options)
-        .then((response) => {
-            console.log(response)
-            imageURL = response.data.data.image.url
-        })
-        .catch((error) => console.error(error));
+        const response = await imgbbUploader(options);
+        imageURL = response.url;
         return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
-
     }
 
     return {
