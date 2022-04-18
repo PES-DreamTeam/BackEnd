@@ -54,6 +54,7 @@ const UsersController = (dependencies) => {
 
     const setProfilePicture = async (req, res) => {
         try {
+            //if users_ids ==
             const user = await userService.setProfilePicture(req.params.id, req.body.image);
             if(!user) return res.status(404).send({msg: "User not found"});
             return res.status(200).send({user: await userService.feedUserToWeb(user)});

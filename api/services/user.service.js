@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const imgbbUploader = require("imgbb-uploader");
 
 const userService = (dependencies) => {
     const { Users, VehicleInstances, DefaultStations } = dependencies;
@@ -105,14 +104,7 @@ const userService = (dependencies) => {
         return wasReported;
     }
 
-    const setProfilePicture = async (id, image) => {
-        let imageURL = null;
-        const options = {
-            apiKey: process.env.IMGBB_APIKEY,
-            base64string: image,
-        };
-        const response = await imgbbUploader(options);
-        imageURL = response.url;
+    const setProfilePicture = async (id, imageURL) => {  
         return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
     }
 
