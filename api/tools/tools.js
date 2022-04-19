@@ -11,4 +11,7 @@ router.get('/bike', toolController.getBike);
 //Popula Default stations /api/tools/defaultStations
 router.get('/defaultStations', toolController.setDefaultStations);
 
+//Popula Report stations /api/tools/reportStations
+router.get('/reportStations', toolController.setReportStations);
+
 module.exports = router;

@@ -49,10 +49,12 @@ const ChargePointsController = (dependencies) => {
 
     const reportStation = async (req, res) => {
         try {
-            const bodyRequest = req.body;
+            const reportType = req.body.reportType;
+            const reportMsg = req.body.reportMsg;
             const stationID = req.params.id;
-            const wasReported = await userService.reportStation(stationID, req.user); //If user reported that station before, it will be removed from the list and return true. If not, it will be added to the list and return false.
-            const station = await chargePointService.reportStation(stationID, bodyRequest.reason, wasReported);
+            const wasReported = await userService.reportStation(stationID, req.user); 
+            if(!wasReported) return res.status(403).send({msg: "Station already reported"});
+            const station = await chargePointService.reportStation(stationID, reportType, reportMsg);
             if(!station) return res.status(404).send({msg: "Station not found"});
             return res.status(200).send({user: await chargePointService.feedStationToWeb(station)});
         } catch (error) {
@@ -65,7 +67,7 @@ const ChargePointsController = (dependencies) => {
         getById,
         getInfo,
         voteStation,
-        reportStation
+        reportStation,
     }
     
 }

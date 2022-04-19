@@ -5,4 +5,5 @@ module.exports = {
     BikeStations: require('./BikeStation'),
     DefaultStations: require('./DefaultStation'),
     Reports: require('./Report'),
+    ReportStations: require('./ReportStation'),
 }

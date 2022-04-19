@@ -37,9 +37,24 @@ const ToolController = (dependencies) => {
         }
     }
 
+    const setReportStations = async (req, res) => {
+        try {
+            const data = await chargePointService.get(null, 'id', 'default');
+            for(const element in data){
+                chargePointService.createReportStation({
+                    station_id: element,
+                });
+            }
+            return res.status(200).send(data);
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
         getBike,
-        setDefaultStations
+        setDefaultStations,
+        setReportStations
     }
 }
 

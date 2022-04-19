@@ -92,8 +92,6 @@ const userService = (dependencies) => {
     const reportStation = async (stationID, user) => {
         let wasReported = false;
         if(user.reports.includes(stationID)){
-            const index = user.reports.indexOf(stationID);
-            user.reports.splice(index, 1);
             wasReported = true;
         }
         else{

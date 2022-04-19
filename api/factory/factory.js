@@ -1,7 +1,7 @@
 const { userService, chargePointService, authService, socialMediaService, reportService } = require('../services');
 const { UsersController, ChargePointsController, AuthController, ReportController } = require('../controllers');
 const ToolController = require('../tools/toolController');
-const { Users, VehicleInstances, BikeStations, DefaultStations, Reports } = require('../models');
+const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 const randomstring = require('randomstring');
@@ -56,10 +56,10 @@ const Factory = () => {
 
     const createChargePointService = (dependencies) => {
         if(!dependencies)
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations});
         else{
-            let { NodeCache, axios, BikeStations, DefaultStations, userService } = dependencies;
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
+            let { NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations } = dependencies;
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations});
         }
     }
 

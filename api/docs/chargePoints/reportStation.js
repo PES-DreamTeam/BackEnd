@@ -14,22 +14,20 @@ module.exports = {
                     $ref: "#/components/schemas/auth",
                 }
             },{
-                name: "id",
-                in: "path",
-                schema: {
-                    $ref: "#/components/schemas/id",
-                },
-                required: true, 
-                description: "Charge point id",
-            },{
-                name: "reason",
-                in: "body",
-                schema: {
-                    $ref: "#/components/schemas/Reason",
-                },
-                required: false,
-                description: "Report reason",
-            }],
+            name: "id",
+            in: "path",
+            schema: {
+                $ref: "#/components/schemas/id",
+            },
+            required: true, 
+            description: "Charge point id",
+        },{
+            name: "report",
+            in: "body",
+            type:"object",
+            required: true,
+            description: "Report type [dislike/poorCondition/badInformation] and Report msg",
+        }],
         responses: {
             200: {
                 description: "Successful operation",
