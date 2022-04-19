@@ -30,7 +30,6 @@ describe("Feed User to web", () => {
         expectedUserWithVehicleConfig.vehicleConfig.push(JSON.parse(JSON.stringify(expectedUserWithVehicleConfig.vehicleConfig[0]))); 
 
         const actual = await userService.feedUserToWeb(user);
-
         expect(actual).toEqual(expectedUserWithVehicleConfig);
     })
 });

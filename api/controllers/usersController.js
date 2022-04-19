@@ -1,5 +1,8 @@
+require('dotenv').config({path: '../.env'});
+
 const UsersController = (dependencies) => {
-    const { userService } = dependencies;
+    const { userService, chargePointService } = dependencies;
+
 
     const getAll = async (req, res) => {
         try {
@@ -49,6 +52,17 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const setProfilePicture = async (req, res) => {
+        try {
+            //if users_ids ==
+            const user = await userService.setProfilePicture(req.params.id, req.body.image);
+            if(!user) return res.status(404).send({msg: "User not found"});
+            return res.status(200).send({user: await userService.feedUserToWeb(user)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     const setVehicleConfig = async (req, res) => {
         try {
             if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
@@ -74,12 +88,61 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const getBike = async (req, res) => {
+        try {
+            const bike = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information');
+            const data = bike.data.data.stations.map(bikeStation => {
+                return {
+                    station_id: bikeStation.station_id,
+                    name: bikeStation.name,
+                    lat: bikeStation.lat,
+                    lng: bikeStation.lon,
+                    address: bikeStation.address,
+                    postCode: bikeStation.post_code,
+                }
+            });
+            data.forEach(element => {
+                BikeStation.create(element);
+            });
+            return res.status(200).send(data);
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const getFavourites = async (req, res) => {
+        try {
+            //const user = await userService.getById(req.params.id);
+            const user = req.user;
+            const favouritesPoints = await chargePointService.getChargePointsById(user.favourites);
+            return res.status(200).send({favouritesPoints});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const setFavourites = async (req, res) => {
+        try {
+            const bodyRequest = req.body;
+            const user = req.user;
+            const station = await userService.setFavourites(bodyRequest.station_id, user);
+            if(!station) return res.status(404).send({msg: "Station not found"});
+            return res.status(200).send({user: await userService.feedUserToWeb(user)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
         getAll,
         getById,
         deleteUser,
         setVehicleConfig,
         updateUser,
+        setProfilePicture,
+        getBike,
+        getFavourites,
+        setFavourites
     }
 }
 

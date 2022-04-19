@@ -9,7 +9,6 @@ const Vehicle = new mongoose.Schema({
         type: String,
         required: 'The model is required',
     },
-    //Hace falta que el chargerType sea de tipo ChargerType
     chargerType: {
         type: String,
     }

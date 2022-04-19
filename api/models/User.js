@@ -1,3 +1,4 @@
+const { array } = require('joi');
 const mongoose = require('mongoose');
 const validator = require('./validators/userValidators');
 const User = new mongoose.Schema({
@@ -29,7 +30,22 @@ const User = new mongoose.Schema({
     isNew: {
         type: Boolean,
         default: true,
+    },
+    likes: {
+        type: [String],
+        default: [],
+    },
+    reports: {
+        type: [String],
+        default: [],
+    },
+    profilePicture: {
+        type: String,
+        default: "https://ibb.co/BtdrzZd",
+    },
+    favourites:{
+        type: [String],
+        default: [],
     }
 })
-
 module.exports = mongoose.model('User', User);

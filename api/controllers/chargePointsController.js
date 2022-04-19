@@ -1,5 +1,6 @@
+
 const ChargePointsController = (dependencies) => {
-    const { chargePointService } = dependencies;
+    const { chargePointService, userService } = dependencies;
 
     const getAll = async (req, res) => {
         try {
@@ -19,13 +20,54 @@ const ChargePointsController = (dependencies) => {
             if(!data) return res.status(404).send({msg: "ChargePoint not found"});
             res.status(200).send({chargePoint: data});
         } catch (error) {
-        res.status(500).send({error: error.toString()});
+            res.status(500).send({error: error.toString()});
         }
     }
+
+    const getInfo = async (req, res) => {
+        try {
+            const data = await chargePointService.getInfo(req.params.id);
+
+            if(!data) return res.status(404).send({msg: "ChargePoint not found"});
+            res.status(200).send({chargePoint: data});
+        } catch (error) {
+            res.status(500).send({error: error.toString()});
+        }
+    }
+
+    const voteStation = async (req, res) => {
+        try {
+            const stationID = req.params.id;
+            const wasLiked = await userService.voteStation(stationID, req.user); //If user liked that station before, it will be removed from the list and return true. If not, it will be added to the list and return false.
+            const station = await chargePointService.voteStation(stationID, wasLiked);
+            if(!station) return res.status(404).send({msg: "Station not found"});
+            return res.status(200).send({user: await chargePointService.feedStationToWeb(station)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const reportStation = async (req, res) => {
+        try {
+            const bodyRequest = req.body;
+            const stationID = req.params.id;
+            const wasReported = await userService.reportStation(stationID, req.user); //If user reported that station before, it will be removed from the list and return true. If not, it will be added to the list and return false.
+            const station = await chargePointService.reportStation(stationID, bodyRequest.reason, wasReported);
+            if(!station) return res.status(404).send({msg: "Station not found"});
+            return res.status(200).send({user: await chargePointService.feedStationToWeb(station)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+    
     return {
         getAll,
-        getById
+        getById,
+        getInfo,
+        voteStation,
+        reportStation
     }
+    
 }
 
 

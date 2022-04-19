@@ -1,7 +1,7 @@
 const { userService, chargePointService, authService, socialMediaService } = require('../services');
 const { UsersController, ChargePointsController, AuthController } = require('../controllers');
 const ToolController = require('../tools/toolController');
-const { Users, VehicleInstances, BikeStations } = require('../models');
+const { Users, VehicleInstances, BikeStations, DefaultStations } = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 const randomstring = require('randomstring');
@@ -9,12 +9,14 @@ const randomstring = require('randomstring');
 const Factory = () => {
     const createUsersController = () => {
         const userService = createUserService();
-        return UsersController({userService}); 
+        const chargePointService = createChargePointService();
+        return UsersController({userService, chargePointService}); 
     }
 
     const createChargePointsController = () => {
         const chargePointService = createChargePointService();
-        return ChargePointsController({chargePointService});
+        const userService = createUserService();
+        return ChargePointsController({chargePointService, userService});
     }
 
     const createAuthController = () => {
@@ -24,11 +26,13 @@ const Factory = () => {
     }
 
     const createToolController = (dependencies) => {
-        if(!dependencies)
-            return ToolController({BikeStations, axios});
+        if(!dependencies) {
+            const chargePointService = createChargePointService();
+            return ToolController({BikeStations, axios, chargePointService, userService});
+        }
         else {
-            let { BikeStations, axios } = dependencies;
-            return ToolController({BikeStations, axios});
+            let { BikeStations, axios, chargePointService } = dependencies;
+            return ToolController({BikeStations, axios, chargePointService});
         }
     }
 
@@ -43,20 +47,20 @@ const Factory = () => {
 
     const createChargePointService = (dependencies) => {
         if(!dependencies)
-            return chargePointService({NodeCache, axios, BikeStations});
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
         else{
-            let { NodeCache, axios, BikeStations } = dependencies;
-            return chargePointService({NodeCache, axios, BikeStations});
+            let { NodeCache, axios, BikeStations, DefaultStations, userService } = dependencies;
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService});
         }
     }
 
     const createUserService = (dependencies) => {
         if(!dependencies) 
-            return userService({Users, VehicleInstances});
+            return userService({Users, VehicleInstances, DefaultStations});
         else
         {
-            const { Users, VehicleInstances } = dependencies;
-            return userService({Users, VehicleInstances});
+            const { Users, VehicleInstances, DefaultStations} = dependencies;
+            return userService({Users, VehicleInstances, DefaultStations});
         }
     }
 

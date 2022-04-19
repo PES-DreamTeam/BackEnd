@@ -14,6 +14,9 @@ router.get('/', usersController.getAll);
 // api/users/:id
 router.get('/:id', usersController.getById);
 
+// api/users/:id/profilePicture
+router.post('/:id/profilePicture', my_auth, usersController.setProfilePicture);
+
 // api/users/:id/vehicleConfig
 router.post('/:id/vehicleConfig', my_auth, usersController.setVehicleConfig);
 
@@ -22,5 +25,14 @@ router.put('/', my_auth, usersController.updateUser);
 
 // api/users/:id
 router.delete('/:id', my_auth, usersController.deleteUser)
+
+// api/users/bike
+router.get('/bike/all', usersController.getBike);
+
+// api/users/:id/favourites
+router.put('/:id/favourites', my_auth, usersController.setFavourites);
+
+// api/users/:id/favourites
+router.get('/:id/favourites', my_auth, usersController.getFavourites);
 
 module.exports = router;

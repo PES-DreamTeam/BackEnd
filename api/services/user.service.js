@@ -1,5 +1,7 @@
+const User = require("../models/User");
+
 const userService = (dependencies) => {
-    const { Users, VehicleInstances } = dependencies;
+    const { Users, VehicleInstances, DefaultStations } = dependencies;
 
     /* istanbul ignore next */ 
     const getByEmail = (email) => {
@@ -27,6 +29,21 @@ const userService = (dependencies) => {
         return Users.findByIdAndDelete(_id);
     }
 
+
+    const setFavourites = async (stationId, user) =>{
+        const station = await DefaultStations.findOne({station_id: stationId});
+        if(!station){return station;}
+        if(user.favourites.includes(stationId)){
+            const index = user.favourites.indexOf(stationId);
+            user.favourites.splice(index, 1);
+        }
+        else{
+            user.favourites.push(stationId);
+        }
+        await updateUser(user._id, user);
+        return station;
+    }
+
     const feedUserToWeb = async (user) => {
         const userVehicleConfig = await VehicleInstances.find({user_id : user._id})
         return {
@@ -36,6 +53,9 @@ const userService = (dependencies) => {
             vehicleConfig: userVehicleConfig,
             profilePicture: user.profilePicture,
             isNew: user.isNew,
+            likes: user.likes,
+            reports: user.reports,
+            favourites: user.favourites
         }
     }
 
@@ -54,6 +74,40 @@ const userService = (dependencies) => {
         return Users.findByIdAndUpdate(id, user);
     }
 
+    const voteStation = async (stationID, user) => {
+        let wasLiked = false;
+        if(user.likes.includes(stationID)){
+            const index = user.likes.indexOf(stationID);
+            user.likes.splice(index, 1);
+            wasLiked = true;
+        }
+        else{
+            user.likes.push(stationID);
+            wasLiked = false;
+        }
+        await updateUser(user._id, user);
+        return wasLiked;
+    }
+
+    const reportStation = async (stationID, user) => {
+        let wasReported = false;
+        if(user.reports.includes(stationID)){
+            const index = user.reports.indexOf(stationID);
+            user.reports.splice(index, 1);
+            wasReported = true;
+        }
+        else{
+            user.reports.push(stationID);
+            wasReported = false;
+        }
+        await updateUser(user._id, user);
+        return wasReported;
+    }
+
+    const setProfilePicture = async (id, imageURL) => {  
+        return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
+    }
+
     return {
         getByEmail,
         getById,
@@ -63,7 +117,11 @@ const userService = (dependencies) => {
         feedUserToWeb,
         getVehicleConfig,
         setVehicleConfig,
-        updateUser
+        updateUser,
+        voteStation,
+        reportStation,
+        setProfilePicture,
+        setFavourites
     }
 }
 

@@ -29,6 +29,7 @@ const AuthController = (dependencies) => {
                 return res.status(403).send({Error: 'Invalid credentials'});
             }
         } catch (error) {
+            console.log(error)
             return res.status(500).send({msg: error.toString()}) 
         }
     }
@@ -46,7 +47,9 @@ const AuthController = (dependencies) => {
                 password: randomstring.generate(),
                 salt: randomstring.generate(),
                 profilePicture,
-                isNew: true
+                isNew: true,
+                likes: [],
+                reports: [],
             });
 
             const token = await authService.signToken(user._id);
