@@ -33,7 +33,7 @@ const AuthController = (dependencies) => {
         }
     }
     
-    const socialLogin = async (req, res) => {
+    const socialMediaLogin = async (req, res) => {
         try {
             const tokenData = await socialMediaService.verifyToken(req.query.token, req.body.socialMedia); 
             if(!tokenData) return res.status(403).send({error: 'Invalid credentials'});
@@ -64,7 +64,7 @@ const AuthController = (dependencies) => {
     return {
         register,
         login,
-        socialLogin
+        socialMediaLogin
     }
 
 }
