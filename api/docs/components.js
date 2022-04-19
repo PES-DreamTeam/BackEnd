@@ -77,7 +77,7 @@ module.exports = {
                     password: {
                         type: "string",
                         description: "The password of the user",
-                        example: "12345678"
+                        example: "12345678a"
                     },
                 }
             },

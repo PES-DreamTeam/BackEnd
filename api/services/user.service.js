@@ -71,6 +71,8 @@ const userService = (dependencies) => {
 
     /* istanbul ignore next */ 
     const updateUser = (id, user) => {
+        if(user?.nickname)
+            user.name = user.nickname;
         return Users.findByIdAndUpdate(id, user);
     }
 
