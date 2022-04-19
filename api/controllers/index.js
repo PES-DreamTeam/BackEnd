@@ -3,4 +3,5 @@ module.exports = {
     UsersController: require('./usersController'),
     ChargePointsController: require('./chargePointsController'),
     sampleVehiclesController: require('./sampleVehiclesController'),
+    ReportController: require('./reportController'),
 }

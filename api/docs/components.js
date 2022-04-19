@@ -46,6 +46,66 @@ module.exports = {
                     }
                 }
             },
+            Register: {
+                type: "object",
+                properties: {
+                    email: {
+                        type: "string",
+                        description: "The email of the user",
+                        example: "dannirodriguez99@gmail.com"
+                    },
+                    password: {
+                        type: "string",
+                        description: "The password of the user",
+                        example: "12345678a"
+                    },
+                    name: {
+                        type: "string",
+                        description: "The name of the user",
+                        example: "Daniel Rodriguez"
+                    }
+                }
+            },
+            Login: {
+                type: "object",
+                properties: {
+                    email: {
+                        type: "string",
+                        description: "The email of the user",
+                        example: "dannirodriguez99@gmail.com"
+                    },
+                    password: {
+                        type: "string",
+                        description: "The password of the user",
+                        example: "12345678"
+                    },
+                }
+            },
+            Report: {
+                type: "object",
+                properties: {
+                    type: {
+                        type: "string",
+                        description: "The type of the report",
+                        example: "Bug"
+                    },
+                    platform: {
+                        type: "string",
+                        description: "The platform of the report",
+                        example: "Tablet"
+                    },
+                    os: {
+                        type: "string",
+                        description: "The os of the report",
+                        example: "Android"
+                    },
+                    subject: {
+                        type: "string",
+                        description: "The subject of the report",
+                        example: "I just don't like it"
+                    },
+                }
+            },
             VehicleConfig: {
                 type: "object",
                 properties: {

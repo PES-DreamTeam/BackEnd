@@ -3,4 +3,5 @@ module.exports = {
     User: require('./user'),
     ChargePoints: require('./chargePoints'),
     SampleVehicles: require('./sampleVehicles'),
+    Report: require('./report'),
 }

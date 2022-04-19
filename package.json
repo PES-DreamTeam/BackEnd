@@ -6,7 +6,8 @@
   "scripts": {
     "test-coverage": "jest --coverage",
     "test": "jest",
-    "start": "cd api && node index.js"
+    "start": "cd api && node index.js",
+    "nodemon": "cd api && nodemon index.js"
   },
   "repository": {
     "type": "git",

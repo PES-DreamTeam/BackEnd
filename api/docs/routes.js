@@ -1,8 +1,16 @@
 const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePoint, reportChargePoint } = require('./chargePoints');
 const { getAllUsers, getUserById, setProfilePicture, setVehicleConfig, getFavourites, setFavourites} = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles } = require('./sampleVehiclesController');
+const { createReport } = require('./reportController');
+const { registerUser, loginUser } = require('./authController'); 
 module.exports = {
     paths: {
+        '/api/auth/register': {
+            ...registerUser,
+        },
+        '/api/auth/login': {
+            ...loginUser,
+        },
         '/api/chargePoints': {
             ...getAllChargePoints,
         },
@@ -40,6 +48,9 @@ module.exports = {
         },
         '/api/sampleVehicles/{id}': {
             ...deleteSampleVehicle,
-        }
+        },
+        '/api/report': {
+            ...createReport,
+        },
     }
 }

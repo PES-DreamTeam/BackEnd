@@ -4,4 +4,5 @@ module.exports = {
     VehicleInstances: require('./VehicleInstance'),
     BikeStations: require('./BikeStation'),
     DefaultStations: require('./DefaultStation'),
+    Reports: require('./Report'),
 }
