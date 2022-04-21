@@ -147,10 +147,15 @@ const chargePointService = (dependencies) => {
     }, {});
 
     const getDataFromApis = async (objectType) => {
-        if(objectType === "vehicleStation") 
-            data = await getVehicleStations();
-        else if(objectType === "bikeStation")
-            data = await getBikeStations();
+        let resultData;
+        if(objectType.legnth > 0) 
+            await Promise.all(objectType.map(async (item) => {
+                if(item === "vehicleStation") 
+                    data = await getVehicleStations();
+                else if(item === "bikeStation")
+                    data = await getBikeStations();
+                resultData.concat(data);
+            }))
         else {
             data = await getVehicleStations();
             data = data.concat(await getBikeStations());
