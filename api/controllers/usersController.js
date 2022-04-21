@@ -114,7 +114,7 @@ const UsersController = (dependencies) => {
         try {
             //const user = await userService.getById(req.params.id);
             const user = req.user;
-            const favouritesPoints = await chargePointService.getChargePointsById(user.favourites);
+            const favouritesPoints = await chargePointService.getChargePointsById(user.favourites, "id");
             return res.status(200).send({favouritesPoints});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
@@ -123,8 +123,9 @@ const UsersController = (dependencies) => {
 
     const setFavourites = async (req, res) => {
         try {
+            if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
             const bodyRequest = req.body;
-            const user = req.user;
+            const user = await userService.getById(req.params.id);
             const station = await userService.setFavourites(bodyRequest.station_id, user);
             if(!station) return res.status(404).send({msg: "Station not found"});
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
