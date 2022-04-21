@@ -20,7 +20,7 @@ module.exports = {
                 required: true,
                 description: "Station id",
             },{
-                name: "user_id",
+                name: "id",
                 in: "path",
                 schema: {
                     $ref: "#/components/schemas/id",
