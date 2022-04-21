@@ -170,6 +170,12 @@ const chargePointService = (dependencies) => {
         return station;
     }
 
+    const getReports = async (id) => {
+        const station = await ReportStations.findOne({station_id: id});
+        console.log(station);
+        return station.reports;
+    }
+
     const feedStationToWeb = async (station) => {
         const defaultStation = await DefaultStations.findOne({station_id: station.station_id});
         return {
@@ -190,7 +196,8 @@ const chargePointService = (dependencies) => {
         voteStation,
         reportStation,
         feedStationToWeb,
-        getChargePointsById
+        getChargePointsById,
+        getReports
     }
 }
 
