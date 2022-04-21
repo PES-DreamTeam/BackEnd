@@ -48,6 +48,8 @@ const chargePointService = (dependencies) => {
         return await ReportStations.create(station);
     }
 
+
+    //se puede usar para las estaciones favoritas
     const getChargePointsById = async (chargePointsIds, group) => {
         try {
             var data = cache.get("default");
