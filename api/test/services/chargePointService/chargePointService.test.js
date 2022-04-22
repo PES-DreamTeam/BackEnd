@@ -6,7 +6,8 @@ const {
     expectedChargePointsWithoutIdAndGroupingByID,
     expectedBikeStations,
     expectedBikeStationsGroupingById,
-    expectedDataVehicleAndBikeGroupingById
+    expectedDataVehicleAndBikeGroupingById,
+    expectedVehicleAndBikeStations
 } = require('./schemas');
 const { BikeStations } = require('../../../models'); 
 const Factory = require('../../../factory/factory');
@@ -39,11 +40,19 @@ beforeEach(()=>{
 })
 
 describe("Get Charge points", ()=>{
+    it("Get chargePoints objectType = [vehicleStation, bikeStation] group by id", async ()=> {
+        bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
+
+        const actual = await chargePointsService.get(null, "id", ["bikeStation", "vehicleStation"]);
+
+        expect(actual).toEqual(expectedVehicleAndBikeStations);       
+
+    })
     
     it("Get charge points objectType = vehicleStation and group by id", async ()=>{
         bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
 
-        const actual = await chargePointsService.get(null, "id", "vehicleStation");
+        const actual = await chargePointsService.get(null, "id", ["vehicleStation"]);
 
         expect(actual).toEqual(expectedChargePointsWithoutIdAndGroupingByID);
     })
@@ -51,7 +60,7 @@ describe("Get Charge points", ()=>{
     it("Get charge points objectType = bikeStation and without grouping", async ()=>{
         bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
 
-        const actual = await chargePointsService.get(null, null, "bikeStation");
+        const actual = await chargePointsService.get(null, null, ["bikeStation"]);
 
         expect(actual).toEqual(expectedBikeStations);
     })
@@ -59,7 +68,7 @@ describe("Get Charge points", ()=>{
     it("Get charge points objectType = bikeStation and grouping by id", async ()=>{
         bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
 
-        const actual = await chargePointsService.get(null, "id", "bikeStation");
+        const actual = await chargePointsService.get(null, "id", ["bikeStation"]);
 
         expect(actual).toEqual(expectedBikeStationsGroupingById);
     })

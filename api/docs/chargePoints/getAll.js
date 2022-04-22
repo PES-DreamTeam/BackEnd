@@ -1,3 +1,5 @@
+const { array } = require("joi");
+
 module.exports = {
     get: {
         tags:["ChargePoints controller"],
@@ -6,20 +8,32 @@ module.exports = {
         parameters: [{
             name: 'groupBy',
             in: 'query',
-            description: "GroupBy the charge points: 'id','name','address','vehicle_type','lat','lng'",
+            description: "GroupBy the charge points: 'id','name','address','vehicle_type','lat','lng' (The best option is to always group by 'id')",
             required: false,
             schema: {
                 type: 'string'
             }
         },
         {
-            name: 'objectType',
+            name: 'objectType[]',
             in: 'query',
-            description: "Filter the stations by objectType: 'vehicleStation' or 'bikeStation'",
+            description: "Filter the stations by objectType: 'vehicleStation' or 'bikeStation' (on swagger you cannot add more than one filter but actually, you can set objectType[]=vehicleStation&objectType[]=bikeStation on your http request)",
             required: false,
             schema: {
-                type: 'string'
+                type: "array",
+                items:{
+                    type: 'string'
+                }
+
+
             }
+        },
+        {
+            name: 'userId',
+            in: 'query',
+            description: "Filter the stations by favourite based on the userId",
+            required: false,
+            type: "string"
         }
     ],
         responses: {

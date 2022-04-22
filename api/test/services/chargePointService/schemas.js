@@ -312,6 +312,82 @@ const expectedBikeStationsGroupingById =
       }
     }
 
+
+
+const expectedVehicleAndBikeStations = {
+  '1': {
+        id: 1,
+        name: 'C/ TEST',
+        address: 'C/ ROGER DE FLOR, 126',
+        lat: 41.3954877,
+        lng: 2.1771985,
+        objectType: 'bikeStation',       
+        data: {
+          sockets: [
+            {
+              available_sockets: 41,     
+              available_electrical: 0,   
+              available_mechanical: 2,   
+              socket_state: 0,
+              vehicle_type: undefined    
+            }
+          ]
+        }
+      },
+      '2': {
+        id: 2,
+        name: 'C/ ROGER DE FLOR, 126',   
+        address: 'C/ ROGER DE FLOR, 126',
+        lat: 41.3954877,
+        lng: 2.1771985,
+        objectType: 'bikeStation',
+        data: {
+          sockets: [
+            {
+              available_sockets: 41,
+              available_electrical: 0,
+              available_mechanical: 2,
+              socket_state: 0,
+              vehicle_type: undefined
+            }
+          ]
+        }
+      },
+      '2054': {
+      id: '2054',
+      name: 'La Boqueria',
+      address: 'C/ Floristes de la rambla S/N',
+      lat: 41.381738,
+      lng: 2.17007,
+      objectType: 'vehicleStation',
+      data: {
+        sockets: [
+        {
+            socket_id: 10,
+            socket_type: '1,2',
+            charge_modes: '3',
+            socket_state: 0,
+            vehicle_type: 1
+          },
+          {
+            socket_id: 11,
+            socket_type: '1,2',
+            charge_modes: '3',
+            socket_state: 0,
+            vehicle_type: 1
+          },
+          {
+            socket_id: 5,
+            socket_type: '1,2',
+            charge_modes: '3',
+            socket_state: 0,
+            vehicle_type: 0
+          }
+        ]
+      }
+  }
+}
+
 const expectedDataVehicleAndBikeGroupingById = 
   {
       '1': {
@@ -395,5 +471,6 @@ module.exports = {
     expectedChargePointsWithoutIdAndGroupingByID,
     expectedBikeStations,
     expectedBikeStationsGroupingById,
-    expectedDataVehicleAndBikeGroupingById
+    expectedDataVehicleAndBikeGroupingById,
+    expectedVehicleAndBikeStations
 }
