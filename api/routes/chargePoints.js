@@ -23,4 +23,7 @@ router.put('/:id/vote', my_auth, chargePointsController.voteStation);
 // api/chargePoints/:id/report
 router.put('/:id/report', my_auth, chargePointsController.reportStation);
 
+// api/chargePoints/:id/report
+router.get('/:id/reports', chargePointsController.getReports);
+
 module.exports = router;

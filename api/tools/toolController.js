@@ -6,7 +6,7 @@ const ToolController = (dependencies) => {
             const bike = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information');
             const data = bike.data.data.stations.map(bikeStation => {
                 return {
-                    station_id: bikeStation.station_id,
+                    station_id: bikeStation.station_id.toString(),
                     name: bikeStation.name,
                     lat: bikeStation.lat,
                     lng: bikeStation.lon,

@@ -52,12 +52,25 @@ const ChargePointsController = (dependencies) => {
             const reportType = req.body.reportType;
             const reportMsg = req.body.reportMsg;
             const stationID = req.params.id;
+            console.log(stationID);
             const wasReported = await userService.reportStation(stationID, req.user); 
-            if(!wasReported) return res.status(403).send({msg: "Station already reported"});
+            console.log(wasReported);
+            if(wasReported) return res.status(403).send({msg: "Station already reported"});
             const station = await chargePointService.reportStation(stationID, reportType, reportMsg);
             if(!station) return res.status(404).send({msg: "Station not found"});
             return res.status(200).send({user: await chargePointService.feedStationToWeb(station)});
         } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const getReports = async (req, res) => {
+        try {
+            const stationID = req.params.id;
+            const reports = await chargePointService.getReports(stationID);
+            return res.status(200).send({reports: reports});
+        }
+        catch (error) {
             return res.status(500).send({msg: error.toString()});
         }
     }
@@ -68,8 +81,8 @@ const ChargePointsController = (dependencies) => {
         getInfo,
         voteStation,
         reportStation,
-    }
-    
+        getReports
+    }    
 }
 
 
