@@ -14,15 +14,20 @@ const chargePointService = (dependencies) => {
     const { NodeCache, axios, BikeStations, DefaultStations, ReportStations } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
-    const get = async (chargePointId, group, objectType, userId) => {
+    const get = async (chargePointId, group, objectType, favourites) => {
         try {
-            var data = cache.get(`${objectType?.join() ?? "default"}`);
+            let data = [];
+            if(favourites && objectType?.length > 0 || !favourites){
+                data = cache.get(`${objectType?.join() ?? "default"}`);
 
-            if(!data) {
-                data = await getDataFromApis(objectType, userId);
-                cache.set(`${objectType?.join() ?? "default"}`, data, 600);
+                if(!data) {
+                    data = await getDataFromApis(objectType);
+                    cache.set(`${objectType?.join() ?? "default"}`, data, 600);
+                }
             }
-            if(chargePointId) data = data.filter(item => item.id === chargePointId);
+
+            if(favourites) data = data.concat(favourites);
+            if(chargePointId) data = data.filter(item => item?.id === chargePointId);
             if(groupByWords.includes(group)){
                 const groupItems = groupBy(group);
                 data = groupItems(data);
@@ -148,7 +153,7 @@ const chargePointService = (dependencies) => {
             return objectsByKeyValue;
     }, {});
 
-    const getDataFromApis = async (objectType, userId) => {
+    const getDataFromApis = async (objectType) => {
         let resultData = [];
         if(objectType?.length > 0) 
             await Promise.all(objectType.map(async (item) => {
@@ -164,12 +169,6 @@ const chargePointService = (dependencies) => {
             resultData = resultData.concat(await getBikeStations());
         }
 
-        if(userId) {
-            const user = await User.findById(userId);
-            await Promise.all(user?.favourites?.map(async (item) =>{
-                resultData = resultData.concat(await getChargePointsById(item));
-            }))
-        }
         resultData = resultData.filter(x => x !== undefined && x !== null);
         return resultData;
     }

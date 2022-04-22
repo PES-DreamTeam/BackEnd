@@ -463,6 +463,45 @@ const expectedDataVehicleAndBikeGroupingById =
     }
   }
 
+const favourites = [
+  {
+    id: '2570',
+    name: 'Mercabarna',
+    address: 'Aparcament Mercabarna',
+    lat: 41.329694,
+    lng: 2.114526,
+    objectType: 'vehicleStation',
+    data: { sockets: [Object], vehicle_type: 0 }
+  },
+  {
+    id: '2534',
+    name: 'Rambla Badal, 167',
+    address: 'Rambla Badal, 167 - Sants',
+    lat: 41.375283,
+    lng: 2.130336,
+    objectType: 'vehicleStation',
+    data: { sockets: [Object], vehicle_type: 1 }
+  },
+  {
+    id: '2534',
+    name: 'Rambla Badal, 167',
+    address: 'Rambla Badal, 167 - Sants',
+    lat: 41.375283,
+    lng: 2.130336,
+    objectType: 'vehicleStation',
+    data: { sockets: [Object], vehicle_type: 1 }
+  },
+  {
+    id: 184,
+    name: 'C/ QUETZAL, 22-24',
+    address: 'C/ QUETZAL, 22-24',
+    lat: 41.3675438,
+    lng: 2.1342316,
+    objectType: 'bikeStation',
+    data: { sockets: [Object] }
+  }
+]
+
 module.exports = {
     inputChargePointsFromApi,
     inputBikeChargePointsFromApi,
@@ -472,5 +511,6 @@ module.exports = {
     expectedBikeStations,
     expectedBikeStationsGroupingById,
     expectedDataVehicleAndBikeGroupingById,
-    expectedVehicleAndBikeStations
+    expectedVehicleAndBikeStations,
+    favourites,
 }

@@ -1,3 +1,5 @@
+
+const util = require('util');
 const { 
     inputChargePointsFromApi, 
     inputBikeChargePointsFromApi,
@@ -7,7 +9,9 @@ const {
     expectedBikeStations,
     expectedBikeStationsGroupingById,
     expectedDataVehicleAndBikeGroupingById,
-    expectedVehicleAndBikeStations
+    expectedVehicleAndBikeStations,
+    favourites,
+    expectedVehicleBikeFavourites
 } = require('./schemas');
 const { BikeStations } = require('../../../models'); 
 const Factory = require('../../../factory/factory');
@@ -40,6 +44,7 @@ beforeEach(()=>{
 })
 
 describe("Get Charge points", ()=>{
+
     it("Get chargePoints objectType = [vehicleStation, bikeStation] group by id", async ()=> {
         bikeStationsSpy.mockImplementation(() => bikeChargePointsFromDB);
 
