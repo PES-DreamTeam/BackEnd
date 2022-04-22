@@ -5,6 +5,7 @@ const setVehicleConfig = require('./setVehicleConfig');
 const deleteUser = require('./deleteUser');
 const setFavourites = require('./setFavourites');
 const getFavourites = require('./getFavourites');
+const setAchievement = require('./setAchievement');
 
 module.exports = {
     getAllUsers: getAll,
@@ -14,4 +15,5 @@ module.exports = {
     deleteUser: deleteUser,
     getFavourites: getFavourites,
     setFavourites: setFavourites,
+    setAchievement: setAchievement,
 }

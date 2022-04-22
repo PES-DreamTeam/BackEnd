@@ -46,6 +46,10 @@ const User = new mongoose.Schema({
     favourites:{
         type: [String],
         default: [],
-    }
+    },
+    achievements: [{
+        achievement_id: String,
+        progress: Number
+    }]
 })
 module.exports = mongoose.model('User', User);

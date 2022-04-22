@@ -11,9 +11,19 @@ module.exports = {
                 description: "The id of the station",
                 example: '{"station_id" : "2054"}'
             },
+            achievement_id: {
+                type: "string",
+                description: "The id of the achievement",
+                example: '{"achievement_id" : "6"}'
+            },
+            progress: {
+                type: "number",
+                description: "The progress of the achievement",
+                example: '{"progress" : "6"}'
+            },
             auth: {
                 type: "string",
-                description: "The id of the chargePoint",
+                description: "auth token",
                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU3MzZjZDg4MDIwYmEzMjdjOTQ2OWMiLCJpYXQiOjE2NDk4ODI4MzAsImV4cCI6MTY1ODUyMjgzMH0.7lu38774PCqU8hboBQqZVcgfQg-tU2hpVNwEorCntuk"
             },
             Reason: {

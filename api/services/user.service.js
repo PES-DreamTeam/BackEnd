@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 const userService = (dependencies) => {
-    const { Users, VehicleInstances, DefaultStations } = dependencies;
+    const { Users, VehicleInstances, DefaultStations, Achievements } = dependencies;
 
     /* istanbul ignore next */ 
     const getByEmail = (email) => {
@@ -44,6 +44,21 @@ const userService = (dependencies) => {
         return station;
     }
 
+    const setAchievement = async (body, user) =>{
+        const id = body.id;
+        const progress = body.progress;
+        const achievement = await Achievements.findOne({achievement_id: id});
+        if(!achievement){return achievement;}
+        user.Achievements.find(ach => ach.achievement_id === id).progress = progress;
+        await updateUser(user._id, user);
+        return achievement;
+    }
+
+    const getAchievements = async (id) =>{
+        const user = await User.findById(id);
+        return user.achievements;
+    }
+
     const feedUserToWeb = async (user) => {
         const userVehicleConfig = await VehicleInstances.find({user_id : user._id})
         return {
@@ -55,7 +70,8 @@ const userService = (dependencies) => {
             isNew: user.isNew,
             likes: user.likes,
             reports: user.reports,
-            favourites: user.favourites
+            favourites: user.favourites,
+            achievements: user.achievements
         }
     }
 
@@ -121,7 +137,9 @@ const userService = (dependencies) => {
         voteStation,
         reportStation,
         setProfilePicture,
-        setFavourites
+        setFavourites,
+        setAchievement,
+        getAchievements
     }
 }
 
