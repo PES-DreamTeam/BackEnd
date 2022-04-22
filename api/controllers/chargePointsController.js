@@ -48,7 +48,7 @@ const ChargePointsController = (dependencies) => {
             const wasLiked = await userService.voteStation(stationID, req.user); //If user liked that station before, it will be removed from the list and return true. If not, it will be added to the list and return false.
             const station = await chargePointService.voteStation(stationID, wasLiked);
             if(!station) return res.status(404).send({msg: "Station not found"});
-            return res.status(200).send({user: await chargePointService.feedStationToWeb(station)});
+            return res.status(200).send({station: await chargePointService.feedStationToWeb(station)});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }
