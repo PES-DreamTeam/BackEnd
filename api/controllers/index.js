@@ -4,4 +4,5 @@ module.exports = {
     ChargePointsController: require('./chargePointsController'),
     sampleVehiclesController: require('./sampleVehiclesController'),
     ReportController: require('./reportController'),
+    AchievementController: require('./AchievementController'),
 }

@@ -35,4 +35,10 @@ router.put('/:id/favourites', my_auth, usersController.setFavourites);
 // api/users/:id/favourites
 router.get('/:id/favourites', my_auth, usersController.getFavourites);
 
+// api/users/:id/achievements
+router.put('/:id/achievements', my_auth, usersController.setAchievement);
+
+// api/users/:id/achievements
+router.get('/:id/achievements', usersController.getAchievements);
+
 module.exports = router;

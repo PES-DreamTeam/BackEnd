@@ -1,7 +1,7 @@
-const { userService, chargePointService, authService, socialMediaService, reportService } = require('../services');
-const { UsersController, ChargePointsController, AuthController, ReportController } = require('../controllers');
+const { userService, chargePointService, authService, socialMediaService, reportService, achievementService } = require('../services');
+const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController } = require('../controllers');
 const ToolController = require('../tools/toolController');
-const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations } = require('../models');
+const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations, Achievements} = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 const randomstring = require('randomstring');
@@ -41,6 +41,11 @@ const Factory = () => {
         return ReportController({reportService});
     }
 
+    const createAchievementController = () => {
+        const achievementService = createAchievementService();
+        return AchievementController({achievementService});
+    }
+
     const createReportService = (dependencies) => {
         return reportService({Reports}); 
     }
@@ -51,6 +56,15 @@ const Factory = () => {
         else{
             let { axios } = dependencies;
             return socialMediaService({axios}); 
+        }
+    }
+
+    const createAchievementService = (dependencies) => {
+        if(!dependencies)
+            return achievementService({Achievements});
+        else{
+            let { Achievements } = dependencies;
+            return achievementService({Achievements});
         }
     }
 
@@ -65,11 +79,11 @@ const Factory = () => {
 
     const createUserService = (dependencies) => {
         if(!dependencies) 
-            return userService({Users, VehicleInstances, DefaultStations});
+            return userService({Users, VehicleInstances, DefaultStations, Achievements});
         else
         {
-            const { Users, VehicleInstances, DefaultStations} = dependencies;
-            return userService({Users, VehicleInstances, DefaultStations});
+            const { Users, VehicleInstances, DefaultStations, Achievements} = dependencies;
+            return userService({Users, VehicleInstances, DefaultStations, Achievements});
         }
     }
 
@@ -81,7 +95,9 @@ const Factory = () => {
         createAuthController,
         createToolController,
         createSocialMediaService,
-        createReportController
+        createReportController,
+        createAchievementService,
+        createAchievementController
     }
 }
 
