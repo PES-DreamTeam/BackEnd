@@ -104,6 +104,11 @@ module.exports = {
                         description: "The subject of the report",
                         example: "I just don't like it"
                     },
+                    details: {
+                        type:"string",
+                        description: "The details of the report",
+                        example: "I just don't like it"
+                    }
                 }
             },
             VehicleConfig: {
