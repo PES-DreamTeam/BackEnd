@@ -41,4 +41,7 @@ router.put('/:id/achievements', my_auth, usersController.setAchievement);
 // api/users/:id/achievements
 router.get('/:id/achievements', usersController.getAchievements);
 
+// api/users/:id/likes
+router.get('/:id/likes', usersController.getLikes);
+
 module.exports = router;

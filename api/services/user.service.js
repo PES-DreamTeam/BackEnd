@@ -59,6 +59,11 @@ const userService = (dependencies) => {
         return user.achievements;
     }
 
+    const getLikes = async (id) =>{
+        const user = await User.findById(id);
+        return user.likes;
+    }
+
     const feedUserToWeb = async (user) => {
         const userVehicleConfig = await VehicleInstances.find({user_id : user._id})
         return {
@@ -139,7 +144,8 @@ const userService = (dependencies) => {
         setProfilePicture,
         setFavourites,
         setAchievement,
-        getAchievements
+        getAchievements,
+        getLikes,
     }
 }
 

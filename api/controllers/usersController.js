@@ -161,6 +161,16 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const getLikes = async (req, res) => {
+        try {
+            const likes = await userService.getLikes(req.params.id);
+            //const likedPoints = await chargePointService.getChargePointsById(likes, "id");
+            return res.status(200).send({likes});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
         getAll,
         getById,
@@ -170,6 +180,8 @@ const UsersController = (dependencies) => {
         setProfilePicture,
         getBike,
         getFavourites,
+        setFavourites,
+        getLikes,
         setFavourites,
         getAchievements,
         setAchievement
