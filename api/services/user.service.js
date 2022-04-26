@@ -90,6 +90,10 @@ const userService = (dependencies) => {
         return VehicleInstances.create(vehicleConfig)
     }
 
+    const deleteVehicleConfig = (numberPlate) =>{
+        return VehicleInstances.findOneAndDelete({numberPlate});
+    }
+
     /* istanbul ignore next */ 
     const updateUser = (id, user) => {
         if(user?.nickname)
@@ -138,6 +142,7 @@ const userService = (dependencies) => {
         feedUserToWeb,
         getVehicleConfig,
         setVehicleConfig,
+        deleteVehicleConfig,
         updateUser,
         voteStation,
         reportStation,

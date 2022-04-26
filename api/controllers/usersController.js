@@ -63,6 +63,18 @@ const UsersController = (dependencies) => {
         }
     }
 
+    const getVehicleConfig = async (req, res) => {
+        try {
+            const user = await userService.getById(req.params.id);
+            if(!user) return res.status(404).send({msg: "User not found"});
+            const vehicleConfig = await userService.getVehicleConfig(user._id, req.body.numberPlate);
+            if(!vehicleConfig) return res.status(404).send({msg: "Vehicle not found"});
+            return res.status(200).send({vehicleConfig});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     const setVehicleConfig = async (req, res) => {
         try {
             if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
@@ -83,6 +95,17 @@ const UsersController = (dependencies) => {
                 }
                 else return res.status(500).send({msg: "There has been an error saving the configuration"})
 
+        } catch (error) {
+            return res.status(500).send({msg: error});
+        }
+    }
+
+    const deleteVehicleConfig = async (req, res) => {
+        try {
+            if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
+            const vehicleConfig = await userService.deleteVehicleConfig(req.body.numberPlate);
+            if(!vehicleConfig) return res.status(404).send({msg: "Vehicle configuration not found"});
+            return res.status(200).send({msg: "Vehicle configuration deleted"});
         } catch (error) {
             return res.status(500).send({msg: error});
         }
@@ -175,7 +198,9 @@ const UsersController = (dependencies) => {
         getAll,
         getById,
         deleteUser,
+        getVehicleConfig,
         setVehicleConfig,
+        deleteVehicleConfig,
         updateUser,
         setProfilePicture,
         getBike,
@@ -184,7 +209,7 @@ const UsersController = (dependencies) => {
         getLikes,
         setFavourites,
         getAchievements,
-        setAchievement
+        setAchievement,
     }
 }
 

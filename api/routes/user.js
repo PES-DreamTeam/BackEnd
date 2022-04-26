@@ -18,7 +18,13 @@ router.get('/:id', usersController.getById);
 router.post('/:id/profilePicture', my_auth, usersController.setProfilePicture);
 
 // api/users/:id/vehicleConfig
+router.get('/:id/vehicleConfig', usersController.getVehicleConfig);
+
+// api/users/:id/vehicleConfig
 router.post('/:id/vehicleConfig', my_auth, usersController.setVehicleConfig);
+
+// api/users/:id/vehicleConfig
+router.delete('/:id/vehicleConfig', my_auth, usersController.deleteVehicleConfig);
 
 // api/users
 router.put('/', my_auth, usersController.updateUser);
