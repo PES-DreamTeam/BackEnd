@@ -23,8 +23,8 @@ router.get('/:id/vehicleConfig', usersController.getVehicleConfig);
 // api/users/:id/vehicleConfig
 router.post('/:id/vehicleConfig', my_auth, usersController.setVehicleConfig);
 
-// api/users/:id/vehicleConfig
-router.delete('/:id/vehicleConfig', my_auth, usersController.deleteVehicleConfig);
+// api/users/:id/vehicleConfig/:numberPlate
+router.delete('/:id/vehicleConfig/:numberPlate', my_auth, usersController.deleteVehicleConfig);
 
 // api/users
 router.put('/', my_auth, usersController.updateUser);
