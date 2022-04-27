@@ -99,6 +99,7 @@ const chargePointService = (dependencies) => {
         return data; 
     }
 
+
     const getBikeStations = async () => {
         try{
             var response = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status');
@@ -190,6 +191,40 @@ const chargePointService = (dependencies) => {
         return station.reports;
     }
 
+    const getDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; // Radius of the earth in km
+        const dLat = (lat2-lat1) * (Math.PI/180);  // deg2rad below
+        const dLon = (lon2-lon1) * (Math.PI/180);
+        const a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos((lat1) * (Math.PI/180)) * Math.cos((lat2) * (Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        const d = R * c; // Distance in km
+        return d;
+    }
+
+    const getNearest = async (lat, lng, howMany) => {
+        var vehicleStations = await getVehicleStations();
+        const groupItems = groupBy("id");
+        vehicleStations = groupItems(vehicleStations);
+        //console.log(vehicleStations);
+        const stations = [];
+        for (const [key, value] of Object.entries(vehicleStations)) { 
+            const distance = getDistance(lat, lng, value.lat, value.lng);
+            stations.push({
+                id: value.id,
+                name: value.name,
+                address: value.address,
+                lat: value.lat,
+                lng: value.lng,
+                objectType: value.objectType,
+                data: value.data,
+                distance: distance
+            });
+        }
+        stations.sort((a, b) => a.distance - b.distance);
+        return stations.slice(0, howMany);
+    }
+
     const feedStationToWeb = async (station) => {
         const defaultStation = await DefaultStations.findOne({station_id: station.station_id});
         return {
@@ -211,7 +246,8 @@ const chargePointService = (dependencies) => {
         reportStation,
         feedStationToWeb,
         getChargePointsById,
-        getReports
+        getReports,
+        getNearest,
     }
 }
 

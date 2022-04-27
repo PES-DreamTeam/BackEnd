@@ -51,10 +51,11 @@ const ToolController = (dependencies) => {
         }
     }
 
+    
     return {
         getBike,
         setDefaultStations,
-        setReportStations
+        setReportStations,
     }
 }
 

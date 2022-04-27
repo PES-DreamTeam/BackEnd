@@ -26,4 +26,7 @@ router.put('/:id/report', my_auth, chargePointsController.reportStation);
 // api/chargePoints/:id/report
 router.get('/:id/reports', chargePointsController.getReports);
 
+// api/chargePoints/:id/nearest
+router.get('/:id/nearest', chargePointsController.getNearest);
+
 module.exports = router;
