@@ -8,6 +8,8 @@ const user = {
         "likes": [],
         "profilePicture": "",
         "reports": [],
+        "achievements": [],
+        "currentVehicle": 0,
     }
 
 const vehicleConfig = {
@@ -31,6 +33,8 @@ const expectedUserWithoutVehicleConfig = {
     reports: [],
     profilePicture: "",
     favourites: [],
+    achievements: [],
+    currentVehicle: 0,
 }
 
 const expectedUserWithVehicleConfig = {
@@ -52,6 +56,9 @@ const expectedUserWithVehicleConfig = {
     reports: [],
     profilePicture: "",
     favourites: [],
+    achievements: [],
+    currentVehicle: 0,
+
 }
 
 module.exports = {

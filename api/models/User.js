@@ -50,6 +50,10 @@ const User = new mongoose.Schema({
     achievements: [{
         achievement_id: String,
         progress: Number
-    }]
+    }],
+    currentVehicle: {
+        type: Number,
+        default: 0
+    }
 })
 module.exports = mongoose.model('User', User);
