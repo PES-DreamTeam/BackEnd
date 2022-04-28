@@ -11,7 +11,7 @@ const chargePointService = (dependencies) => {
         "objectType"
     ]
 
-    const { NodeCache, axios, BikeStations, DefaultStations, ReportStations } = dependencies;
+    const { NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights } = dependencies;
     const cache = new NodeCache({  stdTTL:600 });
 
     const get = async (chargePointId, group, objectType, favourites) => {
@@ -148,9 +148,11 @@ const chargePointService = (dependencies) => {
                     sockets:[]
                 }
             })
-            var newSocket = JSON.parse(JSON.stringify(obj.data.sockets));
-            newSocket.vehicle_type = obj.data.vehicle_type;
-            objectsByKeyValue[value].data.sockets.push(newSocket);
+            if(obj.data?.sockets){
+                var newSocket = JSON.parse(JSON.stringify(obj.data?.sockets));
+                newSocket.vehicle_type = obj.data.vehicle_type;
+                objectsByKeyValue[value].data.sockets.push(newSocket);
+            }
             return objectsByKeyValue;
     }, {});
 
@@ -163,15 +165,24 @@ const chargePointService = (dependencies) => {
                     data = await getVehicleStations();
                 else if(item === "bikeStation")
                     data = await getBikeStations();
+                else if(item === "highlights")
+                    data = await getHighlights();
                 resultData = resultData.concat(data);
             }))
         else {
             resultData = await getVehicleStations();
             resultData = resultData.concat(await getBikeStations());
+            resultData = resultData.concat(await getHighlights());
         }
 
         resultData = resultData.filter(x => x !== undefined && x !== null);
         return resultData;
+    }
+
+    const getHighlights = async () => {
+        let data = await Highlights.find();	
+        data = data.map(x => {return {id: x._id, name:x.name, lng:x.lng, lat:x.lat, objectType: x.objectType}});
+        return data;
     }
 
     const voteStation = (id, wasLiked) => {
@@ -187,7 +198,6 @@ const chargePointService = (dependencies) => {
 
     const getReports = async (id) => {
         const station = await ReportStations.findOne({station_id: id});
-        console.log(station);
         return station.reports;
     }
 

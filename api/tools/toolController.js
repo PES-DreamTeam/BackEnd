@@ -1,6 +1,6 @@
 
 const ToolController = (dependencies) => {
-    const { BikeStations, axios, chargePointService } = dependencies;
+    const { BikeStations, axios, chargePointService, Highlights } = dependencies;
     const getBike = async (req, res) => {
         try {
             const bike = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information');
@@ -19,6 +19,16 @@ const ToolController = (dependencies) => {
             });
             return res.status(200).send(data);
         } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const publishHighlight = async (req, res) => {
+        try {
+            console.log(Highlights);
+            const result = await Highlights.create(req.body);
+            return res.status(200).send(result);
+        }catch(error){
             return res.status(500).send({msg: error.toString()});
         }
     }
@@ -55,6 +65,7 @@ const ToolController = (dependencies) => {
     return {
         getBike,
         setDefaultStations,
+        publishHighlight,
         setReportStations,
     }
 }

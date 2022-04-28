@@ -14,4 +14,6 @@ router.get('/defaultStations', toolController.setDefaultStations);
 //Popula Report stations /api/tools/reportStations
 router.get('/reportStations', toolController.setReportStations);
 
+router.post('/highlight', toolController.publishHighlight);
+
 module.exports = router;
