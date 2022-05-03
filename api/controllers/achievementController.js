@@ -15,7 +15,10 @@ const AchievementController = (dependencies) => {
 
     const getById = async (req, res) => {
         try {
+            console.log("Req params id:");
+            console.log(req.params.id);
             const data = await achievementService.getById(req.params.id);
+
             if(!data) return res.status(404).send({msg: "Achievement not found"});
             res.status(200).send({achievement: data});
         } catch (error) {

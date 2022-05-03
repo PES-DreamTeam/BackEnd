@@ -14,7 +14,7 @@ module.exports = {
             achievement_id: {
                 type: "string",
                 description: "The id of the achievement",
-                example: "2"
+                example: "62714d28e95bac374c2fb003"
             },
             achievement: {
                 type: "object",
@@ -22,17 +22,17 @@ module.exports = {
                     achievement_id: {
                         type: "string",
                         description: "The id of the achievement",
-                        example: "1"
+                        example: "62714d28e95bac374c2fb003"
                     },
                     progress: {
                         type: "number",
                         description: "The progress of the achievement",
-                        example: "6"
+                        example: "2"
                     },
                     objective: {
                         type: "number",
                         description: "The objective of the achievement",
-                        example: "10"
+                        example: "5"
                     }
                 }
             },
