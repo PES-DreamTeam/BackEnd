@@ -9,7 +9,7 @@ module.exports = {
             station_id: {
                 type: "string",
                 description: "The id of the station",
-                example: '{"station_id" : "2054"}'
+                example: "2054"
             },
             achievement_id: {
                 type: "string",

@@ -86,19 +86,13 @@ const ChargePointsController = (dependencies) => {
 
     const getNearest = async (req, res) => {
         try {
-            /*
-                body = {
-                    howMany -> how many stations to return
-                }
-            */
             const stationID = req.params.id;
             const station = await chargePointService.get(stationID, "id", null);
             if(!station) return res.status(404).send({msg: "Station not found"});
             const lat = station[req.params.id].lat;
             const lng = station[req.params.id].lng;
-            const howMany = 5; //req.body.howMany;
+            const howMany = req.query.howMany;
             const nearest = await chargePointService.getNearest(lat, lng, howMany);
-            console.log(nearest);
             return res.status(200).send({nearest});
         }
         catch (error) {

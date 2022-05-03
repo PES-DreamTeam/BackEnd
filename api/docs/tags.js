@@ -11,6 +11,10 @@ module.exports = {
         {
             name: "Sample Vehicles Controller",
             description: "Controller for sample vehicles",
-        }
+        },
+        {
+            name: "Service Controller",
+            description: "Controller for services",
+        },
     ]
 }

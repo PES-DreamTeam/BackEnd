@@ -1,7 +1,8 @@
-const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePoint, reportChargePoint } = require('./chargePoints');
+const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePoint, reportChargePoint, getNearest } = require('./chargePoints');
 const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement} = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles } = require('./sampleVehiclesController');
 const { createReport } = require('./reportController');
+const { getClosest } = require('./serviceController');
 //const {getAchievementById, getAllAchievements} = require('./achievementController');
 const { registerUser, loginUser } = require('./authController'); 
 module.exports = {
@@ -25,7 +26,10 @@ module.exports = {
             ...voteChargePoint
         },
         '/api/chargePoints/{id}/report': {
-            ...reportChargePoint
+            ...reportChargePoint,
+        },
+        '/api/chargePoints/{id}/nearest': {
+            ...getNearest,
         },
         '/api/users/{id}/vehicleConfig': {
             ...getVehicleConfig,
@@ -64,6 +68,9 @@ module.exports = {
         },
         '/api/report': {
             ...createReport,
+        },
+        '/api/service/closest': {
+            ...getClosest,
         },
     }
 }

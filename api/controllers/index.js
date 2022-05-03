@@ -5,4 +5,5 @@ module.exports = {
     sampleVehiclesController: require('./sampleVehiclesController'),
     ReportController: require('./reportController'),
     AchievementController: require('./achievementController'),
+    ServiceController: require('./serviceController'),
 }

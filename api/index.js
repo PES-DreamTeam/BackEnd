@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config({path: '../.env'});
 const PORT = process.env.PORT || 8080;
-const { Auth, User, ChargePoints, SampleVehicles, Report, Achievements } = require('./routes');
+const { Auth, User, ChargePoints, SampleVehicles, Report, Achievements, Service } = require('./routes');
 const tools = require('./tools/tools');
 const docs = require('./docs');
 const swaggerUI = require('swagger-ui-express');
@@ -25,6 +25,7 @@ mongoose
         app.use('/api/achievements', Achievements);
 
         app.use('/api/tools', tools);
+        app.use('/api/service', Service);
         
         app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 

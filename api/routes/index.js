@@ -5,4 +5,5 @@ module.exports = {
     SampleVehicles: require('./sampleVehicles'),
     Report: require('./report'),
     Achievements: require('./achievement'),
+    Service: require('./service'),
 }

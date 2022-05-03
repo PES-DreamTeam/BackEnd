@@ -1,5 +1,3 @@
-const { array } = require("joi");
-
 module.exports = {
     get: {
         tags:["ChargePoints controller"],

@@ -3,15 +3,7 @@ module.exports = {
         tags:["ChargePoints controller"],
         description: "Get info for a charge point given an id",
         operationId: "getInfo",
-        parameters: [{
-                name: "id",
-                in: "path",
-                schema: {
-                    $ref: "#/components/schemas/id",
-                },
-                required: true, 
-                description: "Charge point id",
-        }],
+        parameters: [],
         responses: {
             200: {
                 description: "Successful operation",
