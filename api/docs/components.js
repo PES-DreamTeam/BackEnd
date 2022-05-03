@@ -3,8 +3,8 @@ module.exports = {
         schemas: {
             id: {
                 type: "string",
-                description: "The id of the chargePoint",
-                example: "625736cd88020ba327c9469c"
+                description: "The id of the user",
+                example: "62514abbe83aaaa11025098f"
             },
             station_id: {
                 type: "string",
@@ -14,17 +14,42 @@ module.exports = {
             achievement_id: {
                 type: "string",
                 description: "The id of the achievement",
-                example: '{"achievement_id" : "6"}'
+                example: "2"
+            },
+            achievement: {
+                type: "object",
+                properties: {
+                    achievement_id: {
+                        type: "string",
+                        description: "The id of the achievement",
+                        example: "1"
+                    },
+                    progress: {
+                        type: "number",
+                        description: "The progress of the achievement",
+                        example: "6"
+                    },
+                    objective: {
+                        type: "number",
+                        description: "The objective of the achievement",
+                        example: "10"
+                    }
+                }
             },
             progress: {
                 type: "number",
                 description: "The progress of the achievement",
-                example: '{"progress" : "6"}'
+                example: '{"progress" : 6}'
+            },
+            objective: {
+                type: "number",
+                description: "The objective of the achievement",
+                example: '{"objective" : 9}'
             },
             auth: {
                 type: "string",
                 description: "auth token",
-                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU3MzZjZDg4MDIwYmEzMjdjOTQ2OWMiLCJpYXQiOjE2NDk4ODI4MzAsImV4cCI6MTY1ODUyMjgzMH0.7lu38774PCqU8hboBQqZVcgfQg-tU2hpVNwEorCntuk"
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNGFiYmU4M2FhYWExMTAyNTA5OGYiLCJpYXQiOjE2NTE1ODg4OTUsImV4cCI6MTY2MDIyODg5NX0.W98wvPMD4O1RHqfXAFmiXfx6cXxNVFIQUMyHhEFBw2s"
             },
             Reason: {
                 type: "string",

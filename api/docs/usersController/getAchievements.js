@@ -1,8 +1,8 @@
 module.exports = {
-    put: {
+    get: {
         tags: ["User controller"],
-        description: "Set user achievements",
-        operationId: "setAchievement",
+        description: "Get all user achievements",
+        operationId: "getAchievements",
         parameters: [
             {
                 name:"Authorization",
@@ -11,14 +11,6 @@ module.exports = {
                     $ref: "#/components/schemas/auth",
                 },
                 required: true
-            },{
-                name: "achievement",
-                in: "body",
-                schema: {
-                    $ref: "#/components/schemas/achievement",
-                },
-                required: true,
-                description: "achievement",
             },{
                 name: "id",
                 in: "path",
@@ -32,9 +24,6 @@ module.exports = {
         responses: {
             200: {
                 description: "Successful operation",
-            },
-            404: {
-                description: "Not found",
             },
             500: {
                 description: "Internal server error",

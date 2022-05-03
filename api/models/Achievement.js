@@ -10,15 +10,9 @@ const Achievement = new Schema({
     objective: {
         type: Number,
     },
-    imgGold: {
+    image: {
         type: String,
-    },
-    imgSilver: {
-        type: String,
-    },
-    imgBronze: {
-        type: String,
-    },
+    }
 });
 
 Achievement.index({achievement_id:1} , { unique: true });

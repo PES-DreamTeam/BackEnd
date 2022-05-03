@@ -6,6 +6,7 @@ const deleteUser = require('./deleteUser');
 const setFavourites = require('./setFavourites');
 const getFavourites = require('./getFavourites');
 const setAchievement = require('./setAchievement');
+const getAchievements = require('./getAchievements');
 const deleteVehicleConfig = require('./deleteVehicleConfig');
 const getVehicleConfig = require('./getVehicleConfig');
 
@@ -18,6 +19,7 @@ module.exports = {
     getFavourites: getFavourites,
     setFavourites: setFavourites,
     setAchievement: setAchievement,
+    getAchievements: getAchievements,
     deleteVehicleConfig: deleteVehicleConfig,
     getVehicleConfig: getVehicleConfig,
 }

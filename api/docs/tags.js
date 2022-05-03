@@ -16,5 +16,9 @@ module.exports = {
             name: "Service Controller",
             description: "Controller for services",
         },
+        {
+            name: "Achievement Controller",
+            description: "Controller for achievements",
+        },
     ]
 }

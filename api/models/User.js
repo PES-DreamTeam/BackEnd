@@ -49,7 +49,8 @@ const User = new mongoose.Schema({
     },
     achievements: [{
         achievement_id: String,
-        progress: Number
+        progress: Number,
+        objective: Number,
     }],
     currentVehicle: {
         type: Number,

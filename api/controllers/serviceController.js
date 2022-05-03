@@ -3,10 +3,6 @@ const ServiceController = (dependencies) => {
 
     const getClosest = async (req, res) => {
         try {
-            console.log("Me estan llamando con esto:");
-            console.log(req.query.lat);
-            console.log(req.query.lng);
-            console.log(req.query.howMany);
             const lat = req.query.lat;
             const lng = req.query.lng;
             const howMany = req.query.howMany;
