@@ -175,12 +175,16 @@ const UsersController = (dependencies) => {
     */
     const setAchievement = async (req, res) => {
         try {
-            //if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
+            if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
             const bodyRequest = req.body;
             const user = await userService.getById(req.params.id);
+            console.log(bodyRequest);
+            console.log("------------------------------------");
+            console.log(user);
             const achievement = await userService.setAchievement(bodyRequest, user);
             if(!achievement) return res.status(404).send({msg: "Achievement not found"});
-            return res.status(200).send({user: await userService.feedUserToWeb(user)});
+            await userService.feedUserToWeb(user);
+            return res.status(200).send({achievement: achievement});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }

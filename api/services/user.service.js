@@ -50,8 +50,8 @@ const userService = (dependencies) => {
         const objective = body.objective;
         const achievement = await Achievements.findOne({achievement_id: id});
         if(!achievement){return achievement;}
-        user.Achievements.find(ach => ach.achievement_id === id).progress = progress;
-        user.Achievements.find(ach => ach.achievement_id === id).objective = objective;
+        user.achievements.find(ach => ach.achievement_id === id).progress = progress;
+        user.achievements.find(ach => ach.achievement_id === id).objective = objective;
         await updateUser(user._id, user);
         return achievement;
     }

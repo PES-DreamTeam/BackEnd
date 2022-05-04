@@ -62,12 +62,7 @@ const ToolController = (dependencies) => {
     }
     
     const setAchievements = async (req, res) => {
-        try {
-            const result = await Achievements.create(req.body);
-            return res.status(200).send(result);
-        }catch(error){
-            return res.status(500).send({msg: error.toString()});
-        }
+        
     }
 
     
