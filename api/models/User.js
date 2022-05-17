@@ -52,8 +52,9 @@ const User = new mongoose.Schema({
         default: [],
     },
     achievements: [{
-        achievement_id: String,
-        progress: Number,
+        achievement_id: Number,
+        achievement_tier: Number,
+        progress: Number,   
         objective: Number,
     }],
     currentVehicle: {

@@ -16,7 +16,7 @@ router.get('/reportStations', toolController.setReportStations);
 
 router.post('/highlight', toolController.publishHighlight);
 
-// Popula achievements api/tools/achievements
-router.post('/achievements', toolController.setAchievements);
+// Popula achievements als users api/tools/achievements
+router.get('/achievements', toolController.setAchievements);
 
 module.exports = router;

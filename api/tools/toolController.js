@@ -1,6 +1,6 @@
 
 const ToolController = (dependencies) => {
-    const { BikeStations, axios, chargePointService, Highlights, Achievements } = dependencies;
+    const { BikeStations, axios, chargePointService, Highlights, Achievements, Users } = dependencies;
     const getBike = async (req, res) => {
         try {
             const bike = await axios.get('https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information');
@@ -62,7 +62,25 @@ const ToolController = (dependencies) => {
     }
     
     const setAchievements = async (req, res) => {
-        
+        //set all the achievements for every user
+        let allUsers = await Users.find();
+        let allAchievements = await Achievements.find();
+        allUsers.forEach(user => {
+            user.achievements = [];
+            allAchievements.forEach(achievement => {
+                user.achievements.push({
+                    achievement_id: achievement.achievement_id,
+                    achievement_tier: achievement.achievement_tier,
+                    progress: 0,
+                    objective: achievement.objective,
+                });
+            });
+        }
+        );
+        allUsers.forEach(user => {
+            user.save();
+        }
+        );
     }
 
     

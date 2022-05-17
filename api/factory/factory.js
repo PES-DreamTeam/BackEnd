@@ -33,11 +33,11 @@ const Factory = () => {
     const createToolController = (dependencies) => {
         if(!dependencies) {
             const chargePointService = createChargePointService();
-            return ToolController({BikeStations, axios, chargePointService, userService, Highlights, Achievements});
+            return ToolController({BikeStations, axios, chargePointService, userService, Highlights, Achievements, Users});
         }
         else {
-            let { BikeStations, axios, chargePointService, userService, Highlights } = dependencies;
-            return ToolController({BikeStations, axios, chargePointService, userService, Highlights});
+            let { BikeStations, axios, chargePointService, userService, Highlights, Users } = dependencies;
+            return ToolController({BikeStations, axios, chargePointService, userService, Highlights, Users});
         }
     }
 

@@ -46,14 +46,13 @@ const userService = (dependencies) => {
 
     const setAchievement = async (body, user) =>{
         const id = body.achievement_id;
+        const tier = body.achievement_tier;
         const progress = body.progress;
-        const objective = body.objective;
-        const achievement = await Achievements.findOne({achievement_id: id});
+        const achievement = await Achievements.findOne({id, tier});
         if(!achievement){return achievement;}
         user.achievements = user.achievements.map(ach => {
-            if(ach.achievement_id == id){
+            if(ach.achievement_id == id && ach.achievement_tier == tier){
                 ach.progress = progress;
-                ach.objective = objective;
             }
             return ach;
         })
@@ -63,7 +62,18 @@ const userService = (dependencies) => {
 
     const getAchievements = async (id) =>{
         const user = await User.findById(id);
-        return user.achievements;
+        const allAchievements = await Achievements.find();
+        const achievements = allAchievements.map(ach => {
+            const userAchievement = user.achievements.find(uach => uach.achievement_id == ach.achievement_id && uach.achievement_tier == ach.achievement_tier);
+            return {
+                achievement_id: ach.achievement_id,
+                achievement_tier: ach.achievement_tier,
+                description: ach.description,
+                objective: ach.objective,
+                progress: userAchievement ? userAchievement.progress : 0,
+            }
+        })
+        return achievements;
     }
 
     const getLikes = async (id) =>{

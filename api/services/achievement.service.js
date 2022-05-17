@@ -9,10 +9,15 @@ const achievementService = (dependencies) => {
         }
     }
 
-    const getById = (_id) => {
-        console.log("Service id: ");
-        console.log(_id);
-        return Achievements.findById(_id);
+    const getById = async (id, tier) => {
+        try {
+            console.log(id, tier);
+            console.log(await Achievements.findOne({id, tier}));
+            return await Achievements.findOne({id, tier});
+        }
+        catch (error) {
+            throw error;
+        }
     }
 
     const getAll = () => {

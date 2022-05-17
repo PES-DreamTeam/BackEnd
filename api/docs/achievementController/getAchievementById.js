@@ -12,6 +12,15 @@ module.exports = {
                 },
                 required: true,
                 description: "Achievement id",
+            },
+            {
+                name: "tier",
+                in: "query",
+                schema: {
+                    $ref: "#/components/schemas/achievement_tier",
+                },
+                required: true,
+                description: "Achievement tier",
             }
         ],
         responses: {

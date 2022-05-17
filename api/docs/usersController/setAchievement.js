@@ -15,7 +15,7 @@ module.exports = {
                 name: "achievement",
                 in: "body",
                 schema: {
-                    $ref: "#/components/schemas/achievement",
+                    $ref: "#/components/schemas/achievement_2",
                 },
                 required: true,
                 description: "achievement",

@@ -12,9 +12,14 @@ module.exports = {
                 example: "2054"
             },
             achievement_id: {
-                type: "string",
+                type: "number",
                 description: "The id of the achievement",
-                example: "62714d28e95bac374c2fb003"
+                example: "1"
+            },
+            achievement_tier: {
+                type: "number",
+                description: "The tier of the achievement",
+                example: "1"
             },
             achievement: {
                 type: "object",
@@ -34,6 +39,26 @@ module.exports = {
                         description: "The objective of the achievement",
                         example: "5"
                     }
+                }
+            },
+            achievement_2: {
+                type: "object",
+                properties: {
+                    achievement_id: {
+                        type: "number",
+                        description: "The id of the achievement",
+                        example: "2"
+                    },
+                    achievement_tier: {
+                        type: "number",
+                        description: "The tier of the achievement",
+                        example: "2"
+                    },
+                    progress: {
+                        type: "number",
+                        description: "The progress of the achievement",
+                        example: "2"
+                    },
                 }
             },
             progress: {
