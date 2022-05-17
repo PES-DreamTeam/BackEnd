@@ -1,5 +1,5 @@
-const { userService, chargePointService, authService, socialMediaService, reportService, achievementService } = require('../services');
-const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController } = require('../controllers');
+const { userService, chargePointService, authService, socialMediaService, reportService, achievementService, sampleVehicleService } = require('../services');
+const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController, sampleVehiclesController } = require('../controllers');
 const ToolController = require('../tools/toolController');
 const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations, Achievements, Highlights} = require('../models');
 const axios = require('axios')
@@ -11,6 +11,11 @@ const Factory = () => {
         const userService = createUserService();
         const chargePointService = createChargePointService();
         return UsersController({userService, chargePointService}); 
+    }
+    
+    const createSampleVehicleController = (dependencies) => {
+        return sampleVehiclesController({sampleVehicleService});
+
     }
 
     const createChargePointsController = () => {
@@ -111,6 +116,7 @@ const Factory = () => {
         createAchievementService,
         createAchievementController,
         createServiceController,
+        createSampleVehicleController
     }
 }
 
