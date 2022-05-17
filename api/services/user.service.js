@@ -85,6 +85,7 @@ const userService = (dependencies) => {
             favourites: user.favourites,
             achievements: user.achievements,
             currentVehicle: user.currentVehicle,
+            isAdmin: user.isAdmin
         }
     }
 
