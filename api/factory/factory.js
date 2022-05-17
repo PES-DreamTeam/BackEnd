@@ -1,7 +1,7 @@
-const { userService, chargePointService, authService, socialMediaService, reportService, achievementService } = require('../services');
-const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController } = require('../controllers');
+const { userService, chargePointService, authService, socialMediaService, reportService, achievementService, chatService, msgService } = require('../services');
+const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController, ChatController, MsgController } = require('../controllers');
 const ToolController = require('../tools/toolController');
-const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations, Achievements, Highlights} = require('../models');
+const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations, Achievements, Highlights, Chat, Message} = require('../models');
 const axios = require('axios')
 const NodeCache = require('node-cache');
 const randomstring = require('randomstring');
@@ -46,6 +46,16 @@ const Factory = () => {
         return AchievementController({achievementService});
     }
 
+    const createMsgController = () => {
+        const msgService = createMsgService();
+        return MsgController({msgService});
+    }
+
+    const createChatController = () => {
+        const chatService = createChatService();
+        return ChatController({chatService});
+    }
+
     const createServiceController = (dependencies) => {
         if(!dependencies) {
             const chargePointService = createChargePointService();
@@ -80,6 +90,24 @@ const Factory = () => {
         }
     }
 
+    const createMsgService = (dependencies) => {
+        if(!dependencies)
+            return msgService({Message});
+        else{
+            let { Message } = dependencies;
+            return msgService({Message});
+        }
+    }
+
+    const createChatService = (dependencies) => {
+        if(!dependencies)
+            return chatService({Chat});
+        else{
+            let { Chat } = dependencies;
+            return chatService({Chat});
+        }
+    }
+
     const createChargePointService = (dependencies) => {
         if(!dependencies)
             return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations, Highlights});
@@ -91,7 +119,7 @@ const Factory = () => {
 
     const createUserService = (dependencies) => {
         if(!dependencies) 
-            return userService({Users, VehicleInstances, DefaultStations, Achievements});
+            return userService({Users, VehicleInstances, DefaultStations, Achievements, Chat, Message});
         else
         {
             const { Users, VehicleInstances, DefaultStations, Achievements} = dependencies;
@@ -111,6 +139,8 @@ const Factory = () => {
         createAchievementService,
         createAchievementController,
         createServiceController,
+        createMsgController,
+        createChatController,
     }
 }
 

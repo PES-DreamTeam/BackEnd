@@ -36,6 +36,36 @@ module.exports = {
                     }
                 }
             },
+            message: {
+                type: "object",
+                properties: {
+                    chat_id: {
+                        type: "number",
+                        description: "The id of the message",
+                        example: "62714d28e95bac374c2fb003"
+                    },
+                    user_id: {
+                        type: "number",
+                        description: "The id of the user",
+                        example: "62714d28e95bac374c2fb003"
+                    },
+                    text: {
+                        type: "number",
+                        description: "The content of the message",
+                        example: "This is a message"
+                    },
+                    position: {
+                        type: "string",
+                        description: "The position of the message",
+                        example: "left"
+                    },
+                    createdAt: {
+                        type: "date",
+                        description: "The date and time of the message",
+                        example: "06-10-2020"
+                    }
+                }
+            },
             progress: {
                 type: "number",
                 description: "The progress of the achievement",

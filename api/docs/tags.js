@@ -20,5 +20,9 @@ module.exports = {
             name: "Achievement Controller",
             description: "Controller for achievements",
         },
+        {
+            name: "Message Controller",
+            description: "Controller for messages",
+        },
     ]
 }
