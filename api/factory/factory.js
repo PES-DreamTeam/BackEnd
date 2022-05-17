@@ -82,10 +82,10 @@ const Factory = () => {
 
     const createChargePointService = (dependencies) => {
         if(!dependencies)
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations, Highlights});
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights});
         else{
-            let { NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations, Highlights } = dependencies;
-            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, userService, ReportStations, Highlights});
+            let { NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights } = dependencies;
+            return chargePointService({NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights});
         }
     }
 

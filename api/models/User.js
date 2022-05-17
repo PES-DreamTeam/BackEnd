@@ -16,6 +16,10 @@ const User = new mongoose.Schema({
             validator.validateEmail(value);
         }
     },
+    isAdmin: {
+        type: Boolean,
+        default: false, 
+    },
     password: {
         type: String,
         required: 'The password is required',

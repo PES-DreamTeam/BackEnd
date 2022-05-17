@@ -13,7 +13,7 @@ const {
     favourites,
     expectedVehicleBikeFavourites
 } = require('./schemas');
-const { BikeStations, DefaultStations, Highlights } = require('../../../models'); 
+const { BikeStations, DefaultStations, Highlights, ReportStations } = require('../../../models'); 
 const Factory = require('../../../factory/factory');
 const axios = require('axios');
 const NodeCache = require('node-cache');
@@ -21,6 +21,9 @@ let factory = Factory();
 let axiosSpy;
 let bikeStationsSpy;
 let chargePointsService;
+let DefaultStationsSpy;
+let ReportStationsSpy;
+let HighlightsSpy;
 
 beforeAll(()=>{
 
@@ -39,10 +42,16 @@ beforeAll(()=>{
 
 beforeEach(()=>{
     chargePointsService = factory.createChargePointService({
-        NodeCache, axios, BikeStations
+        NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights 
     });
     bikeStationsSpy = jest.spyOn(BikeStations, 'find');
-    bikeStationsSpy.mockImplementation(()=>{});
+    bikeStationsSpy.mockImplementation(()=>[]);
+    DefaultStationsSpy = jest.spyOn(DefaultStations, 'find');
+    DefaultStationsSpy.mockImplementation(()=>[]);
+    ReportStationsSpy = jest.spyOn(ReportStations, 'find');
+    ReportStationsSpy.mockImplementation(()=>[]);
+    HighlightsSpy = jest.spyOn(Highlights, 'find');
+    HighlightsSpy.mockImplementation(()=>[]);
 })
 
 describe("Get Charge points", ()=>{
