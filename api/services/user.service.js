@@ -71,6 +71,7 @@ const userService = (dependencies) => {
                 description: ach.description,
                 objective: ach.objective,
                 progress: userAchievement ? userAchievement.progress : 0,
+                image: ach.image,
             }
         })
         return achievements;
