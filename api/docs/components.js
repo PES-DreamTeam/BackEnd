@@ -68,7 +68,9 @@ module.exports = {
                         type: "date",
                         description: "The date and time of the message",
                         example: "06-10-2020"
-                    }
+                    },
+                }
+            },
             achievement_2: {
                 type: "object",
                 properties: {
