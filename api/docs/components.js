@@ -45,17 +45,17 @@ module.exports = {
                 type: "object",
                 properties: {
                     chat_id: {
-                        type: "number",
+                        type: "string",
                         description: "The id of the message",
                         example: "62714d28e95bac374c2fb003"
                     },
                     user_id: {
-                        type: "number",
+                        type: "string",
                         description: "The id of the user",
                         example: "62714d28e95bac374c2fb003"
                     },
                     text: {
-                        type: "number",
+                        type: "string",
                         description: "The content of the message",
                         example: "This is a message"
                     },

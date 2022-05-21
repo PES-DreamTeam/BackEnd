@@ -26,11 +26,15 @@ const MsgController = (dependencies) => {
     }
 
     const createMessage = async (req, res) => {
+        console.log("caca de vaca");
         try {
-            const data = await msgService.createMessage(req.params);
-            res.status(200).send({message: data});
+            const created = await msgService.createMessage(req.body);
+            if(created)
+                return res.status(201).send({ msg: "Message created", message: created });
+            else
+                return res.status(500).send({msg: "Error creating message"});
         } catch (error) {
-            res.status(500).send({error: error.toString()});
+            return res.status(500).send({msg: error.toString()});
         }
     }
 
