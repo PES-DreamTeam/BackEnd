@@ -8,6 +8,7 @@ const ReportStation = new Schema({
         reportType: String,
         reportMsg: String,
         stationId: String,
+        stationType: String,
         date: Date,
         userName: String,
         isResolved: {
