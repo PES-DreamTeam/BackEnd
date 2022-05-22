@@ -8,6 +8,5 @@ module.exports = {
     Highlights: require('./Highlight'),
     ReportStations: require('./ReportStation'),
     Achievements: require('./Achievement'),
-    Chat: require('./Chat'),
     Message: require('./Message'),
 }

@@ -4,7 +4,7 @@ const {Schema, model} = require('mongoose');
 const Message = new Schema({
     chat_id: {
         type: Schema.Types.ObjectId,
-        ref: "Chat",
+        ref: "User",
     },
     user_id: {
         type: Schema.Types.ObjectId,
