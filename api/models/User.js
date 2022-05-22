@@ -65,6 +65,10 @@ const User = new mongoose.Schema({
     chat_id: {
         type: Schema.Types.ObjectId,
         ref: "Chat",
+    },
+    banned: {
+        type: Boolean,
+        default: false,
     }
 })
 module.exports = mongoose.model('User', User);

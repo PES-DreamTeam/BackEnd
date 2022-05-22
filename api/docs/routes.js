@@ -1,5 +1,5 @@
 const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePoint, reportChargePoint, getNearest } = require('./chargePoints');
-const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement, getAchievements} = require('./usersController');
+const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement, getAchievements, banUser} = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles, getBrands, getModels } = require('./sampleVehiclesController');
 const { createReport, getReports, markAsResolved } = require('./reportController');
 const { getClosest } = require('./serviceController');
@@ -53,6 +53,9 @@ module.exports = {
         '/api/users/{id}/achievements': {
             ...getAchievements,
             ...setAchievement,
+        },
+        '/api/users/banUser/{id}':{
+            ...banUser
         },
         '/api/achievements': {
             ...getAllAchievements,

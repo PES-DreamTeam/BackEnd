@@ -21,6 +21,7 @@ const AuthController = (dependencies) => {
         try {
             const user = await userService.getByEmail(req.body.email);
             if(!user) return res.status(403).send({error: 'Invalid credentials'});
+            if(user.banned) return res.status(403).send({error: 'User banned'});
 
             const token = await authService.login(user, req.body);
             if(token){
@@ -51,6 +52,7 @@ const AuthController = (dependencies) => {
                 likes: [],
                 reports: [],
             });
+            if(user.banned) return res.status(403).send({error: 'User banned'});
 
             const token = await authService.signToken(user._id);
 
