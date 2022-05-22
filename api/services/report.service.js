@@ -16,10 +16,6 @@ const reportService = (dependencies) => {
         else if(reportType === 'app'){
             data = await getAppReports(); 
         }
-        else {
-            data = await getStationReports();
-            data = await data.concat(await getAppReports());
-        }
         return data;
     }
 
