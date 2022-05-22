@@ -11,9 +11,7 @@ const achievementService = (dependencies) => {
 
     const getById = async (id, tier) => {
         try {
-            console.log(id, tier);
-            console.log(await Achievements.findOne({id, tier}));
-            return await Achievements.findOne({id, tier});
+            return await Achievements.findOne({achievement_id: id.toString(), achievement_tier: tier.toString()});
         }
         catch (error) {
             throw error;

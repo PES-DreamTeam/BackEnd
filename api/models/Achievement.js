@@ -2,10 +2,10 @@ const {Schema, model} = require('mongoose');
 
 const Achievement = new Schema({
     achievement_id: {
-        type: Number,
+        type: String,
     },
     achievement_tier: {
-        type: Number,
+        type: String,
     },
     description: {
         type: String,
