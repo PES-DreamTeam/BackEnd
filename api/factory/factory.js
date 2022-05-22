@@ -73,7 +73,7 @@ const Factory = () => {
     }
 
     const createReportService = (dependencies) => {
-        return reportService({Reports}); 
+        return reportService({Reports, ReportStations, Users}); 
     }
 
 

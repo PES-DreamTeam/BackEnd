@@ -1,3 +1,4 @@
+const { boolean } = require('joi');
 const mongoose = require('mongoose');
 const { Types } = require('ts-openapi');
 
@@ -25,7 +26,15 @@ const Report = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+    },
+    isResolved: {
+        type: Boolean,
+        default: false,
     }
-});
+},
+    {
+    timestamps: true,
+    }
+);
 
 module.exports = mongoose.model('Report', Report);

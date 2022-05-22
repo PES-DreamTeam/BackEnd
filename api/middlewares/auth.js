@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = userService => (req, res, next) => {
+module.exports = (userService, adminRequired=false) => (req, res, next) => {
     var token = req.headers.authorization;
     if(!token){
         return res.status(401).send({msg: 'No token provided'});
@@ -10,7 +10,7 @@ module.exports = userService => (req, res, next) => {
         if(!decoded) return res.status(401).send({msg: 'Invalid token'});
         const { _id } = decoded;
         const user = await userService.getById(_id);
-        if(!user) return res.status(401).send({msg: 'You are not authorized'});
+        if(!user || (adminRequired && !user.isAdmin)) return res.status(401).send({msg: 'You are not authorized'});
         req.user = user;
         next();
     })
