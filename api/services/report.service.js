@@ -23,6 +23,15 @@ const reportService = (dependencies) => {
         return data;
     }
 
+    const markAsResolved = async (stationId, reportId, reportType) => {
+        if(reportType === 'station'){
+            return await markStationAsResolved(stationId, reportId);
+        }else if(reportType === 'app'){
+            return await markAppAsResolved(reportId);
+        }
+    }
+
+// #region private functions
     const getStationReports = async () => {
         let reports = await ReportStations.find();
         reports = reports.filter(r => r.reports.length > 0);
@@ -81,14 +90,7 @@ const reportService = (dependencies) => {
         let unresolvedReports = reports.filter(r => !r.isResolved);
         return {resolvedReports, unresolvedReports};
     }
-    const markAsResolved = async (stationId, reportId, reportType) => {
-        if(reportType === 'station'){
-            return await markStationAsResolved(stationId, reportId);
-        }else if(reportType === 'app'){
-            return await markAppAsResolved(reportId);
-        }
-    }
-
+   
     const markAppAsResolved = async (reportId) => {
         try {
             return await Reports.findByIdAndUpdate(reportId, {isResolved: true});
@@ -104,7 +106,7 @@ const reportService = (dependencies) => {
             throw error;
         }
     }
-
+// #endregion
 
     return {
         createNewReport,
