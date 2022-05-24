@@ -96,7 +96,8 @@ const userService = (dependencies) => {
             favourites: user.favourites,
             achievements: user.achievements,
             currentVehicle: user.currentVehicle,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            lastMessage: user.lastMessage
         }
     }
 
@@ -153,6 +154,11 @@ const userService = (dependencies) => {
         return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
     }
 
+    const setLastMessage = async (id, message) => {  
+        console.log(message);
+        return Users.findByIdAndUpdate(id, {lastMessage: message});
+    }
+
     return {
         getByEmail,
         getById,
@@ -171,6 +177,7 @@ const userService = (dependencies) => {
         setAchievement,
         getAchievements,
         getLikes,
+        setLastMessage,
     }
 }
 

@@ -1,6 +1,7 @@
 const { array } = require('joi');
 const mongoose = require('mongoose');
 const {Schema} = require('mongoose');
+const Message = require('./Message');
 const validator = require('./validators/userValidators');
 const User = new mongoose.Schema({
     name: {
@@ -61,6 +62,10 @@ const User = new mongoose.Schema({
     currentVehicle: {
         type: Number,
         default: 0
-    }
+    },
+    lastMessage: {
+        type: String,
+        default: "message test",
+    },
 })
 module.exports = mongoose.model('User', User);

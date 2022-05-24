@@ -17,6 +17,9 @@ router.get('/:id', usersController.getById);
 // api/users/:id/profilePicture
 router.post('/:id/profilePicture', my_auth, usersController.setProfilePicture);
 
+// api/users/:id/lastMessage
+router.post('/:id/lastMessage', /*my_auth,*/ usersController.setLastMessage);
+
 // api/users/:id/vehicleConfig
 router.get('/:id/vehicleConfig', usersController.getVehicleConfig);
 

@@ -1,3 +1,5 @@
+const { UsersController } = require("../controllers");
+const usersController = require("../docs/usersController");
 const { Users } = require("../models");
 
 const msgService = (dependencies) => {
@@ -14,14 +16,15 @@ const msgService = (dependencies) => {
         return Message.findById(_id).messages;
     }
 
-    const getAll = () => {
-        return Message.find();
+    const getAll = async () => {
+        const allMessages = await Message.find();
+        return sortedMessages = allMessages.sort((a, b) => b.createdAt - a.createdAt)
     }
 
     const getChatMsgs = async (id) => {
         const allMessages = await Message.find();
         const m = await allMessages.filter(msg1 => msg1.user_id == id);
-        return m;
+        return sortedMessages = m.sort((a, b) => b.createdAt - a.createdAt)
     }
 
     const getLastMsgAllUsers = async () => {
@@ -32,6 +35,8 @@ const msgService = (dependencies) => {
     }
 
     const createMessage = async (message) => {
+        console.log(message.text);
+        Users.findByIdAndUpdate(message.user_id, {lastMessage : message.text});
         return await Message.create(message);
     }
 

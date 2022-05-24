@@ -10,6 +10,7 @@ const user = {
         "reports": [],
         "achievements": [],
         "currentVehicle": 0,
+        "lastMessage": {},
     }
 
 const vehicleConfig = {
@@ -35,6 +36,7 @@ const expectedUserWithoutVehicleConfig = {
     favourites: [],
     achievements: [],
     currentVehicle: 0,
+    lastMessage: {},
 }
 
 const expectedUserWithVehicleConfig = {
