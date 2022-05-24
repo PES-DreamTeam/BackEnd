@@ -225,7 +225,6 @@ const chargePointService = (dependencies) => {
         var vehicleStations = await getVehicleStations();
         const groupItems = groupBy("id");
         vehicleStations = groupItems(vehicleStations);
-        //console.log(vehicleStations);
         const stations = [];
         for (const [key, value] of Object.entries(vehicleStations)) { 
             const distance = getDistance(lat, lng, value.lat, value.lng);
@@ -243,6 +242,38 @@ const chargePointService = (dependencies) => {
         stations.sort((a, b) => a.distance - b.distance);
         return stations.slice(0, howMany);
     }
+
+    const checkAvailable = async (station) => {
+        const { sockets } = station.data;
+
+        const available = sockets.filter(x => x.socket_state === 0);
+        if(available.length > 0) return true;
+        return false;
+    }
+
+    const getNearestAvailable = async (lat, lng, maxDistance) => {
+        var vehicleStations = await getVehicleStations();
+        const groupItems = groupBy("id");
+        vehicleStations = groupItems(vehicleStations);
+        for (const [key, value] of Object.entries(vehicleStations)) { 
+            const distance = getDistance(lat, lng, value.lat, value.lng);
+            if(distance <= maxDistance && checkAvailable(value)) {
+                let station = ({
+                    id: value.id,
+                    name: value.name,
+                    address: value.address,
+                    lat: value.lat,
+                    lng: value.lng,
+                    objectType: value.objectType,
+                    data: value.data,
+                    distance: distance
+                });
+                return station;
+            }
+        }
+        return null;
+    }
+    
 
     const feedStationToWeb = async (station) => {
         const defaultStation = await DefaultStations.findOne({station_id: station.station_id});
@@ -267,6 +298,7 @@ const chargePointService = (dependencies) => {
         getChargePointsById,
         getReports,
         getNearest,
+        getNearestAvailable,
     }
 }
 
