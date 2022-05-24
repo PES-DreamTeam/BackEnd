@@ -7,6 +7,7 @@ const factory = Factory();
 const usersController = factory.createUsersController();
 const userService = factory.createUserService();
 const my_auth = auth(userService);
+const adminAuth = auth(userService, true);
 
 // api/users
 router.get('/', usersController.getAll);
@@ -52,5 +53,8 @@ router.get('/:id/achievements', usersController.getAchievements);
 
 // api/users/:id/likes
 router.get('/:id/likes', usersController.getLikes);
+
+// api/users/banUser/:id
+router.post('/banUser/:id', adminAuth, usersController.banUser);
 
 module.exports = router;

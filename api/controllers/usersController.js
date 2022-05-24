@@ -18,8 +18,6 @@ const UsersController = (dependencies) => {
         try {
             const user = await userService.getById(req.params.id);
             if(!user) return res.status(404).send({msg: "User not found"});
-            console.log(user.lastMessage)
-            console.log(user.name)
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
@@ -208,6 +206,16 @@ const UsersController = (dependencies) => {
             return res.status(500).send({msg: error.toString()});
         }
     }
+    
+    const banUser = async (req, res) => {
+        try {
+            const user = await userService.banUser(req.params.id);
+            if(!user) return res.status(404).send({msg: "User not found"});
+            return res.status(200).send({msg: 'User banned successfully'});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    } 
 
     return {
         getAll,
@@ -225,6 +233,7 @@ const UsersController = (dependencies) => {
         setFavourites,
         getAchievements,
         setAchievement,
+        banUser,
         setLastMessage,
     }
 }

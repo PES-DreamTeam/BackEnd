@@ -17,14 +17,14 @@ module.exports = {
                 example: "This is a message"
             },
             achievement_id: {
-                type: "number",
+                type: "string",
                 description: "The id of the achievement",
                 example: "1"
             },
             achievement_tier: {
-                type: "number",
+                type: "string",
                 description: "The tier of the achievement",
-                example: "1"
+                example: "3"
             },
             achievement: {
                 type: "object",

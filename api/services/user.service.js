@@ -29,6 +29,10 @@ const userService = (dependencies) => {
         return Users.findByIdAndDelete(_id);
     }
 
+    const banUser = (id) => {
+        return Users.findByIdAndUpdate(id, { banned: true });
+    }
+
 
     const setFavourites = async (stationId, user) =>{
         const station = await DefaultStations.findOne({station_id: stationId});
@@ -97,7 +101,8 @@ const userService = (dependencies) => {
             achievements: user.achievements,
             currentVehicle: user.currentVehicle,
             isAdmin: user.isAdmin,
-            lastMessage: user.lastMessage
+            banned: user.banned,
+            lastMessage: user.lastMessage,
         }
     }
 
@@ -177,6 +182,7 @@ const userService = (dependencies) => {
         setAchievement,
         getAchievements,
         getLikes,
+        banUser,
         setLastMessage,
     }
 }

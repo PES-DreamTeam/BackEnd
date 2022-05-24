@@ -6,7 +6,15 @@ const ReportStation = new Schema({
     },
     reports: [{
         reportType: String,
-        reportMsg: String
+        reportMsg: String,
+        stationId: String,
+        stationType: String,
+        date: Date,
+        userName: String,
+        isResolved: {
+            type: Boolean,
+            default: false,
+        }
     }]
 });
 

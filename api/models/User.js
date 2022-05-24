@@ -63,6 +63,14 @@ const User = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    chat_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Chat",
+    },
+    banned: {
+        type: Boolean,
+        default: false,
+    },
     lastMessage: {
         type: String,
         default: "message test",
