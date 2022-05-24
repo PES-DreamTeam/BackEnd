@@ -21,9 +21,17 @@ const msgService = (dependencies) => {
     }
 
     const getChatMsgs = async (id) => {
+        const us = await Users.findById(id)
         const allMessages = await Message.find();
-        const m = await allMessages.filter(msg1 => msg1.user_id == id);
-        return sortedMessages = m.sort((a, b) => b.createdAt - a.createdAt)
+        const m = await allMessages.filter(msg1 => msg1.user._id == id);
+        const sortedMessages = await m.sort((a, b) => b.createdAt - a.createdAt)
+        console.log(sortedMessages)
+        var r = {
+            name:  us.name,
+            profilePicture: us.profilePicture,
+            messages: sortedMessages
+        };
+        return r
     }
 
     const getLastMsgAllUsers = async () => {
@@ -31,7 +39,8 @@ const msgService = (dependencies) => {
         const allMessages = await Message.find();
         var last = []
         for (let i = 0; i < allUsers.length; i++) {
-            const m = allMessages.filter(msg1 => msg1.user_id == allUsers[i].id)
+
+            const m = allMessages.filter(msg1 => msg1.user._id == allUsers[i].id)
             if (m.length > 0) {
                 const sortedMessages = m.sort((a, b) => b.createdAt - a.createdAt)
                 last.push(sortedMessages[0]);
@@ -42,7 +51,6 @@ const msgService = (dependencies) => {
 
     const createMessage = async (message) => {
         console.log(message.text);
-        Users.findByIdAndUpdate(message.user_id, {lastMessage : message.text});
         return await Message.create(message);
     }
 

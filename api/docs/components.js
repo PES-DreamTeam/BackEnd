@@ -54,20 +54,13 @@ module.exports = {
                         description: "The id of the message",
                         example: "62714d28e95bac374c2fb003"
                     },
-                    user_id: {
-                        type: "string",
-                        description: "The id of the user",
-                        example: "62714d28e95bac374c2fb003"
-                    },
-                    name: {
-                        type: "string",
-                        description: 'The name of the user',
-                        example: "Sara"
-                    },
-                    profilePicture: {
-                        type: "string",
-                        description: "The base64 of the image",
-                        example: "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC"
+                    user: {
+                        type: "object",
+                        _id:{
+                            type: "string",
+                            description: "The id of the user",
+                            example: "628bf578f526739edeac6bf9"
+                        }
                     },
                     text: {
                         type: "string",
@@ -84,6 +77,51 @@ module.exports = {
                         description: "The date and time of the message",
                         example: "2018-03-20T09:12:28Z"
                     },
+                }
+            },
+            chat: {
+                type: "object",
+                properties: {
+                    name: {
+                        type: "string",
+                        description: 'The name of the user',
+                        example: "Sara"
+                    },
+                    profilePicture: {
+                        type: "string",
+                        description: "The base64 of the image",
+                        example: "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC"
+                    },
+                    messages: {
+                        type: "object",
+                        properties: {
+                            chat_id: {
+                                type: "string",
+                                description: "The id of the message",
+                                example: "62714d28e95bac374c2fb003"
+                            },
+                            user_id: {
+                                type: "string",
+                                description: "The id of the user",
+                                example: "62714d28e95bac374c2fb003"
+                            },
+                            text: {
+                                type: "string",
+                                description: "The content of the message",
+                                example: "This is a message"
+                            },
+                            position: {
+                                type: "string",
+                                description: "The position of the message",
+                                example: "left"
+                            },
+                            createdAt: {
+                                type: "date-time",
+                                description: "The date and time of the message",
+                                example: "2018-03-20T09:12:28Z"
+                            },
+                        }
+                    }
                 }
             },
             achievement_2: {

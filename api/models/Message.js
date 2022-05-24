@@ -6,16 +6,11 @@ const Message = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    user_id: {
-        type: Schema.Types.ObjectId,
+    user: {
+        _id:{
+            type: Schema.Types.ObjectId,
         ref: "User",
-    },
-    name: {
-        type: String,
-        required: 'The name is required',
-    },
-    profilePicture: {
-        type: String,
+        }
     },
     text: {
         type: String,
