@@ -29,8 +29,9 @@ const userService = (dependencies) => {
         return Users.findByIdAndDelete(_id);
     }
 
-    const banUser = (id) => {
-        return Users.findByIdAndUpdate(id, { banned: !banned});
+    const banUser = async (id) => {
+        var user = await Users.findOne({ _id: id });
+        return User.findOneAndUpdate({ _id: id }, { banned: !user.banned });
     }
 
 
