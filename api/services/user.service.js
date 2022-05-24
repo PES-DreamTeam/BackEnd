@@ -30,7 +30,7 @@ const userService = (dependencies) => {
     }
 
     const banUser = (id) => {
-        return Users.findByIdAndUpdate(id, { banned: true });
+        return Users.findByIdAndUpdate(id, { banned: !banned});
     }
 
 
