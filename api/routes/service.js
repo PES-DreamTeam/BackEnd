@@ -8,4 +8,7 @@ const serviceController = factory.createServiceController();
 // api/service/closest
 router.get('/closest', serviceController.getClosest);
 
+// api/service/closestAvailable
+router.get('/closestAvailable', serviceController.getClosestAvailable);
+
 module.exports = router;

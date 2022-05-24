@@ -1,8 +1,8 @@
 module.exports = {
     get: {
         tags:["Service Controller"],
-        description: "Get the closest charge points given a latitude, longitude and how many you want",
-        operationId: "getClosest",
+        description: "Get the closest charge point given a latitude, longitude and the maximum distance",
+        operationId: "getClosestAvailable",
         parameters: [{
                 name: "lat",
                 in: "query",
@@ -22,13 +22,13 @@ module.exports = {
                 description: "Initial longitude",
             },
             {
-                name: "howMany",
+                name: "distance",
                 in: "query",
                 schema: {
-                    type: "integer",
+                    type: "number",
                 },
                 required: true,
-                description: "How many stations to return",
+                description: "Maximum distance to search",
             },
         ],
         responses: {

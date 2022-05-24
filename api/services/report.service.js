@@ -61,7 +61,8 @@ const reportService = (dependencies) => {
             userName: report.userName,
             isResolved: report.isResolved,
             reportId: report._id,
-            stationId: station.station_id
+            stationId: station.station_id,
+            user_id: report.user_id
         }
     }
 

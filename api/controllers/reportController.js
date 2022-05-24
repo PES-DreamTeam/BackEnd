@@ -30,7 +30,7 @@ const ReportController = (dependencies) => {
     const markAsResolved = async (req, res) => {
         try {
             if(    (req.query.reportType === 'app' && !req.query.reportId)
-                || (req.query.reportType === 'station' && (!req.query.stationId || !req.query.userId)) 
+                || (req.query.reportType === 'station' && (!req.query.stationId || !req.query.reportId)) 
                 || (req.query.reportType !== 'app' && req.query.reportType !== 'station')
               )return res.status(409).send({msg: "Wrong data provided"});
 

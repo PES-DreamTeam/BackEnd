@@ -2,7 +2,7 @@ const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePo
 const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement, getAchievements, setLastMessage, banUser} = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles, getBrands, getModels } = require('./sampleVehiclesController');
 const { createReport, getReports, markAsResolved } = require('./reportController');
-const { getClosest } = require('./serviceController');
+const { getClosest, getClosestAvailable } = require('./serviceController');
 const {getAchievementById, getAllAchievements} = require('./achievementController');
 const { createMessage, getAllMsg, getChatMsgs, getLastMsgAllUsers } = require('./msgController');
 const { registerUser, loginUser } = require('./authController'); 
@@ -100,6 +100,9 @@ module.exports = {
         },
         '/api/service/closest': {
             ...getClosest,
+        },
+        '/api/service/closestAvailable': {
+            ...getClosestAvailable,
         },
     }
 }

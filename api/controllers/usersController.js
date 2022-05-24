@@ -211,7 +211,7 @@ const UsersController = (dependencies) => {
         try {
             const user = await userService.banUser(req.params.id);
             if(!user) return res.status(404).send({msg: "User not found"});
-            return res.status(200).send({msg: 'User banned successfully'});
+            return res.status(200).send({msg: user.banned ? "User banned":"User unbanned"});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }

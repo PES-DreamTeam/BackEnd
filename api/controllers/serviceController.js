@@ -14,8 +14,26 @@ const ServiceController = (dependencies) => {
         }
     }
 
+    /*
+        query -> lat, lng, distance
+    */
+
+    const getClosestAvailable = async (req, res) => {
+        try {
+            const lat = req.query.lat;
+            const lng = req.query.lng;
+            const distance = req.query.distance;
+            const nearest = await chargePointService.getNearestAvailable(lat, lng, distance);
+            return res.status(200).send({nearest});
+        }
+        catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     return {
-        getClosest
+        getClosest,
+        getClosestAvailable
     }
 
 }

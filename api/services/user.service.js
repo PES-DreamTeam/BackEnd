@@ -30,7 +30,7 @@ const userService = (dependencies) => {
     }
 
     const banUser = (id) => {
-        return Users.findByIdAndUpdate(id, { banned: true });
+        return Users.findByIdAndUpdate(id, { banned: !banned});
     }
 
 
@@ -102,7 +102,6 @@ const userService = (dependencies) => {
             currentVehicle: user.currentVehicle,
             isAdmin: user.isAdmin,
             banned: user.banned,
-            lastMessage: user.lastMessage,
         }
     }
 
