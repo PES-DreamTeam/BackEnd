@@ -12,7 +12,7 @@ router.get('/', MsgController.getAll);
 router.get('/:id', MsgController.getChatMsgs);
 
 // api/message/last
-router.get('/last', MsgController.getLastMsgAllUsers);
+router.get('/chat/last', MsgController.getLastMsgAllUsers);
 
 // api/message
 router.post('/', MsgController.createMessage);

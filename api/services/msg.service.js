@@ -12,7 +12,6 @@ const msgService = (dependencies) => {
     }
 
     const getMsgsById = (_id) => {
-        console.log(Message.findById(_id).messages);
         return Message.findById(_id).messages;
     }
 
@@ -30,8 +29,15 @@ const msgService = (dependencies) => {
     const getLastMsgAllUsers = async () => {
         const allUsers = await Users.find();
         const allMessages = await Message.find();
-        const m = await allMessages.filter(msg1 => allUsers.id);
-        return m;
+        var last = []
+        for (let i = 0; i < allUsers.length; i++) {
+            const m = allMessages.filter(msg1 => msg1.user_id == allUsers[i].id)
+            if (m.length > 0) {
+                const sortedMessages = m.sort((a, b) => b.createdAt - a.createdAt)
+                last.push(sortedMessages[0]);
+            }
+        }
+        return last
     }
 
     const createMessage = async (message) => {

@@ -27,7 +27,7 @@ const MsgController = (dependencies) => {
 
     const getLastMsgAllUsers = async (req, res) => {
         try {
-           const data = await msgService.getLastMsgAllUsers(req.params.id); 
+           const data = await msgService.getLastMsgAllUsers(); 
             if(data)
                 return res.status(200).send({ data });
         } catch (error) {
@@ -47,7 +47,7 @@ const MsgController = (dependencies) => {
         }
     }
 
-    const getLastMessage = async (req, res) => {
+    /*const getLastMessage = async (req, res) => {
         try {
             const data = await msgService.getLastMessage(req.params.id);
 
@@ -56,7 +56,7 @@ const MsgController = (dependencies) => {
         } catch (error) {
             res.status(500).send({error: error.toString()});
         }
-    }
+    }*/
 
     const createMessage = async (req, res) => {
         try {

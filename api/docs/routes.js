@@ -4,7 +4,7 @@ const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles, getBrand
 const { createReport, getReports, markAsResolved } = require('./reportController');
 const { getClosest } = require('./serviceController');
 const {getAchievementById, getAllAchievements} = require('./achievementController');
-const { createMessage, getAllMsg, /*getLastMessage, */getChatMsgs, getLastMsgAllUsers } = require('./msgController');
+const { createMessage, getAllMsg, getChatMsgs, getLastMsgAllUsers } = require('./msgController');
 const { registerUser, loginUser } = require('./authController'); 
 module.exports = {
     paths: {
@@ -69,12 +69,11 @@ module.exports = {
         '/api/message': {
             ...createMessage,
             ...getAllMsg,
-            //...getLastMessage,
         },
         '/api/message/{id}': {
             ...getChatMsgs,
         },
-        '/api/message/last': {
+        '/api/message/chat/last': {
             ...getLastMsgAllUsers,
         },
         '/api/sampleVehicles': {
