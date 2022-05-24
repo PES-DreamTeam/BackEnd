@@ -102,7 +102,6 @@ const userService = (dependencies) => {
             currentVehicle: user.currentVehicle,
             isAdmin: user.isAdmin,
             banned: user.banned,
-            lastMessage: user.lastMessage,
         }
     }
 
