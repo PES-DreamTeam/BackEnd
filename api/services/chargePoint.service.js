@@ -256,10 +256,11 @@ const chargePointService = (dependencies) => {
         var vehicleStations = await getVehicleStations();
         const groupItems = groupBy("id");
         vehicleStations = groupItems(vehicleStations);
+        let station = [];
         for (const [key, value] of Object.entries(vehicleStations)) { 
             const distance = getDistance(lat, lng, value.lat, value.lng);
             if(distance <= maxDistance && checkAvailable(value)) {
-                let station = ({
+                station.push({
                     id: value.id,
                     name: value.name,
                     address: value.address,
