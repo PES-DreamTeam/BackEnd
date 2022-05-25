@@ -18,7 +18,6 @@ const UsersController = (dependencies) => {
         try {
             const user = await userService.getById(req.params.id);
             if(!user) return res.status(404).send({msg: "User not found"});
-
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
@@ -56,6 +55,17 @@ const UsersController = (dependencies) => {
         try {
             //if users_ids ==
             const user = await userService.setProfilePicture(req.params.id, req.body.image);
+            if(!user) return res.status(404).send({msg: "User not found"});
+            return res.status(200).send({user: await userService.feedUserToWeb(user)});
+        } catch (error) {
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const setLastMessage = async (req, res) => {
+        try {
+            console.log( req.body.text);
+            const user = await userService.setLastMessage(req.params.id, req.body.text);
             if(!user) return res.status(404).send({msg: "User not found"});
             return res.status(200).send({user: await userService.feedUserToWeb(user)});
         } catch (error) {
@@ -136,7 +146,6 @@ const UsersController = (dependencies) => {
 
     const getFavourites = async (req, res) => {
         try {
-            //const user = await userService.getById(req.params.id);
             const user = req.user;
             const favouritesPoints = await chargePointService.getChargePointsById(user.favourites, "id");
             return res.status(200).send({favouritesPoints});
@@ -166,13 +175,6 @@ const UsersController = (dependencies) => {
         }
     }
 
-    /*
-    body:{
-        achievement_id: number,
-        achievement_tier: number,
-        progress: number,
-    }
-    */
     const setAchievement = async (req, res) => {
         try {
             if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
@@ -190,7 +192,6 @@ const UsersController = (dependencies) => {
     const getLikes = async (req, res) => {
         try {
             const likes = await userService.getLikes(req.params.id);
-            //const likedPoints = await chargePointService.getChargePointsById(likes, "id");
             return res.status(200).send({likes});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
@@ -201,7 +202,7 @@ const UsersController = (dependencies) => {
         try {
             const user = await userService.banUser(req.params.id);
             if(!user) return res.status(404).send({msg: "User not found"});
-            return res.status(200).send({msg: 'User banned successfully'});
+            return res.status(200).send({msg: !user.banned ? "User banned":"User unbanned"});
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }
@@ -223,7 +224,8 @@ const UsersController = (dependencies) => {
         setFavourites,
         getAchievements,
         setAchievement,
-        banUser
+        banUser,
+        setLastMessage,
     }
 }
 

@@ -29,8 +29,9 @@ const userService = (dependencies) => {
         return Users.findByIdAndDelete(_id);
     }
 
-    const banUser = (id) => {
-        return Users.findByIdAndUpdate(id, { banned: true });
+    const banUser = async (id) => {
+        var user = await Users.findOne({ _id: id });
+        return User.findOneAndUpdate({ _id: id }, { banned: !user.banned });
     }
 
 
@@ -158,6 +159,11 @@ const userService = (dependencies) => {
         return Users.findByIdAndUpdate(id, {profilePicture: imageURL});
     }
 
+    const setLastMessage = async (id, message) => {  
+        console.log(message);
+        return Users.findByIdAndUpdate(id, {lastMessage: message});
+    }
+
     return {
         getByEmail,
         getById,
@@ -176,7 +182,8 @@ const userService = (dependencies) => {
         setAchievement,
         getAchievements,
         getLikes,
-        banUser
+        banUser,
+        setLastMessage,
     }
 }
 

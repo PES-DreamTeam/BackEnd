@@ -5,5 +5,4 @@ module.exports.sampleVehicleService = require('./sampleVehicle.service');
 module.exports.socialMediaService = require('./socialMedia.service');
 module.exports.reportService = require('./report.service');
 module.exports.achievementService = require('./achievement.service');
-module.exports.chatService = require('./chat.service');
 module.exports.msgService = require('./msg.service');

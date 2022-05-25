@@ -10,6 +10,8 @@ const user = {
         "reports": [],
         "achievements": [],
         "currentVehicle": 0,
+        "banned": false,
+        "isAdmin": false
     }
 
 const vehicleConfig = {
@@ -35,6 +37,8 @@ const expectedUserWithoutVehicleConfig = {
     favourites: [],
     achievements: [],
     currentVehicle: 0,
+    banned: false,
+    isAdmin: false
 }
 
 const expectedUserWithVehicleConfig = {
@@ -58,7 +62,8 @@ const expectedUserWithVehicleConfig = {
     favourites: [],
     achievements: [],
     currentVehicle: 0,
-
+    banned: false,
+    isAdmin: false
 }
 
 module.exports = {

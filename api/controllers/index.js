@@ -6,6 +6,5 @@ module.exports = {
     ReportController: require('./reportController'),
     AchievementController: require('./achievementController'),
     ServiceController: require('./serviceController'),
-    ChatController: require('./chatController'),
     MsgController: require('./msgController'),
 }

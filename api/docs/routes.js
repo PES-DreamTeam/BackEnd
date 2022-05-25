@@ -1,10 +1,10 @@
 const { getAllChargePoints, getChargePointById, getChargePointInfo, voteChargePoint, reportChargePoint, getNearest } = require('./chargePoints');
-const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement, getAchievements, banUser} = require('./usersController');
+const { getAllUsers, getUserById, setProfilePicture, getVehicleConfig, setVehicleConfig, deleteVehicleConfig, getFavourites, setFavourites, setAchievement, getAchievements, setLastMessage, banUser} = require('./usersController');
 const { createSampleVehicle, deleteSampleVehicle, getAllSampleVehicles, getBrands, getModels } = require('./sampleVehiclesController');
 const { createReport, getReports, markAsResolved } = require('./reportController');
-const { getClosest } = require('./serviceController');
+const { getClosest, getClosestAvailable } = require('./serviceController');
 const {getAchievementById, getAllAchievements} = require('./achievementController');
-const { createMessage, getAllMsg } = require('./msgController');
+const { createMessage, getAllMsg, getChatMsgs, getLastMsgAllUsers } = require('./msgController');
 const { registerUser, loginUser } = require('./authController'); 
 module.exports = {
     paths: {
@@ -40,6 +40,9 @@ module.exports = {
         '/api/users/{id}/profilePicture': {
             ...setProfilePicture,
         },
+        '/api/users/{id}/lastMessage': {
+            ...setLastMessage,
+        },
         '/api/users': {
             ...getAllUsers,
         },
@@ -67,6 +70,12 @@ module.exports = {
             ...createMessage,
             ...getAllMsg,
         },
+        '/api/message/{id}': {
+            ...getChatMsgs,
+        },
+        '/api/message/chat/last': {
+            ...getLastMsgAllUsers,
+        },
         '/api/sampleVehicles': {
             ...getAllSampleVehicles,
             ...createSampleVehicle,
@@ -91,6 +100,9 @@ module.exports = {
         },
         '/api/service/closest': {
             ...getClosest,
+        },
+        '/api/service/closestAvailable': {
+            ...getClosestAvailable,
         },
     }
 }

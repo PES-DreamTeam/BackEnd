@@ -10,6 +10,7 @@ const getAchievements = require('./getAchievements');
 const deleteVehicleConfig = require('./deleteVehicleConfig');
 const getVehicleConfig = require('./getVehicleConfig');
 const banUser = require('./banUser');
+const setLastMessage = require('./setLastMessage');
 
 module.exports = {
     getAllUsers: getAll,
@@ -23,5 +24,6 @@ module.exports = {
     getAchievements: getAchievements,
     deleteVehicleConfig: deleteVehicleConfig,
     getVehicleConfig: getVehicleConfig,
-    banUser
+    banUser,
+    setLastMessage: setLastMessage,
 }

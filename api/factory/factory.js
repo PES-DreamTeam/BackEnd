@@ -1,5 +1,5 @@
-const { userService, chargePointService, authService, socialMediaService, reportService, achievementService, chatService, msgService, sampleVehicleService } = require('../services');
-const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController, ChatController, MsgController, sampleVehiclesController } = require('../controllers');
+const { userService, chargePointService, authService, socialMediaService, reportService, achievementService, msgService, sampleVehicleService } = require('../services');
+const { UsersController, ChargePointsController, AuthController, ReportController, AchievementController, ServiceController, MsgController, sampleVehiclesController } = require('../controllers');
 const ToolController = require('../tools/toolController');
 const { Users, VehicleInstances, BikeStations, DefaultStations, Reports, ReportStations, Achievements, Highlights, Chat, Message} = require('../models');
 const axios = require('axios')
@@ -56,11 +56,6 @@ const Factory = () => {
         return MsgController({msgService});
     }
 
-    const createChatController = () => {
-        const chatService = createChatService();
-        return ChatController({chatService});
-    }
-
     const createServiceController = (dependencies) => {
         if(!dependencies) {
             const chargePointService = createChargePointService();
@@ -104,15 +99,6 @@ const Factory = () => {
         }
     }
 
-    const createChatService = (dependencies) => {
-        if(!dependencies)
-            return chatService({Chat});
-        else{
-            let { Chat } = dependencies;
-            return chatService({Chat});
-        }
-    }
-
     const createChargePointService = (dependencies) => {
         if(!dependencies)
             return chargePointService({NodeCache, axios, BikeStations, DefaultStations, ReportStations, Highlights});
@@ -146,7 +132,6 @@ const Factory = () => {
         createServiceController,
         createSampleVehicleController,
         createMsgController,
-        createChatController,
     }
 }
 
