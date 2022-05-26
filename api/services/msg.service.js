@@ -24,8 +24,9 @@ const msgService = (dependencies) => {
         const currentUser = await Users.findById(id)
         if(currentUser){
             const allMessages = await Message.find();
-            const userMessages = await allMessages.filter(msg1 => msg1.user._id == id);
-            const sortedMessages = await userMessages.sort((a, b) => b.createdAt - a.createdAt)
+            //const userMessages = await allMessages.filter(msg1 => msg1.user._id == id);
+            const chatMessages = await allMessages.filter(msg1 => msg1.chat_id == id);
+            const sortedMessages = await chatMessages.sort((a, b) => b.createdAt - a.createdAt)
             var result = {
                 name:  currentUser.name,
                 profilePicture: currentUser.profilePicture,
