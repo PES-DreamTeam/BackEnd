@@ -43,7 +43,7 @@ const msgService = (dependencies) => {
         var last = []
         for (let i = 0; i < allUsers.length; i++) {
 
-            const filteredMessages = allMessages.filter(msg1 => msg1.user._id == allUsers[i].id)
+            const filteredMessages = allMessages.filter(msg1 => msg1.chat_id == allUsers[i].id)
             if (filteredMessages.length > 0) {
                 const sortedMessages = filteredMessages.sort((a, b) => b.createdAt - a.createdAt)
                 const adding = sortedMessages[0] = {

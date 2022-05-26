@@ -62,7 +62,6 @@ const MsgController = (dependencies) => {
         getAll,
         getMsgsById,
         createMessage,
-        //getLastMessage,
         getChatMsgs,
         getLastMsgAllUsers,
     }    
