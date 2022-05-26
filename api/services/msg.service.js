@@ -17,7 +17,7 @@ const msgService = (dependencies) => {
 
     const getAll = async () => {
         const allMessages = await Message.find();
-        return sortedMessages = allMessages.sort((a, b) => b.createdAt - a.createdAt)
+        return sortedMessages = allMessages.sort((a, b) => a.createdAt - b.createdAt)
     }
 
     const getChatMsgs = async (id) => {
@@ -25,7 +25,7 @@ const msgService = (dependencies) => {
         if(currentUser){
             const allMessages = await Message.find();
             const chatMessages = await allMessages.filter(msg1 => msg1.chat_id == id);
-            const sortedMessages = await chatMessages.sort((a, b) => b.createdAt - a.createdAt)
+            const sortedMessages = await chatMessages.sort((a, b) => a.createdAt - b.createdAt)
             var result = {
                 name:  currentUser.name,
                 profilePicture: currentUser.profilePicture,
@@ -44,7 +44,7 @@ const msgService = (dependencies) => {
 
             const filteredMessages = allMessages.filter(msg1 => msg1.chat_id == allUsers[i].id)
             if (filteredMessages.length > 0) {
-                const sortedMessages = filteredMessages.sort((a, b) => b.createdAt - a.createdAt)
+                const sortedMessages = filteredMessages.sort((a, b) => a.createdAt - b.createdAt)
                 const adding = sortedMessages[0] = {
                     user:{
                         userId: allUsers[i].id,
