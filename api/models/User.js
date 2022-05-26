@@ -48,7 +48,7 @@ const User = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: "https://ibb.co/BtdrzZd",
+    default: "https://i.ibb.co/s2k6mwk/default-Pic.png",
   },
   favourites: {
     type: [String],

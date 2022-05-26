@@ -21,17 +21,19 @@ const msgService = (dependencies) => {
     }
 
     const getChatMsgs = async (id) => {
-        const us = await Users.findById(id)
-        const allMessages = await Message.find();
-        const m = await allMessages.filter(msg1 => msg1.user._id == id);
-        const sortedMessages = await m.sort((a, b) => b.createdAt - a.createdAt)
-        console.log(sortedMessages)
-        var r = {
-            name:  us.name,
-            profilePicture: us.profilePicture,
-            messages: sortedMessages
-        };
-        return r
+        const currentUser = await Users.findById(id)
+        if(currentUser){
+            const allMessages = await Message.find();
+            const userMessages = await allMessages.filter(msg1 => msg1.user._id == id);
+            const sortedMessages = await userMessages.sort((a, b) => b.createdAt - a.createdAt)
+            var result = {
+                name:  currentUser.name,
+                profilePicture: currentUser.profilePicture,
+                userId: id,
+                messages: sortedMessages
+            };
+            return result
+        }
     }
 
     const getLastMsgAllUsers = async () => {
@@ -62,7 +64,6 @@ const msgService = (dependencies) => {
     }
 
     const createMessage = async (message) => {
-        console.log(message.text);
         return await Message.create(message);
     }
 
