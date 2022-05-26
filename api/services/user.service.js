@@ -53,7 +53,7 @@ const userService = (dependencies) => {
         const id = body.achievement_id;
         const tier = body.achievement_tier;
         const progress = body.progress;
-        const achievement = await Achievements.findOne({id, tier});
+        const achievement = await Achievements.findOne({achievement_id: id.toString(), achievement_tier: tier.toString()});
         if(!achievement){return achievement;}
         user.achievements = user.achievements.map(ach => {
             if(ach.achievement_id == id && ach.achievement_tier == tier){
