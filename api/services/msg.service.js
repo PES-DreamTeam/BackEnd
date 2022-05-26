@@ -40,10 +40,22 @@ const msgService = (dependencies) => {
         var last = []
         for (let i = 0; i < allUsers.length; i++) {
 
-            const m = allMessages.filter(msg1 => msg1.user._id == allUsers[i].id)
-            if (m.length > 0) {
-                const sortedMessages = m.sort((a, b) => b.createdAt - a.createdAt)
-                last.push(sortedMessages[0]);
+            const filteredMessages = allMessages.filter(msg1 => msg1.user._id == allUsers[i].id)
+            if (filteredMessages.length > 0) {
+                const sortedMessages = filteredMessages.sort((a, b) => b.createdAt - a.createdAt)
+                const adding = sortedMessages[0] = {
+                    user:{
+                        userId: allUsers[i].id,
+                        name: allUsers[i].name,
+                        profilePicture: allUsers[i].profilePicture,
+                    },
+                    _id: sortedMessages[0]._id,
+                    chat_id: sortedMessages[0].chat_id,
+                    text: sortedMessages[0].text,
+                    createdAt: sortedMessages[0].createdAt,
+                    position: sortedMessages[0].position,
+                }
+                last.push(adding);
             }
         }
         return last
