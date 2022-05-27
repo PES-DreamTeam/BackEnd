@@ -11,6 +11,7 @@ const ReportStation = new Schema({
         stationType: String,
         date: Date,
         userName: String,
+        user_id: Schema.Types.ObjectId,
         isResolved: {
             type: Boolean,
             default: false,
