@@ -39,8 +39,8 @@ const reportService = (dependencies) => {
             const unresolved = await fitReports(false, station);
             unresolvedReports = unresolvedReports.concat(unresolved);
         }))
-        resolvedReports = resolvedReports.filter(x => x);
-        unresolvedReports = unresolvedReports.filter(x => x)
+        resolvedReports = resolvedReports.filter(x => x).reverse();
+        unresolvedReports = unresolvedReports.filter(x => x).reverse();
 
         return {resolvedReports, unresolvedReports};
     }
@@ -62,7 +62,7 @@ const reportService = (dependencies) => {
             reportMsg: report.reportMsg,
             stationType: report.stationType,
             createdAt: report.date,
-            userName: report.userName,
+            userName: user.name,
             isResolved: report.isResolved,
             reportId: report._id,
             stationId: station.station_id,
@@ -89,8 +89,8 @@ const reportService = (dependencies) => {
                 reportId: report._id,
             }
         }))
-        let resolvedReports = reports.filter(r => r.isResolved);
-        let unresolvedReports = reports.filter(r => !r.isResolved);
+        let resolvedReports = reports.filter(r => r.isResolved).reverse();
+        let unresolvedReports = reports.filter(r => !r.isResolved).reverse();
         return {resolvedReports, unresolvedReports};
     }
    
