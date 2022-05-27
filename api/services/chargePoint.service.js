@@ -190,7 +190,6 @@ const chargePointService = (dependencies) => {
     }
 
     const reportStation = async (id,  reportData, user) => {
-
         const { reportType, reportMsg, stationType } = reportData;
         await DefaultStations.findOneAndUpdate({station_id: id}, {$inc: {reports: 1}});
         const report = {
@@ -202,7 +201,12 @@ const chargePointService = (dependencies) => {
             user_id:user.id,
             userName: user.nickname,
         };
-        const station = await ReportStations.findOneAndUpdate({station_id: id}, { $push: { reports: report }})
+        let station;
+        const reportStation = await ReportStations.findOne({station_id: id});
+
+        if(!reportStation) station = await ReportStations.create({station_id: id, reports: [report]});
+        station = await ReportStations.findOneAndUpdate({station_id: id}, { $push: { reports: report }})
+        
         return station;
     }
 

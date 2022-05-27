@@ -33,12 +33,15 @@ const reportService = (dependencies) => {
         reports = reports.filter(r => r.reports.length > 0);
         let resolvedReports =[]; 
         let unresolvedReports = [];
-        await Promise.all(reports.forEach(async (station) => {
+        await Promise.all(reports.map(async (station) => {
             const resolved = await fitReports(true, station); 
             resolvedReports = resolvedReports.concat(resolved);
             const unresolved = await fitReports(false, station);
             unresolvedReports = unresolvedReports.concat(unresolved);
         }))
+        resolvedReports = resolvedReports.filter(x => x);
+        unresolvedReports = unresolvedReports.filter(x => x)
+
         return {resolvedReports, unresolvedReports};
     }
 
