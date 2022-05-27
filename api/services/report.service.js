@@ -63,7 +63,7 @@ const reportService = (dependencies) => {
             isResolved: report.isResolved,
             reportId: report._id,
             stationId: station.station_id,
-            user_id: report.user_id,
+            userId: report.user_id,
             isBanned: user.banned
         }
     }
