@@ -33,36 +33,41 @@ const reportService = (dependencies) => {
         reports = reports.filter(r => r.reports.length > 0);
         let resolvedReports =[]; 
         let unresolvedReports = [];
-        reports.forEach(station => {
-            const resolved = fitReports(true, station); 
+        await Promise.all(reports.map(async (station) => {
+            const resolved = await fitReports(true, station); 
             resolvedReports = resolvedReports.concat(resolved);
-            const unresolved = fitReports(false, station);
+            const unresolved = await fitReports(false, station);
             unresolvedReports = unresolvedReports.concat(unresolved);
-        })
+        }))
+        resolvedReports = resolvedReports.filter(x => x).reverse();
+        unresolvedReports = unresolvedReports.filter(x => x).reverse();
+
         return {resolvedReports, unresolvedReports};
     }
 
-    const fitReports = (getResolved, station) => {
-        return station.reports.map(report => {
+    const fitReports = async (getResolved, station) => {
+        return await Promise.all(station.reports.map(async (report) => {
                 if(getResolved && report.isResolved){
-                    return returnReportFormatted(report, station); 
+                    return await returnReportFormatted(report, station); 
                 }
                 else if(!getResolved && !report.isResolved){
-                    return returnReportFormatted(report, station);        
+                    return await returnReportFormatted(report, station);        
                 }
-            }).filter(x => x !== undefined);
+            }).filter(x => x !== undefined));
     }
-    const returnReportFormatted = (report, station) => {
+    const returnReportFormatted = async (report, station) => {
+        var user = await Users.findOne({_id: report.user_id});
         return {
             reportType: report.reportType,
             reportMsg: report.reportMsg,
             stationType: report.stationType,
-            date: report.date,
-            userName: report.userName,
+            createdAt: report.date,
+            userName: user.name,
             isResolved: report.isResolved,
             reportId: report._id,
             stationId: station.station_id,
-            user_id: report.user_id
+            userId: report.user_id,
+            isBanned: user.banned
         }
     }
 
@@ -77,14 +82,15 @@ const reportService = (dependencies) => {
                 subject: report.subject,
                 details: report.details,
                 userName: user.name,
+                isBanned: user.banned,
                 userId: report.user_id,
                 isResolved: report.isResolved,
                 createdAt: report.createdAt,
                 reportId: report._id,
             }
         }))
-        let resolvedReports = reports.filter(r => r.isResolved);
-        let unresolvedReports = reports.filter(r => !r.isResolved);
+        let resolvedReports = reports.filter(r => r.isResolved).reverse();
+        let unresolvedReports = reports.filter(r => !r.isResolved).reverse();
         return {resolvedReports, unresolvedReports};
     }
    
