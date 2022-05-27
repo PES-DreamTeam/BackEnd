@@ -14,6 +14,7 @@ router.get('/defaultStations', toolController.setDefaultStations);
 //Popula Report stations /api/tools/reportStations
 router.get('/reportStations', toolController.setReportStations);
 
+//Popula highlights /api/tools/highlight
 router.post('/highlight', toolController.publishHighlight);
 
 // Popula achievements als users api/tools/achievements
