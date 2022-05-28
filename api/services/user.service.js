@@ -14,7 +14,9 @@ const userService = (dependencies) => {
     }
 
     /* istanbul ignore next */ 
-    const create = (user) => {
+    const create = async (user) => {
+        const achievements = await Achievements.find().exec();
+        user.achievements = achievements;
         return Users.create(user);
     }
 

@@ -58,7 +58,7 @@ const User = new mongoose.Schema({
     {
       achievement_id: Number,
       achievement_tier: Number,
-      progress: Number,
+      progress: {type: Number, default: 0},
       objective: Number,
     },
   ],
