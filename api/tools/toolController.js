@@ -43,6 +43,24 @@ const ToolController = (dependencies) => {
         }
     }
 
+    const getHighlights = async (req, res) => {
+        try {
+            const result = await Highlights.find();
+            return res.status(200).send(result);
+        }catch(error){
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const getHighlightById = async (req, res) => {
+        try {
+            const result = await Highlights.findOne({_id: req.params.id});
+            return res.status(200).send(result);
+        }catch(error){
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
     const setDefaultStations = async (req, res) => {
         try {
             const data = await chargePointService.get(null, 'id', 'default');
@@ -98,6 +116,8 @@ const ToolController = (dependencies) => {
         getBike,
         setDefaultStations,
         publishHighlight,
+        getHighlights,
+        getHighlightById,
         setReportStations,
         setAchievements,
     }
