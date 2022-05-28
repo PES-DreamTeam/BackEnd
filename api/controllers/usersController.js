@@ -64,7 +64,6 @@ const UsersController = (dependencies) => {
 
     const setLastMessage = async (req, res) => {
         try {
-            console.log( req.body.text);
             const user = await userService.setLastMessage(req.params.id, req.body.text);
             if(!user) return res.status(404).send({msg: "User not found"});
             return res.status(200).send({user: await userService.feedUserToWeb(user)});

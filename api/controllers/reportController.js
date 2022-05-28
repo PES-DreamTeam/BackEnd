@@ -7,7 +7,6 @@ const ReportController = (dependencies) => {
                 user_id: req.user.id,
             }
             const result = await reportService.createNewReport(newReport); 
-            console.log(result.createdAt);
 
             return res.status(200).send({result});
         } catch (error) {
