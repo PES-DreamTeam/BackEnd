@@ -62,7 +62,8 @@ const msgService = (dependencies) => {
                 last.push(adding);
             }
         }
-        return last
+        const sortedLast = last.sort((a,b) => b.createdAt - a.createdAt)
+        return sortedLast
     }
 
     const createMessage = async (message) => {
