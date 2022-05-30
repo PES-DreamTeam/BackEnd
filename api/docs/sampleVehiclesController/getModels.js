@@ -3,7 +3,16 @@ module.exports = {
         tags: ["Sample Vehicles Controller"],
         description: "Get models by brand",
         operationId: "getModels",
-        parameters: [
+        parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },
             {
                 name: "brand",
                 in: "query",

@@ -4,12 +4,12 @@ module.exports = {
         description: "Set Last Message",
         operationId: "setLastMessage",
         parameters: [
-            /*{
+            {
                 name:"Authorization",
                 in: "header",
                 type:"string",
                 required: true
-            },*/{
+            },{
                 name: "id",
                 in: "path",
                 schema: {

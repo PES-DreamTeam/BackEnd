@@ -3,7 +3,16 @@ module.exports = {
         tags: ["User controller"],
         description: "Get user by id",
         operationId: "getUser",
-        parameters: [
+        parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },
             {
                 name: "id",
                 in: "path",
