@@ -25,8 +25,36 @@ const ToolController = (dependencies) => {
 
     const publishHighlight = async (req, res) => {
         try {
-            console.log(Highlights);
-            const result = await Highlights.create(req.body);
+            const result = await Highlights.create({
+                name: req.body.name,
+                address: req.body.address,
+                lat: req.body.lat,
+                lng: req.body.lng,
+                website: req.body.website,
+                phone: req.body.phone,
+                objectType: "highlight"
+            });
+            await chargePointService.createDefaultStation({
+                station_id: 10009,
+            });
+            return res.status(200).send(result);
+        }catch(error){
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const getHighlights = async (req, res) => {
+        try {
+            const result = await Highlights.find();
+            return res.status(200).send(result);
+        }catch(error){
+            return res.status(500).send({msg: error.toString()});
+        }
+    }
+
+    const getHighlightById = async (req, res) => {
+        try {
+            const result = await Highlights.findOne({station_id: req.params.id});
             return res.status(200).send(result);
         }catch(error){
             return res.status(500).send({msg: error.toString()});
@@ -88,8 +116,10 @@ const ToolController = (dependencies) => {
         getBike,
         setDefaultStations,
         publishHighlight,
+        getHighlights,
+        getHighlightById,
         setReportStations,
-        setAchievements
+        setAchievements,
     }
 }
 

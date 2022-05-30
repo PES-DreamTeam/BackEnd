@@ -51,6 +51,7 @@ const msgService = (dependencies) => {
                         name: allUsers[i].name,
                         profilePicture: allUsers[i].profilePicture,
                     },
+                    authorId: sortedMessages[0].user._id,
                     _id: sortedMessages[0]._id,
                     authorId: sortedMessages[0].user._id,
                     chat_id: sortedMessages[0].chat_id,

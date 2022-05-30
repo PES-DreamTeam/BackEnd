@@ -14,7 +14,14 @@ router.get('/defaultStations', toolController.setDefaultStations);
 //Popula Report stations /api/tools/reportStations
 router.get('/reportStations', toolController.setReportStations);
 
+//Popula highlights /api/tools/highlight
 router.post('/highlight', toolController.publishHighlight);
+
+//Gets all highlights /api/tools/highlight
+router.get('/highlight', toolController.getHighlights);
+
+//Gets a specific highlight /api/tools/highlight/:id
+router.get('/highlight/:id', toolController.getHighlightById);
 
 // Popula achievements als users api/tools/achievements
 router.get('/achievements', toolController.setAchievements);

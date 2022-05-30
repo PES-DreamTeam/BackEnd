@@ -57,40 +57,42 @@ const reportService = (dependencies) => {
     }
     const returnReportFormatted = async (report, station) => {
         var user = await Users.findOne({_id: report.user_id});
-        return {
-            reportType: report.reportType,
-            reportMsg: report.reportMsg,
-            stationType: report.stationType,
-            createdAt: report.date,
-            userName: user.name,
-            isResolved: report.isResolved,
-            reportId: report._id,
-            stationId: station.station_id,
-            userId: report.user_id,
-            isBanned: user.banned
-        }
+        if(user)
+            return {
+                reportType: report.reportType,
+                reportMsg: report.reportMsg,
+                stationType: report.stationType,
+                createdAt: report.date,
+                userName: user?.name ?? "User deleted",
+                isResolved: report.isResolved,
+                reportId: report._id,
+                stationId: station.station_id,
+                userId: report.user_id,
+                isBanned: user?.banned ?? false 
+            }
     }
 
     const getAppReports = async () => {
         let reports = await Reports.find();
         reports = await Promise.all(reports.map(async (report) =>{
             let user = await Users.findById(report.user_id);
-            return {
-                type: report.type,
-                platform: report.platform,
-                os: report.os,
-                subject: report.subject,
-                details: report.details,
-                userName: user.name,
-                isBanned: user.banned,
-                userId: report.user_id,
-                isResolved: report.isResolved,
-                createdAt: report.createdAt,
-                reportId: report._id,
-            }
+            if(user)
+                return {
+                    type: report.type,
+                    platform: report.platform,
+                    os: report.os,
+                    subject: report.subject,
+                    details: report.details,
+                    userName: user?.name ?? "User deleted",
+                    isBanned: user?.banned ?? false,
+                    userId: report.user_id,
+                    isResolved: report.isResolved,
+                    createdAt: report.createdAt,
+                    reportId: report._id,
+                }
         }))
-        let resolvedReports = reports.filter(r => r.isResolved).reverse();
-        let unresolvedReports = reports.filter(r => !r.isResolved).reverse();
+        let resolvedReports = reports.filter(x=>x).filter(r => r.isResolved).reverse();
+        let unresolvedReports = reports.filter(x=>x).filter(r => !r.isResolved).reverse();
         return {resolvedReports, unresolvedReports};
     }
    
