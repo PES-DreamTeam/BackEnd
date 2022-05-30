@@ -4,6 +4,15 @@ module.exports = {
         description: "Get all sample vehicles",
         operationId: "getAllSampleVehicles",
         parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },{
             name: "groupBy",
             in: "query",
             description: "GroupBy the sample vehicles: 'brand, model, chargerType'",

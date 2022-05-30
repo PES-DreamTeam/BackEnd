@@ -12,7 +12,7 @@ const admin_auth = auth(userService, true);
 router.post('/', my_auth, reportController.reportApp);
 
 // api/report/getReports?reportType={'station'|'app'}
-router.get('/getReports', reportController.getReports);
+router.get('/getReports', my_auth, reportController.getReports);
 
 // api/report/markAsResolved?stationId={stationId}&reportId={reportId}&reportType={'station'|'app'}
 router.put('/markAsResolved', admin_auth, reportController.markAsResolved);

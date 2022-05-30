@@ -4,6 +4,15 @@ module.exports = {
         description: "Get the closest charge points given a latitude, longitude and how many you want",
         operationId: "getClosest",
         parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },{
                 name: "lat",
                 in: "query",
                 schema: {

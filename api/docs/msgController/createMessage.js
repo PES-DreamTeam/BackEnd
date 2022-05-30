@@ -4,6 +4,15 @@ module.exports = {
         description: 'Create a message',
         operationId: 'createMessage',
         parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },{
             name: 'new message',
             in: 'body',
             description: 'The message to create',

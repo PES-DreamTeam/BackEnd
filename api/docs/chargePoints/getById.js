@@ -4,6 +4,15 @@ module.exports = {
         description: "Get chargePoint by id",
         operationId: "getChargePoint",
         parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },{
             name: "id",
             in: "path",
             schema: {

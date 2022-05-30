@@ -10,7 +10,7 @@ module.exports = (userService, adminRequired=false) => (req, res, next) => {
         if(!decoded) return res.status(401).send({msg: 'Invalid token'});
         const { _id } = decoded;
         const user = await userService.getById(_id);
-        if(!user || (adminRequired && !user.isAdmin)) return res.status(401).send({msg: 'You are not authorized'});
+        if(!user || (adminRequired && !user.isAdmin) || user?.banned) return res.status(401).send({msg: 'You are not authorized'});
         req.user = user;
         next();
     })

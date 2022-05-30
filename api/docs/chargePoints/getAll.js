@@ -4,6 +4,15 @@ module.exports = {
         description: "Get all charge points",
         operationId: "getChargePoints",
         parameters: [{
+                name:"Authorization",
+                in: "header",
+                type:"string",
+                required: true,
+                description: "The authorization token",
+                schema: {
+                    $ref: "#/components/schemas/auth",
+                }
+            },{
             name: 'groupBy',
             in: 'query',
             description: "GroupBy the charge points: 'id','name','address','vehicle_type','lat','lng' (The best option is to always group by 'id')",
