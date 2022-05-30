@@ -162,7 +162,6 @@ const userService = (dependencies) => {
     }
 
     const setLastMessage = async (id, message) => {  
-        console.log(message);
         return Users.findByIdAndUpdate(id, {lastMessage: message});
     }
 

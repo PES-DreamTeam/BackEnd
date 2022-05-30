@@ -21,7 +21,8 @@ const Factory = () => {
     const createChargePointsController = () => {
         const chargePointService = createChargePointService();
         const userService = createUserService();
-        return ChargePointsController({chargePointService, userService});
+        const toolController = ToolController({chargePointService, userService});
+        return ChargePointsController({chargePointService, userService, toolController});
     }
 
     const createAuthController = () => {

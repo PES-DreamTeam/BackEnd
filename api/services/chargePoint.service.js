@@ -182,7 +182,6 @@ const chargePointService = (dependencies) => {
     const getHighlights = async () => {
         let data = await Highlights.find();	
         data = data.map(x => {
-            console.log(x);
             return {id: x.id, name:x.name, address: x.address, lng:x.lng, lat:x.lat, website: x.website, phone: x.phone, objectType: x.objectType}
         });
         return data;

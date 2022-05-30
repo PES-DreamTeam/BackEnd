@@ -112,7 +112,6 @@ const UsersController = (dependencies) => {
     const deleteVehicleConfig = async (req, res) => {
         try {
             if(req.params.id !== req.user.id) return res.status(401).send({msg: 'You are not authorized'});
-            console.log(req.body);
             const vehicleConfig = await userService.deleteVehicleConfig(req.params.numberPlate);
             if(!vehicleConfig) return res.status(404).send({msg: "Vehicle configuration not found"});
             return res.status(200).send({msg: "Vehicle configuration deleted"});

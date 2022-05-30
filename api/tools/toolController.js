@@ -1,4 +1,6 @@
 
+const DefaultStation = require("../models/DefaultStation");
+
 const ToolController = (dependencies) => {
     const { BikeStations, axios, chargePointService, Highlights, Achievements, Users } = dependencies;
     const getBike = async (req, res) => {
@@ -63,13 +65,18 @@ const ToolController = (dependencies) => {
 
     const setDefaultStations = async (req, res) => {
         try {
-            const data = await chargePointService.get(null, 'id', 'default');
+            let returnStation = null;
+            const stations = await DefaultStation.find();
+            const stationIds = stations.map(station => station.station_id);
+            const data = await chargePointService.get(null, 'id', null, null);
             for(const element in data){
-                chargePointService.createDefaultStation({
-                    station_id: element,
-                });
+                if (!stationIds.includes(parseInt(element))) {
+                    returnStation = chargePointService.createDefaultStation({
+                        station_id: element,
+                    });
+                }
             }
-            return res.status(200).send(data);
+            return returnStation;
         } catch (error) {
             return res.status(500).send({msg: error.toString()});
         }
