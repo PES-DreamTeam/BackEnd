@@ -1,0 +1,13 @@
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    var socket = io({
+        query: {
+            "nombre": 'hola'
+        }
+    });
+    socket.on('connect', function() {
+        console.log('connected');
+        console.log(socket.id);
+    });
+</script>

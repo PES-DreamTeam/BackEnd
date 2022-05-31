@@ -8,14 +8,22 @@ const { Auth, User, ChargePoints, SampleVehicles, Report, Achievements, Service,
 const tools = require('./tools/tools');
 const docs = require('./docs');
 const swaggerUI = require('swagger-ui-express');
-const util = require('util');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
 
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
-        const app = express();
+
         app.use(cors());
         app.use(bodyParser.json());
+
+        app.get('/index', (req, res) => {
+            res.sendFile(__dirname + '/index.html');
+        })
 
         app.use('/api/auth', Auth);
         app.use('/api/users', User);
@@ -31,8 +39,15 @@ mongoose
         app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
         app.get('/*', (req, res) => res.redirect('/api-docs'));
+
+        io.on('connection', (socket) => {
+            // console.log(socket);
+            console.log('a user connected');
+            console.log(socket.handshake);
+        })
         
-        app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+        server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
     }).catch(error => {
         console.log(error);
     })
