@@ -11,9 +11,13 @@ const swaggerUI = require('swagger-ui-express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require('socket.io');
-const io = new Server(server);
-
+const io = require('socket.io')(server,{
+    cors: {
+        origin: '*',
+    }
+})
+const Factory = require('./factory/factory');
+const factory = Factory();
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
@@ -23,6 +27,26 @@ mongoose
 
         app.get('/index', (req, res) => {
             res.sendFile(__dirname + '/index.html');
+        })
+        io.on('connection', async (socket) => {
+            const messageService = factory.createMsgService()
+            userId = socket.handshake.query.userId;
+            if(userId === '-1'){
+                var chats = await messageService.getLastMsgAllUsers();
+                var chatsIds = chats.map(chat => chat.chat_id.toString());
+                chatsIds.forEach(chatId => {socket.join(chatId)});
+                socket.join("-1");
+            }
+            socket.on('sendMessage', async (message) => {
+                console.log(message)
+                const newMessage = await messageService.createMessage(message);
+                console.log(newMessage)
+                io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
+                io.to("-1").emit("chats", await messageService.feedMessageToWeb(newMessage));
+            })
+            socket.on("disconnect", () => {
+                console.log("user disconnected");
+            })
         })
 
         app.use('/api/auth', Auth);
@@ -39,12 +63,6 @@ mongoose
         app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
         app.get('/*', (req, res) => res.redirect('/api-docs'));
-
-        io.on('connection', (socket) => {
-            // console.log(socket);
-            console.log('a user connected');
-            console.log(socket.handshake);
-        })
         
         server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 

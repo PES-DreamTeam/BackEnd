@@ -133,6 +133,7 @@ const Factory = () => {
         createServiceController,
         createSampleVehicleController,
         createMsgController,
+        createMsgService
     }
 }
 

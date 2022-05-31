@@ -65,6 +65,24 @@ const msgService = (dependencies) => {
         return sortedLast
     }
 
+    const feedMessageToWeb = async (message) => {
+        var user = await Users.find({_id: message.userId});
+        return {
+            user:{
+                userId: user._id,
+                name: user.name,
+                profilePicture: user.profilePicture,
+            },
+            authorId: message.user._id,
+            _id: message._id,
+            chat_id: message.chat_id,
+            text: message.text,
+            createdAt: message.createdAt,
+            position: message.position,
+        }
+    }
+
+
     const createMessage = async (message) => {
         return await Message.create(message);
     }
@@ -75,7 +93,8 @@ const msgService = (dependencies) => {
         createMessage,
         //getLastMessage,
         getChatMsgs,
-        getLastMsgAllUsers
+        getLastMsgAllUsers,
+        feedMessageToWeb
     }
 }
 module.exports = msgService;
