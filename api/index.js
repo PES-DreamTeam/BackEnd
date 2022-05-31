@@ -32,18 +32,23 @@ mongoose
             const messageService = factory.createMsgService()
             userId = socket.handshake.query.userId;
             if(userId === '-1'){
-                var chats = await messageService.getLastMsgAllUsers();
-                var chatsIds = chats.map(chat => chat.chat_id.toString());
-                chatsIds.forEach(chatId => {socket.join(chatId)});
                 socket.join("-1");
             }else{
                 socket.join(userId);
             }
+            console.log(socket.id);
+            console.log("socket nuevo");
+
             socket.on('sendMessage', async (message) => {
                 const newMessage = await messageService.createMessage(message);
                 io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
                 const lastMessages = await messageService.getLastMsgAllUsers(); 
                 io.to("-1").emit("chats", lastMessages);
+            })
+            socket.on('join', (chatId) =>{
+                socket.join(chatId)
+                socket.join("-1");
+                console.log(socket.rooms);
             })
             socket.on("disconnect", () => {
                 console.log("user disconnected");
