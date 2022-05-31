@@ -42,8 +42,8 @@ mongoose
             socket.on('sendMessage', async (message) => {
                 const newMessage = await messageService.createMessage(message);
                 io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
-                const formattedMessage = await messageService.feedMessageToWeb(newMessage);
-                io.to("-1").emit("chats", formattedMessage);
+                const lastMessages = await messageService.getLastMsgAllUsers(); 
+                io.to("-1").emit("chats", lastMessages);
             })
             socket.on("disconnect", () => {
                 console.log("user disconnected");
