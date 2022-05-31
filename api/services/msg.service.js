@@ -66,7 +66,8 @@ const msgService = (dependencies) => {
     }
 
     const feedMessageToWeb = async (message) => {
-        var user = await Users.find({_id: message.userId});
+        var user = await Users.findOne({_id: message.chat_id});
+        console.log(user);
         return {
             user:{
                 userId: user._id,

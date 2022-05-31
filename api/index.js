@@ -21,7 +21,7 @@ const factory = Factory();
 mongoose
     .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
-
+        console.log("hola")
         app.use(cors());
         app.use(bodyParser.json());
 
@@ -36,13 +36,14 @@ mongoose
                 var chatsIds = chats.map(chat => chat.chat_id.toString());
                 chatsIds.forEach(chatId => {socket.join(chatId)});
                 socket.join("-1");
+            }else{
+                socket.join(userId);
             }
             socket.on('sendMessage', async (message) => {
-                console.log(message)
                 const newMessage = await messageService.createMessage(message);
-                console.log(newMessage)
                 io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
-                io.to("-1").emit("chats", await messageService.feedMessageToWeb(newMessage));
+                const formattedMessage = await messageService.feedMessageToWeb(newMessage);
+                io.to("-1").emit("chats", formattedMessage);
             })
             socket.on("disconnect", () => {
                 console.log("user disconnected");
