@@ -56,6 +56,7 @@ mongoose
         })
 
         app.post('/message', async (req, res) => {
+            const messageService = factory.createMsgService()
             const newMessage = await messageService.createMessage(req.body);
             io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
             const lastMessages = await messageService.getLastMsgAllUsers(); 
