@@ -55,6 +55,13 @@ mongoose
             })
         })
 
+        app.post('/message', async (req, res) => {
+            const newMessage = await messageService.createMessage(req.body);
+            io.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
+            const lastMessages = await messageService.getLastMsgAllUsers(); 
+            io.to("-1").emit("chats", lastMessages);           
+        })
+
         app.use('/api/auth', Auth);
         app.use('/api/users', User);
         app.use('/api/chargePoints', ChargePoints);
