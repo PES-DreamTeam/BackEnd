@@ -41,7 +41,7 @@ mongoose
 
             socket.on('sendMessage', async (message) => {
                 const newMessage = await messageService.createMessage(message);
-                socket.to(newMessage.chat_id.toString()).broadcast.emit('newMessage', newMessage);
+                socket.to(newMessage.chat_id.toString()).emit('newMessage', newMessage);
                 const lastMessages = await messageService.getLastMsgAllUsers(); 
                 io.to("-1").emit("chats", lastMessages);
             })
