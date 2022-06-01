@@ -2,6 +2,7 @@ const Joi = require('joi');
 const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
+const util = require('util');
 
 const validate = (schema) => (req, res, next) => {
   const validSchema = pick(schema, ['params', 'query', 'body']);
@@ -11,8 +12,14 @@ const validate = (schema) => (req, res, next) => {
     .validate(object);
 
   if (error) {
-    const errorMessage = error.details.map((details) => details.message).join(', ');
-    return next(res.status(403).send({error: new ApiError(httpStatus.BAD_REQUEST, errorMessage).message}));
+    const errors = [];
+    error.details.map((details) => {
+      errors.push({
+        attribute: details.message.includes("password") ? "password" : "email",
+        errorMessage: details.message
+      })
+    })
+    return next(res.status(403).send({errors}));
   }
   Object.assign(req, value);
   return next();

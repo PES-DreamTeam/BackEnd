@@ -1,0 +1,5 @@
+const validToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFhNWE1YWQ4MjhkMTI3NWQ4MWY4MTgiLCJpYXQiOjE2NDg0ODA5MTEsImV4cCI6MTkyNTc2NjAwMDAwMH0.uYeKGJjbfSdP9737sy1uzEtAOEg8NUsoK_vRGYhcKqE";
+
+module.exports = {
+    validToken
+}

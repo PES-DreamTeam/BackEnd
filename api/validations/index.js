@@ -1,3 +1,4 @@
 module.exports = {
-    authValidation: require('./auth.validation') 
+    authValidation: require('./auth.validation'),
+    sampleVehiclesValidation: require('./sampleVehicles.validation'), 
 };
