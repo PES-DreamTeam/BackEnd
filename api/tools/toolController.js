@@ -56,7 +56,7 @@ const ToolController = (dependencies) => {
 
     const getHighlightById = async (req, res) => {
         try {
-            const result = await Highlights.findOne({station_id: req.params.id});
+            const result = await Highlights.findOne({id: req.params.id});
             return res.status(200).send(result);
         }catch(error){
             return res.status(500).send({msg: error.toString()});
